@@ -59,7 +59,7 @@ import { isEmptyArray } from '@/helpers/emptyHelper';
 Vue.use(firestorePlugin);
 
 export default Vue.extend({
-  name: 'HelloWorld',
+  name: 'GratitudeListGrouped',
   components: {
     AddGratitude
   },
