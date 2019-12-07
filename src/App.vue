@@ -12,6 +12,13 @@
 </template>
 
 <style lang="scss">
+
+body, html {
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -24,6 +31,7 @@
   a {
     font-weight: bold;
     color: #2c3e50;
+
     &.router-link-exact-active {
       color: #42b983;
     }
