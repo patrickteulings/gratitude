@@ -32,6 +32,8 @@ export default Vue.extend({
   },
   methods: {
     getGratitudeColor (gratitude: any) {
+      console.log(process.env);
+      console.log(process.env.VUE_APP_MY_ENV_VARIABLE);
       return gratitude.color !== undefined ? gratitude.color : '#FFFFFF';
     },
 
