@@ -1,0 +1,211 @@
+$basefontsize: 18px;
+
+/* ----------------------------------------
+  Adds a predefined set of (color)
+  charactaristics to yourn element.
+  The sets are defined in _config.scss
+
+  Usage: @include themecombi(name)
+---------------------------------------- */
+
+@mixin themecombi($name) {
+  $selected: map-get($color-combinations, $name);
+
+  @each $key, $value in $selected {
+    #{$key}: $value;
+  }
+};
+
+
+/* ----------------------------------------
+  Add a prediefined set of font values
+  combined with other properties
+  to your class. You can find the map
+  in _config.scss
+
+  Usage: @include fontcombi(combiname)
+---------------------------------------- */
+
+@mixin fontcombi($type:base) {
+  $selected: map-get($fontcombinations, $type);
+
+  @each $key, $value in $selected {
+    #{$key}: $value;
+  }
+};
+
+
+/* ----------------------------------------
+  Adds fontsmoothing to your project
+
+  Usage: @include fontsmoothing()
+---------------------------------------- */
+
+@mixin fontsmoothing() {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-variant-ligatures: none;
+  -webkit-font-variant-ligatures: none;
+  text-shadow: rgba(0, 0, 0, 0.01) 0 0 1px;
+}
+
+
+/* ----------------------------------------
+  Change all header styles from $start to
+  $end at one go
+
+  Usage:
+
+  @include heading(1,6) {
+    // Insert styles here
+  }
+---------------------------------------- */
+
+@mixin heading($start:1, $end:6) {
+  @for $i from $start through $end {
+    h#{$i} {
+      @content;
+    }
+  }
+};
+
+
+/* ----------------------------------------
+  Add a prediefined font size
+  to your class. You can find the map
+  in _config.scss
+
+  Usage: @include font(type)
+---------------------------------------- */
+
+@mixin font($type:base) {
+  $selected: map-get($text, $type);
+
+  @each $key, $value in $selected {
+    #{$key}: $value;
+  }
+};
+
+
+/* ----------------------------------------
+  Font size, recalculates your font-pixel
+  sizes to EM
+---------------------------------------- */
+
+@mixin font-size($px) {
+  font-size: #{$px / $basefontsize}em;
+  font-size: $px;
+}
+
+
+/* ----------------------------------------
+  Line height, recalculates your font-pixel
+  sizes to EM
+---------------------------------------- */
+
+@mixin line-height($px) {
+  line-height: $px;
+  line-height: #{$px / $basefontsize}em;
+}
+
+
+/* ----------------------------------------
+  Adds an ellipis to overflowing (single
+  line) text.
+---------------------------------------- */
+
+@mixin truncate() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ----------------------------------------
+  Adds an ellipis to overflowing (single
+  line) text.
+---------------------------------------- */
+
+@mixin truncate-multiline($lines:3, $line-height: 1.4, $font-size:$basefontsize) {
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  max-width: 400px;
+  height: calc($font-size * $line-height * $lines); /* Fallback for non-webkit */
+  margin: 0 auto;
+  font-size: $font-size;
+  line-height: $line-height;
+  -webkit-line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+
+/* ----------------------------------------
+  Adds a padding to your element. You have
+  free choice of units. In my personal
+  experience, px or % are recommended
+
+  Usage: @include innerspace(10px) or
+  Usage: @include innerspace(10rem, 5rem)
+---------------------------------------- */
+
+@mixin innerspace($horizontal:0, $vertical:0) {
+  @if $vertical != 0 {
+    padding: $horizontal $vertical;
+  }
+  @else {
+    padding: $horizontal;
+  }
+}
+
+
+/* ----------------------------------------
+  Defines the outer margins of an element
+  You can either use it with two or four
+  parameters
+---------------------------------------- */
+
+@mixin outerspace($top:0, $right:0) {
+  @if $right != 0 {
+    margin: $top $right;
+  }
+  @else {
+    margin: $top;
+  }
+}
+
+
+/* ----------------------------------------
+  Simply defines width and/or height
+  When ony one parameter is given
+  width and height are equal;
+
+  Usage: @include size(20px);
+---------------------------------------- */
+
+@mixin size($width:auto, $height:auto) {
+  @if $height != auto {
+    width: $width;
+    height: $height;
+  }
+  @else {
+    width: $width;
+    height: $width;
+  }
+}
+
+
+/* ----------------------------------------
+  Prerenders sections based on global
+  color combinations
+---------------------------------------- */
+
+@each $key, $val in $color-combinations {
+  @if map-has-key($color-combinations, $key) {
+    .#{$key} {
+      background-color: colorcombi($key, background);
+      color: colorcombi($key, color);
+    }
+  }
+}

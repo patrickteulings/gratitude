@@ -1,0 +1,21 @@
+/* ----------------------------------------
+  Accordion Base
+---------------------------------------- */
+
+.accordion {
+  dd {
+    margin-left: 0;
+  }
+
+  .trigger {
+
+  }
+
+  .panel {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+  }
+}

@@ -1,0 +1,19 @@
+/**
+*
+* Image helper classes
+*
+*/
+
+%cover-image {
+  width: 100%;
+  min-width: 101%;
+  height: 100%;
+  max-height: auto;
+  position: absolute;
+  top: 50% !important;
+  left: 50% !important;
+  display: block;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+}
+

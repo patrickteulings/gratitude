@@ -1,0 +1,13 @@
+/**
+*
+* Basic anchor link styling
+*
+*/
+
+a {
+  color: inherit;
+}
+
+a[class*='__link'] {
+  text-decoration: none;
+}

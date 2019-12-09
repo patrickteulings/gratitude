@@ -11,12 +11,13 @@
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" src="@/styles/style.scss">
 
 body, html {
   padding: 0;
   margin: 0;
   font-size: 18px;
+  box-sizing: border-box;
 }
 
 #app {

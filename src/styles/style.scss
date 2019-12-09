@@ -1,0 +1,59 @@
+
+body, html {
+  font-size: 16px;
+  font-family: 'Arial', sans-serif;
+  font-weight: 300;
+}
+
+
+/* ----------------------------------------
+  Config
+---------------------------------------- */
+
+@import
+  'core/config/reset',
+  'core/config/breakpoints',
+  'core/config/colors',
+  'core/functions/functions',
+  'core/mixins/mixins',
+  'core/config/fonts',
+  'core/config/anchors';
+
+
+/* ----------------------------------------
+  Helpers / Extendible classes
+---------------------------------------- */
+
+@import
+  'core/helpers/images';
+
+
+/* ----------------------------------------
+  Mixins
+---------------------------------------- */
+
+@import
+  'core/mixins/breakpoints',
+  'core/mixins/transitions',
+  'core/mixins/colors',
+  'core/mixins/material-shadows',
+  'core/config/layout';
+
+/* ----------------------------------------
+  UI / User Interface
+---------------------------------------- */
+
+@import
+  'core/ui/buttons',
+  'core/ui/loaders',
+  'core/ui/forms',
+  'core/ui/accordion';
+
+
+/* ----------------------------------------
+  PROJECT SPECIFIC CODE
+---------------------------------------- */
+
+@import
+  'gratitude/index';
+
