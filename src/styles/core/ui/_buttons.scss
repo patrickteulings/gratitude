@@ -1,0 +1,157 @@
+
+/* ----------------------------------------
+  Default button properties
+---------------------------------------- */
+
+
+/* ----- Variables ----- */
+
+$btn-border-radius: 2px;
+
+
+/* ----- Button base ----- */
+
+%btn {
+  border-radius: $btn-border-radius;
+  display: inline-block;
+  cursor: pointer;
+  @include innerspace(1em, 1em);
+  @include transition();
+}
+
+
+/* ----------------------------------------
+  Adjustment for outlined buttons to
+  achieve same height as a regular button
+---------------------------------------- */
+
+%btn-outlined {
+  @extend %btn;
+  @include innerspace(calc(1rem - 1px), calc(1rem - 1px));
+}
+
+
+/* ----------------------------------------
+  Different button sizes,
+  complement at will...
+---------------------------------------- */
+
+.btn {
+  @extend %btn;
+
+  &--small {
+    @include font-size(12px);
+  }
+
+  &--medium {
+    @include font-size(16px);
+  }
+
+  &--large {
+    @include font-size(16px);
+  }
+
+  &--full {
+    width: 100%;
+  }
+}
+
+
+/* ----------------------------------------
+  Plain solid button
+---------------------------------------- */
+
+/* stylelint-disable max-nesting-depth */
+
+.btn {
+  @each $key, $value in $primary-colors {
+    @if map-has-key($color-combinations, $key) {
+      &-solid--#{$key} {
+        $btnColor: colorcombi($key, background);
+        background: colorcombi($key, background);
+        color: colorcombi($key, color);
+        cursor: colorcombi($key, cursor);
+
+        &:hover {
+          background: lighten($btnColor,10%);
+        }
+      }
+    } @else {
+      @warn "The key ´#{$key} isn’t defined in the map $color-combinations´"
+    }
+  }
+};
+
+
+/* ----------------------------------------
+  Ghosted button
+---------------------------------------- */
+
+.btn {
+  @each $key, $value in $primary-colors {
+    @if map-has-key($color-combinations, $key) {
+      &-ghosted {
+        opacity: 0.8;
+        cursor: default;
+        pointer-events: none;
+
+        &:hover {
+
+        }
+      }
+    } @else {
+      @warn "The key ´#{$key} isn’t defined in the map $color-combinations´"
+    }
+  }
+};
+
+/* ----------------------------------------
+  Outlined button
+---------------------------------------- */
+
+.btn {
+  @each $key, $value in $primary-colors {
+    @if map-has-key($color-combinations, $key) {
+      &-outlined--#{$key} {
+        border: 1px solid colorcombi($key, background);
+        color: colorcombi($key, background);
+        cursor: colorcombi($key, cursor);
+
+        &:hover {
+          background: colorcombi($key, background);
+          color: colorcombi($key, color);
+        }
+      }
+    } @else {
+      @warn "The key ´#{$key} isn’t defined in the map $color-combinations´"
+    }
+  }
+};
+
+.btn {
+  @each $key, $value in $primary-colors {
+    @if map-has-key($color-combinations, $key) {
+      &-quiet--#{$key} {
+        color: colorcombi($key, background);
+        cursor: colorcombi($key, cursor);
+
+        &:hover {
+          color: darken(colorcombi($key, background), 20%);
+        }
+      }
+    } @else {
+      @warn "The key ´#{$key} isn’t defined in the map $color-combinations´"
+    }
+  }
+};
+
+/* stylelint-enable */
+
+
+/* ----------------------------------------
+  Button group - multiple buttons aside
+---------------------------------------- */
+
+.btn-group {
+
+}

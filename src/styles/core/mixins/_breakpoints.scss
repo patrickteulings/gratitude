@@ -1,0 +1,42 @@
+/* ----------------------------------------
+  Usage mobile first
+
+  @include mq('tablet','min')
+
+  Usage Mobile last
+
+  @include mq('tablet','max')
+
+  Usage to-from
+
+  @include mq('tablet','to', 'desktop')
+---------------------------------------- */
+
+@mixin mq($breakpoint, $from, $breakpointto:6000) {
+
+  @if map-has-key($breakpoints, $breakpoint) {
+    @if $from == 'min' {
+      @media (min-width: map-get($breakpoints, $breakpoint)) {
+        @content;
+      }
+    }
+    @else if $from == 'max' {
+      @media (max-width: map-get($breakpoints, $breakpoint)) {
+        @content;
+      }
+    }
+    @else if $from == 'to' {
+      $min : map-get($breakpoints, $breakpoint);
+      $max : map-get($breakpoints, $breakpointto);
+      @media (min-width: $min) and (max-width: $max) {
+        @content;
+      }
+    }
+  }
+
+  // If the key doesn't exist in the map
+  @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+      + "Available breakpoints are: #{map-keys($breakpoints)}.";
+  }
+}

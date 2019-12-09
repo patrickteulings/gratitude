@@ -5,11 +5,21 @@
       <router-link to="/about">About</router-link>
       <router-link to="/detail">Detail</router-link>
     </div>
-    <router-view />
+    <main>
+      <router-view />
+    </main>
   </div>
 </template>
 
-<style lang="scss">
+<style lang="scss" src="@/styles/style.scss">
+
+body, html {
+  padding: 0;
+  margin: 0;
+  font-size: 18px;
+  box-sizing: border-box;
+}
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -22,6 +32,7 @@
   a {
     font-weight: bold;
     color: #2c3e50;
+
     &.router-link-exact-active {
       color: #42b983;
     }

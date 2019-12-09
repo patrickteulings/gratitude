@@ -1,20 +1,19 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
     <Clock />
-    <HelloWorld msg="Welcome to Your Vue.js + TypeScript App"/>
+    <GratitudeListGrouped />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import HelloWorld from '@/components/HelloWorld.vue'; // @ is an alias to /src
+import GratitudeListGrouped from '@/components/GratitudeListGrouped.vue'; // @ is an alias to /src
 import Clock from '@/components/Clock.vue';
 
 export default Vue.extend({
   name: 'home',
   components: {
-    HelloWorld,
+    GratitudeListGrouped,
     Clock
   }
 });

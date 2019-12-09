@@ -2,45 +2,12 @@
   <div class="hello">
     <h1>Add</h1>
     <hr />
-    <!-- <button @click="groupItemsByDate">Try grouping</button> -->
-    <AddGratitude />
-    <div class="articleWrapper">
-      <div class="articleColumn" v-if="!isEmptyArr(gratitudes)">
-        <article class="article__item"
-          v-for="(gratitude, index) in gratitudes"
-          :key="gratitude.id"
-          :style="{ background: getGratitudeColor(gratitude) }"
-        >
-          <h1>{{index}}</h1>
-          <h5>{{ gratitude.id }}</h5>
-          <h2>{{ gratitude.title }}</h2>
-          <h3>{{ gratitude.body }}</h3>
-          <h4>TIMESTAMP: {{ gratitude.timeStamp.toDate() }}</h4>
-          <h4 v-if="gratitude.dayStamp && gratitude.dayStamp !== undefined">
-            DAYSTAMP: {{ gratitude.dayStamp.toDate() }}<br>
-            DAYSTAMP: {{ getReadableDate(gratitude.dayStamp.toDate()) }}
-          </h4>
-        </article>
-      </div>
-      <!-- Grouped Column -->
-      <div class="articleColumn">
-        <div class="article__item"
-          v-for="(gratitudeGroup, index) in groupedGratitudes()"
-          v-bind:key="index"
-        >
-          <div class="gratitude-group__date">
-            {{ getReadableDate(gratitudeGroup[0].dayStamp.toDate(), true) }}
-          </div>
-          <div v-for="item in gratitudeGroup" :key="item.id" :style="{ background: getGratitudeColor(item) }">
-            <h1>{{index}}</h1>
-            <h5>{{ item.id }}</h5>
-            <h2>{{ item.title }}</h2>
-            <h3>{{ item.body }}</h3>
-            <small>Created on {{ getReadableDate(item.timeStamp.toDate()) }} at {{ getReadableTime(item.timeStamp.toDate()) }}</small>
-          </div>
 
-        </div>
-      </div>
+    <AddGratitude />
+
+    <hr />
+    <div class="listWrapper">
+      <GratitudeCardGroup v-for="(gratitudeGroup, index) in groupedGratitudes()" :gratitude-group="gratitudeGroup" :key="index" />
     </div>
   </div>
 </template>
@@ -52,6 +19,8 @@ import { firestorePlugin } from 'vuefire';
 
 import { db } from '@/services/firebaseConfigTypeScript';
 import AddGratitude from '@/components/AddGratitude.vue';
+import GratitudeCardGroup from '@/components/cards/GratitudeCardGroup.vue';
+import GratitudeCard from '@/components/cards/GratitudeCard.vue';
 import { readableDate, getUniqueDates, readableTime } from '@/helpers/dateHelper';
 import { isEmptyArray } from '@/helpers/emptyHelper';
 
@@ -59,9 +28,11 @@ import { isEmptyArray } from '@/helpers/emptyHelper';
 Vue.use(firestorePlugin);
 
 export default Vue.extend({
-  name: 'HelloWorld',
+  name: 'GratitudeListGrouped',
   components: {
-    AddGratitude
+    AddGratitude,
+    GratitudeCard,
+    GratitudeCardGroup
   },
   data: () => {
     return {
@@ -77,9 +48,6 @@ export default Vue.extend({
     gratitudes: (state: any) => state.gratitudes
   }),
   methods: {
-    getGratitudeColor (gratitude: any) {
-      return gratitude.color !== undefined ? gratitude.color : '#FFFFFF';
-    },
 
     getReadableDate (date: Date, longNames: boolean = false) {
       return readableDate(date, longNames);

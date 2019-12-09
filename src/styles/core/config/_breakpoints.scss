@@ -1,0 +1,13 @@
+
+/* ----------------------------------------
+  Our global breakpoints
+---------------------------------------- */
+
+$breakpoints: (
+  phone: 0px, // you can use this one just for clarity, not needed
+  tablet: 600px,
+  tablet-wide: 900px,
+  desktop: 1200px,
+  desktop-wide: 1800px
+);
+

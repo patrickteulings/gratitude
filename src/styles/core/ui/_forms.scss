@@ -1,0 +1,229 @@
+
+/* ----------------------------------------
+  FORMS BASE
+---------------------------------------- */
+
+form {
+  margin: 0;
+}
+
+
+/* ----------------------------------------
+  INPUT TEXT
+---------------------------------------- */
+
+.inputtext {
+  label {
+    display: inline-block;
+    margin-bottom: 0.5rem;
+  }
+}
+
+input[type="text"] {
+  border: 1px solid color('primary');
+  border-radius: 2px;
+  width: 100%;
+  @include innerspace(1rem);
+  @include font-size(16px);
+  padding-right: 40px;
+
+  &:focus {
+    outline-color: lighten(color('primary'),50%);
+  }
+}
+
+/* ----------------------------------------
+  RADIO BUTTONS
+---------------------------------------- */
+
+.radio {
+  display: block;
+  position: relative;
+}
+
+input[type="radio"] {
+  opacity: 0;
+
+  & + label {
+    margin-left: 0.5rem;
+
+    &:before {
+      content: "";
+      display: inline-block;
+      width: calc(1rem - 2px);
+      height: calc(1rem - 2px);
+      border-radius: 1rem;
+      border: 1px solid color('primary');
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+
+    &:after {
+      content: "";
+      display: inline-block;
+      width: calc(1rem - 8px);
+      height: calc(1rem - 8px);
+      border-radius: 1rem;
+      background: color('secondary');
+      position: absolute;
+      top: 4px;
+      left: 4px;
+      opacity: 0;
+      @include transition();
+    }
+  }
+
+  &:checked + label {
+    &:before {
+      border: 1px solid color('secondary');
+    }
+
+    &:after {
+      opacity: 1;
+    }
+  }
+}
+
+/* ----------------------------------------
+  CHECKBOXES
+---------------------------------------- */
+
+.checkbox {
+  display: block;
+  position: relative;
+
+  input[type="checkbox"] {
+    opacity: 0;
+
+    & + label {
+      margin-left: 0.5rem;
+
+      &:before {
+        content: "";
+        display: inline-block;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        @include size(calc(1rem - 2px));
+        border: 1px solid color('primary');
+        border-radius: 2px;
+      }
+
+      &:after {
+        content: "";
+        @include size(calc(1rem - 6px));
+        border-radius: 1px;
+        position: absolute;
+        top: 3px;
+        left: 3px;
+        background: color('secondary');
+        opacity: 0;
+        @include transition();
+      }
+    }
+
+    &:checked + label {
+      &:before {
+        border: 1px solid color('secondary');
+      }
+
+      &:after {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+
+/* ----------------------------------------
+  SELECT / OPTION BOX
+---------------------------------------- */
+
+.select-wrap {
+  position: relative;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+  }
+
+  .select {
+    position: relative;
+
+    &:after {
+      content: "";
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 0px;
+      height: 0px;
+      border-style: solid;
+      border-width: 6px 5px 0 5px;
+      border-color: color('primary') transparent transparent transparent;
+    }
+  }
+
+  select {
+    display: inline-block;
+    background: transparent;
+    border: none;
+    @include font-size(16px);
+    @include innerspace(1rem);
+    padding-right: 2rem;
+    border: 1px solid color('primary');
+    border-radius: 2px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    font-family: $primary-font-face;
+    font-weight: 100;
+
+    &:focus {
+      outline-color: lighten(color('primary'),0%);
+    }
+  }
+}
+
+
+.input-text--wrap {
+  position: relative;
+
+  .btn--reset-search {
+    display: none;
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    @include size(21px);
+    border-radius: 50%;
+    background: color('primary');
+    cursor: pointer;
+
+    &.is-active {
+      display: block;
+    }
+
+    .close-cross {
+      &::before, &::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 20%;
+        height: 1px;
+        width: 60%;
+        margin-top: -1px;
+        background: #ffffff;
+      }
+
+      &::before {
+        transform: rotate(45deg);
+      }
+
+      &::after {
+        transform: rotate(-45deg);
+      }
+    }
+  }
+}

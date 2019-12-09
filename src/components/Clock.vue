@@ -5,7 +5,7 @@
       <span class="clocktext">{{ getHours[1] }}</span>
     </div>
     <div class="clock__block clock__minutes">
-      <span class="clocktext">{{ getMinutes[0] }}</span><br>
+      <span class="clocktext">{{ getMinutes[0] }}</span>
     </div>
     <div class="clock__block clock__minutes">
       <span class="clocktext clocktext--light">{{ getMinutes[1] }}</span>
@@ -31,26 +31,25 @@ export default Vue.extend({
       color: '#C18D18',
       date: new Date(),
       seconds: 0,
-      hoursArray: [] as any,
-      minutesArray: [] as any,
-      secondsArray: [] as any,
+      hoursArray: [] as string[],
+      minutesArray: [] as string[],
+      secondsArray: [] as string[],
       minutes: 0,
       hours: 0
     };
   },
   computed: {
     getHours () {
-      return this.hoursArray;
+      return (this.hours === 0) ? ['Twelve', ''] : this.hoursArray;
     },
     getMinutes () {
       if (this.minutes === 0) {
-        return ['', ''];
-      } else if (this.minutes < 10) { // @todo add logic for round numbers eg Thirty, Fourty
+        return [`O'`, `Clock`];
+      } else if (this.minutes < 10) {
         return ['Oh', this.minutesArray[0]];
       } else {
         return this.minutesArray;
       }
-
     },
     getMinutesTest () {
       return this.minutesArray;
@@ -63,11 +62,11 @@ export default Vue.extend({
     startTimer () {
       setInterval(() => {
         this.date = new Date();
-        this.hours = new Date().getHours();
-        this.minutes = new Date().getMinutes();
-        this.seconds = new Date().getSeconds();
-        this.hoursArray = clockSeconds[this.hours - 1].split(' ');
-        this.minutesArray = clockSeconds[this.minutes - 1].split(' ');
+        this.hours = this.date.getHours();
+        this.minutes = this.date.getMinutes();
+        this.seconds = this.date.getSeconds();
+        this.hoursArray = clockSeconds[this.hours].split(' ');
+        this.minutesArray = clockSeconds[this.minutes].split(' ');
         this.secondsArray = clockSeconds[this.seconds].split(' ');
       }, 1000);
     }
@@ -91,8 +90,8 @@ export default Vue.extend({
   .clock {
     position: fixed;
     right: 4rem;
-    width: 4em;
-    bottom: 2rem;
+    width: 6em;
+    top: 2rem;
     font-family: Helvetica;
     font-weight: 700;
     color: $vueBlue;

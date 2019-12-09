@@ -1,0 +1,30 @@
+// Function
+@function colorcombi($section:base, $attribute:color, $map:$color-combinations) {
+  @if map-has-key($color-combinations, $section) {
+    @return map-get(map-get($map, $section), $attribute);
+  }
+
+  $combi: map-get($color-combinations, $section);
+
+
+  @warn "The key ´#{$section} is not available in the map.";
+  @return null;
+}
+
+
+@function color($name) {
+  @return map-get($primary-colors, $name);
+}
+
+.section {
+  @each $key, $value in $primary-colors {
+    @if map-has-key($color-combinations, $key) {
+      &--#{$key} {
+        background: colorcombi($key, background);
+        color: colorcombi($key, color);
+      }
+    } @else {
+      @warn "The key ´#{$key} isn’t defined in the map $color-combinations´"
+    }
+  }
+};

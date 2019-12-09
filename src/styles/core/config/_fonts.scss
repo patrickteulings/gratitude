@@ -1,0 +1,132 @@
+
+
+$primary-font-face: 'Helvetica', 'Lato', sans-serif !default;
+
+%headings {
+  font-family: $primary-font-face;
+  font-weight: 300;
+  margin-top: 0em;
+  margin-bottom: 0.5em;
+
+  article & {
+    margin-top: 1em;
+
+    &:first-of-type {
+      margin-top: 0em;
+    }
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @extend %headings;
+}
+
+h1 {
+  @include font-size(calc(56px * 0.75));
+  @include font-size(56px);
+}
+
+h2 {
+  @include font-size(48px);
+}
+
+h3 {
+  @include font-size(36px);
+}
+
+h4 {
+  @include font-size(24px);
+}
+
+h5 {
+  @include font-size(18px);
+}
+
+h6 {
+  @include font-size(16px);
+}
+
+body {
+  font-family: $primary-font-face;
+  font-weight: 100;
+}
+
+p {
+  margin: 0 0 1em 0;
+  line-height: 1.4em;
+  font-family: $primary-font-face;
+}
+
+$textsize: (
+  small: 14px,
+  medium: 18px,
+  large: 24px
+);
+
+
+/* ----------------------------------------
+  Used for pre-defining often used font
+  styling such as captions, quotes etc
+
+  See _mixins.scss for usage
+  Usage: @include fontcombi(name);
+---------------------------------------- */
+
+$fontcombinations: (
+  'base': (
+    'background': #999999,
+    'cursor': pointer
+  ),
+  'small': (
+    'font-size': map-get($textsize, 'small'),
+    'font-family': $primary-font-face
+  ),
+  'medium': (
+    'font-size': map-get($textsize, 'medium')
+  ),
+  'large': (
+    'font-size': map-get($textsize, 'large')
+  ),
+  'text-secondary': (
+    'background': #ff9900
+  ),
+  'warning': (
+    'font-size': map-get($textsize, 'medium'),
+    'background': color('primary'),
+    color: color('white')
+  ),
+  'caption': (
+    'background': rgb(184, 184, 184),
+    'font-size': map-get($textsize, 'small')
+  )
+);
+
+/* ----------------------------------------
+  Used for pre-defining often-used font sizes.
+  Warning; do not add anything but fontsize.
+
+  For other purposes use 'fontcombi'
+
+  See _mixins.scss for usage
+  Usage: @include textfont(name);
+---------------------------------------- */
+
+$text: (
+  'base': (
+    'font-size': map-get($textsize, 'medium'),
+  ),
+  'small': (
+    'font-size': map-get($textsize, 'small'),
+  ),
+  'medium': (
+    'font-size': map-get($textsize, 'medium')
+  ),
+  'large': (
+    'font-size': map-get($textsize, 'large')
+  )
+);
