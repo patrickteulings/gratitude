@@ -1,17 +1,11 @@
 <template>
-  <article class="card">
-    <div class="weather-bar">
-      <div>Weather Location {{ getLocation }}</div>
-      <div v-if="isWeatherLoading === true">Loading weather (and location)</div>
-      <div v-else>
-        {{ getWeather.main }}
-        {{ getWeather.weather[0] }}
-
-
-        <div style="background-color: #000;"><img :alt="getWeatherDescription" :src="getWeatherIcon" /></div>
-      </div>
+  <div class="weather-bar">
+    <div v-if="isWeatherLoading === true">Loading weather (and location)</div>
+    <div class="weather-bar__inner" v-else>
+      <span>{{ getCity }}, currently it's {{ getWeather.main.temp }}{{ getWeatherSuffix() }} with {{ getWeatherDescription }}</span>
+      <span><img class="weather-bar__icon" :alt="getWeatherDescription" :src="getWeatherIcon" /></span>
     </div>
-  </article>
+  </div>
 </template>
 
 <script lang="ts">
@@ -51,6 +45,11 @@ export default Vue.extend({
     },
     getWeatherDescription () {
       return this.$store.getters.currentWeather.weather[0].description;
+    },
+    getCity () {
+      if (!isEmptyObject(this.$store.getters.currentCity) && this.$store.getters.currentCity !== undefined) {
+        return this.$store.getters.currentCity.osmtags['name-en'];
+      }
     }
   },
   methods: {
@@ -63,7 +62,7 @@ export default Vue.extend({
             // this.showCitySearchError ();
             return;
           }
-          console.log(data);
+          console.log('allee manneke');
           this.isWeatherLoading = false;
           this.$store.dispatch('setCurrentWeather', { main: data.main, weather: data.weather });
         })
@@ -74,7 +73,14 @@ export default Vue.extend({
 
     showWeatherAPIError () {
       console.log('error: showWeatherAPIError');
+    },
+
+    getWeatherSuffix () {
+      return '\u00B0';
     }
+  },
+  created () {
+    this.getLocation();
   }
 });
 </script>

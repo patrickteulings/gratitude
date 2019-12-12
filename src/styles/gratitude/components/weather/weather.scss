@@ -1,5 +1,19 @@
 .weather {
   &-bar {
+    position: relative;
+    background: color(primary);
+    color: darken(color(primary), 40%);
     @include font-size(12px);
+    @include innerspace(0.5rem);
+
+    &__inner {
+      display: flex;
+      align-items: center;
+    }
+
+    &__icon {
+      margin-left: 1em;
+      @include size(30px, auto);
+    }
   }
 }

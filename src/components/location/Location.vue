@@ -25,7 +25,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Weather from '@/components/weather/Weather.vue';
-import WeatherService from '@/services/weatherService.js';
+import GeocodeService from '@/services/geocodeService.ts';
 
 export default Vue.extend({
   name: 'Location',
@@ -61,11 +61,26 @@ export default Vue.extend({
       try {
         this.gettingLocation = false;
         this.location = await this.getLocation() as any;
+        this.getCityName({lat: 52.0609792, lon: 4.2565631999999995});
         this.$store.dispatch('setUserLocation', this.location);
       } catch (e) {
         this.gettingLocation = false;
         this.errorStr = e.message;
       }
+    },
+    getCityName (coords: any) {
+      const geocode = new GeocodeService();
+
+      geocode.getCityName(coords)
+        .then((data: any) => {
+          if (data.cod === '404') {
+            return;
+          }
+          this.$store.dispatch('setCurrentCity', data);
+        })
+        .catch((err: string) => {
+          console.log('Error: ', err);
+        });
     }
   }
 });

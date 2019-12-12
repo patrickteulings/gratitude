@@ -9,7 +9,8 @@ export default new Vuex.Store({
   state: {
     gratitudes: [],
     userLocation: {} as object,
-    currentWeather: {} as object
+    currentWeather: {} as object,
+    currentCity: {} as object
   },
 
   mutations: {
@@ -20,6 +21,10 @@ export default new Vuex.Store({
 
     SET_CURRENT_WEATHER: (state: any, weather: object) => {
       state.currentWeather = weather;
+    },
+
+    SET_CURRENT_CITY: (state: any, weather: object) => {
+      state.currentCity = weather;
     }
   },
 
@@ -35,6 +40,10 @@ export default new Vuex.Store({
 
     setCurrentWeather: (context: any, weather: object) => {
       context.commit('SET_CURRENT_WEATHER', weather);
+    },
+
+    setCurrentCity: (context: any, data: object) => {
+      context.commit('SET_CURRENT_CITY', data);
     }
   },
 
@@ -49,6 +58,10 @@ export default new Vuex.Store({
 
     currentWeather: (state: any) => {
       return state.currentWeather;
+    },
+
+    currentCity: (state: any) => {
+      return state.currentCity;
     }
   }
 });
