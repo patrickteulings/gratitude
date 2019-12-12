@@ -17,15 +17,21 @@
   <div v-if="location">
     Your location data is {{ location.coords.latitude }}, {{ location.coords.longitude}}
   </div>
+
+  <Weather />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import Weather from '@/components/weather/Weather.vue';
+import WeatherService from '@/services/weatherService.js';
 
 export default Vue.extend({
   name: 'Location',
-  components: {},
+  components: {
+    Weather
+  },
    data: () => {
     return {
       location: '',
@@ -55,6 +61,7 @@ export default Vue.extend({
       try {
         this.gettingLocation = false;
         this.location = await this.getLocation() as any;
+        this.$store.dispatch('setUserLocation', this.location);
       } catch (e) {
         this.gettingLocation = false;
         this.errorStr = e.message;

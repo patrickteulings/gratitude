@@ -1,0 +1,5 @@
+.weather {
+  &-bar {
+    @include font-size(12px);
+  }
+}
