@@ -14,7 +14,7 @@ const monthFull = ['January', 'February', 'March', 'April', 'May', 'June', 'July
 export const readableDate = (date: Date, longNames: boolean) => {
   const dayName = (longNames === false) ? day[date.getDay()] : dayFull[date.getDay()];
   const monthName = (longNames === false) ? month[date.getMonth()] : monthFull[date.getMonth()];
-  return `${dayName}, ${monthName} ${date.getDay() + 1}${ordinalSuffix(date.getDay() + 1)}, ${date.getFullYear()}`;
+  return `${dayName}, ${monthName} ${date.getDate() + 1}${ordinalSuffix(date.getDate() + 1)}, ${date.getFullYear()}`;
 };
 
 /**

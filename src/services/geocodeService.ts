@@ -1,7 +1,7 @@
 
 interface Coords {
-  lat: any;
-  lon: any;
+  latitude: any;
+  longitude: any;
 }
 
 export default class GeocodeService {
@@ -14,12 +14,10 @@ export default class GeocodeService {
 
   // async function
   public async getCityName (coords: Coords) {
-    const {lon, lat} = coords;
-    console.log(coords);
-    // const response = await fetch(`${this.APIURL}${coords.lat},${coords.lon}&json=1`);
-    const response = await fetch(`${this.APIURL}${coords.lat},${coords.lon}?json=1`);
-
+    const {longitude, latitude} = coords;
+    const response = await fetch(`${this.APIURL}${coords.latitude},${coords.longitude}?json=1`);
     const data = await response.json();
+
     return data;
   }
 }

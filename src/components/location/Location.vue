@@ -14,8 +14,8 @@
     <i>Getting your location...</i>
   </div>
 
-  <div v-if="location">
-    Your location data is {{ location.coords.latitude }}, {{ location.coords.longitude}}
+  <div v-if="location" style="display: none;">
+    <!-- Your location data is {{ location.coords.latitude }}, {{ location.coords.longitude}} -->
   </div>
 
   <Weather />
@@ -61,17 +61,17 @@ export default Vue.extend({
       try {
         this.gettingLocation = false;
         this.location = await this.getLocation() as any;
-        this.getCityName({lat: 52.0609792, lon: 4.2565631999999995});
+        this.getCityName(this.location);
         this.$store.dispatch('setUserLocation', this.location);
       } catch (e) {
         this.gettingLocation = false;
         this.errorStr = e.message;
       }
     },
-    getCityName (coords: any) {
+    getCityName (location: any) {
       const geocode = new GeocodeService();
 
-      geocode.getCityName(coords)
+      geocode.getCityName(location.coords)
         .then((data: any) => {
           if (data.cod === '404') {
             return;

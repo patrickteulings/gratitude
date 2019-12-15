@@ -59,7 +59,6 @@ export default Vue.extend({
 
     groupedGratitudes () {
       const iets = Array.from(getUniqueDates (this.gratitudes));
-      console.log(iets.length);
       const test = ['1', '2'];
       return iets;
     },

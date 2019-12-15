@@ -17,7 +17,6 @@ export default class WeatherService {
   // async function
   public async getRequest (coords: Coords) {
     const {lon, lat} = coords;
-    console.log(coords);
     const response = await fetch(`${this.APIURL}lat=${coords.lat}&lon=${coords.lon}&appid=${this.APIKEY}&units=metric`);
     const data = await response.json();
     return data;

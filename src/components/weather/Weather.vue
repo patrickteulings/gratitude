@@ -1,5 +1,6 @@
 <template>
   <div class="weather-bar">
+    <div style="display: none;">{{ getLocation }}</div>
     <div v-if="isWeatherLoading === true">Loading weather (and location)</div>
     <div class="weather-bar__inner" v-else>
       <span>{{ getCity }}, currently it's {{ getWeather.main.temp }}{{ getWeatherSuffix() }} with {{ getWeatherDescription }}</span>
@@ -55,14 +56,12 @@ export default Vue.extend({
   methods: {
     tryWeather (coords: Coords) {
       const weather = new WeatherService();
-      console.log('weatherLat', coords);
       weather.getRequest(coords)
         .then((data: any) => {
           if (data.cod === '404') {
             // this.showCitySearchError ();
             return;
           }
-          console.log('allee manneke');
           this.isWeatherLoading = false;
           this.$store.dispatch('setCurrentWeather', { main: data.main, weather: data.weather });
         })
@@ -78,16 +77,9 @@ export default Vue.extend({
     getWeatherSuffix () {
       return '\u00B0';
     }
-  },
-  created () {
-    this.getLocation();
   }
 });
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-  .weather-bar {
-
-  }
-</style>
+<style scoped lang="scss"></style>
