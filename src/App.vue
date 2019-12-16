@@ -1,46 +1,52 @@
-<template>
+`<template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-      <router-link to="/detail">Detail</router-link>
+    <Navigation />
+    <div v-if="loading">
+      <Splash />
     </div>
-    <div v-if="loading">Checking if there is a valid login / should be the splash page</div>
     <div v-else-if="error">{{error}}</div>
     <div v-else-if="user">
-      <h5>{{user.displayName}}&nbsp;&nbsp;{{user.email}}</h5>
+      <h5 class="user__test">{{user.displayName}}&nbsp;&nbsp;{{user.email}}</h5>
+      <small>{{user.uid}}</small>
       <div v-if="user.photoURL" class="user__image"><img :src="user.photoURL" /></div>
       <h4>
         <button @click="logout()">LOGOUT</button>
       </h4>
       <hr />
       <br />
-      <div>there is a user, show the routes</div>
+      <div>there is a user, show the routes
+        <router-view />
+      </div>
     </div>
     <div v-else>
-      <div>show login / splash / home</div>
+      <FrontPage></FrontPage>
       <LoginForm></LoginForm>
     </div>
     <main>
-      <router-view />
+
     </main>
   </div>
 </template>
 
 <script>
-import LoginForm from './components/login/LoginForm.vue';
-
 import { computed } from '@vue/composition-api';
 
 // our custom composition functions for firebase auth check
 // and for logging in and logging out of firebase
 import useAuth from './useAuth';
 import useLogin from './useLogin';
+import LoginForm from './components/login/LoginForm.vue';
+import Navigation from '@/components/navigation/Navigation.vue';
+import Splash from './views/Splash.vue';
+import FrontPage from './views/FrontPage.vue';
 
 export default {
   name: 'app',
   components: {
-    LoginForm
+    LoginForm,
+    Splash,
+    FrontPage,
+    Navigation
   },
   setup () {
     // load in the authentication properties
@@ -59,7 +65,7 @@ export default {
       // function
       error : computed(() => (loginState.error  || error).value),
 
-      // set the logout function from the usLogin composition function
+      // set the logout function from the useLogin composition function
       logout: loginState.logout
     };
   }
@@ -75,7 +81,7 @@ body, html {
 }
 
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: left;
@@ -131,3 +137,4 @@ button:active {
 }
 
 </style>
+`

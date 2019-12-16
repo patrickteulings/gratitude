@@ -1,7 +1,9 @@
 .card {
   padding: 1rem;
   position: relative;
-
+  &__title {
+    font-family: $handwriting-font-face;
+  }
   &__createdAt{
     @include font-size(12px);
     font-weight: bold;

@@ -5,16 +5,7 @@ import { toRefs, reactive } from "@vue/composition-api";
 // import "firebase/firestore";
 
 import { fb } from '@/services/firebaseConfigTypeScript';
-
-
-// initialize firebase, this is directly from the firebase documentation
-// regarding getting started for the web
-// if (firebase.apps.length === 0) {
-//   const firebaseConfig = {
-//     /* YOUR CONFIGURATION GOES HERE */
-//   };
-//   firebase.initializeApp(firebaseConfig);
-// }
+import store from '@/store';
 
 export default function() {
   // our reactive properties...
@@ -27,12 +18,14 @@ export default function() {
   // make the firebase call to listen for change in auth state,
   // we have set initial loading status to true so nothing happens on UI
   // side until loading is set to false
-  fb.auth().onAuthStateChanged(_user => {
+  fb.auth().onAuthStateChanged(function(_user) {
     if (_user) {
       state.user = _user;
-      console.log(state.user);
+      store.dispatch('setUser', _user); // Add it to the store!!
     } else {
       state.user = null;
+      store.dispatch('setUser', null); // User is gone, nullify him / her !!
+      console.log('logout from useAuth');
     }
     state.loading = false;
   });

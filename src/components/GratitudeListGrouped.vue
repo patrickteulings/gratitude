@@ -45,7 +45,8 @@ export default Vue.extend({
     };
   },
   computed: mapState({
-    gratitudes: (state: any) => state.gratitudes
+    gratitudes: (state: any) => state.gratitudes,
+    user: (state: any) => state.user
   }),
   methods: {
 
@@ -66,13 +67,15 @@ export default Vue.extend({
     isEmptyArr (obj: object[]) {
       return isEmptyArray(obj);
     },
-
+    testData () {
+      this.$store.dispatch('bindGratitudes', { reference: db.collection('gratitudes'), userID: '123456'} );
+    },
     ...mapActions({
       getData: 'bindGratitudes' // Initializes firebase state-binding in Vuex Store
     })
   },
   created () {
-    this.getData();
+    this.testData();
   }
 });
 </script>

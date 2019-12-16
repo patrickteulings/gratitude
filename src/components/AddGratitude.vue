@@ -65,6 +65,14 @@ export default Vue.extend({
         timeStamp,
         dayStamp
       });
+
+      db.collection('users').doc(this.$store.getters.user.uid).collection('gratitudes').add({
+        title,
+        body,
+        color,
+        timeStamp,
+        dayStamp
+      });
     }
   }
 });
