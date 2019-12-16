@@ -5,12 +5,66 @@
       <router-link to="/about">About</router-link>
       <router-link to="/detail">Detail</router-link>
     </div>
+    <div v-if="loading">Checking if there is a valid login / should be the splash page</div>
+    <div v-else-if="error">{{error}}</div>
+    <div v-else-if="user">
+      <h5>{{user.displayName}}&nbsp;&nbsp;{{user.email}}</h5>
+      <div v-if="user.photoURL" class="user__image"><img :src="user.photoURL" /></div>
+      <h4>
+        <button @click="logout()">LOGOUT</button>
+      </h4>
+      <hr />
+      <br />
+      <div>there is a user, show the routes</div>
+    </div>
+    <div v-else>
+      <div>show login / splash / home</div>
+      <LoginForm></LoginForm>
+    </div>
     <main>
       <router-view />
     </main>
   </div>
 </template>
 
+<script>
+import LoginForm from './components/login/LoginForm.vue';
+
+import { computed } from '@vue/composition-api';
+
+// our custom composition functions for firebase auth check
+// and for logging in and logging out of firebase
+import useAuth from './useAuth';
+import useLogin from './useLogin';
+
+export default {
+  name: 'app',
+  components: {
+    LoginForm
+  },
+  setup () {
+    // load in the authentication properties
+    const { user, loading, error } = useAuth();
+
+    // load in the login function
+    const loginState = useLogin();
+
+
+    return {
+      user,
+      loading,
+
+      // here we need to ensure that we get the error from
+      // either the loginState or the error returned from the useAuth
+      // function
+      error : computed(() => (loginState.error  || error).value),
+
+      // set the logout function from the usLogin composition function
+      logout: loginState.logout
+    };
+  }
+};
+</script>
 <style lang="scss" src="@/styles/style.scss">
 
 body, html {

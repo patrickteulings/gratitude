@@ -1,0 +1,8 @@
+.user {
+  &__image {
+    img {
+      @include size(40px);
+      border-radius: 50%;
+    }
+  }
+}
