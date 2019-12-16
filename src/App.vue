@@ -1,11 +1,12 @@
 `<template>
   <div id="app">
-    <Navigation />
+
     <div v-if="loading">
       <Splash />
     </div>
     <div v-else-if="error">{{error}}</div>
     <div v-else-if="user">
+      <Navigation />
       <h5 class="user__test">{{user.displayName}}&nbsp;&nbsp;{{user.email}}</h5>
       <small>{{user.uid}}</small>
       <div v-if="user.photoURL" class="user__image"><img :src="user.photoURL" /></div>
