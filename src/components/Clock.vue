@@ -89,13 +89,16 @@ export default Vue.extend({
 
   .clock {
     position: fixed;
-    right: 4rem;
-    width: 6em;
-    top: 2rem;
+    right: 0rem;
+    width: 8em;
+    bottom: 0rem;
     font-family: Helvetica;
     font-weight: 700;
     color: $vueBlue;
     font-size: 12px;
+    z-index: 200;
+    background: #fff;
+    padding: 1rem;
 
     &__block {
       margin-left: 0;

@@ -195,6 +195,21 @@ $basefontsize: 18px;
   }
 }
 
+/* ----------------------------------------
+  Simplifies an standardizes positioning of elements
+
+  Usage: @include position('relative', 0px, px);
+
+---------------------------------------- */
+
+@mixin position($type: relative, $left: 0, $top: 0, $bottom: auto, $right: auto) {
+  position: $type;
+  left: $left;
+  top: $top;
+  right: $right;
+  bottom: $bottom;
+}
+
 
 /* ----------------------------------------
   Prerenders sections based on global

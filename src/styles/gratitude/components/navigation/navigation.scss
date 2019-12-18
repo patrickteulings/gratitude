@@ -1,7 +1,14 @@
 .navigation {
+  @include innerspace(1rem);
+  @include position(fixed);
+  @include size(100%, 3rem);
+  z-index: 100;
+
   &__bar {
+    @include flex-center('vertical');
+    @include size(100%, 3rem);
+    @include card-shadow(1);
     background: color('white');
     border-radius: 2px;
-    @include card-shadow(2);
   }
 }
