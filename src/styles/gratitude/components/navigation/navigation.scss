@@ -11,4 +11,50 @@
     background: color('white');
     border-radius: 2px;
   }
+
+  &__trigger {
+    @include size(18px, 12px);
+    position: relative;
+
+    &-wrapper {
+      position: relative;
+      left: 20px;
+      width: 20px;
+    }
+
+    span {
+      display: block;
+      background: color('primary');
+      @include size(18px, 2px);
+      @include position(absolute, 0, 5px);
+      @include transition(transform);
+      transform-origin: 0% 0%;
+      &:first-child {
+        top: 0;
+      }
+
+      &:last-child {
+        top: 10px;
+      }
+    }
+
+    &.is-open {
+      span {
+        &:nth-child(2) {
+          opacity: 0.2;
+        }
+        &:nth-child(1) {
+          transform: rotate(45deg);
+        }
+        &:nth-child(3) {
+          transform: rotate(-45deg);
+        }
+      }
+    }
+  }
+  nav{
+    float: right;
+    position: relative;
+    left: 200px;
+  }
 }
