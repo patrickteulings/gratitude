@@ -5,6 +5,7 @@
     <div class="weather-bar__inner" v-else>
       <span>{{ getCity }}, currently it's {{ getWeather.main.temp }}{{ getWeatherSuffix() }} with {{ getWeatherDescription }}</span>
       <span><img class="weather-bar__icon" :alt="getWeatherDescription" :src="getWeatherIcon" /></span>
+      <span><i :title="getWeatherDescription" :class="getWeatherIconOWM"></i></span>
     </div>
   </div>
 </template>
@@ -44,6 +45,10 @@ export default Vue.extend({
     getWeatherIcon () {
       return `http://openweathermap.org/img/wn/${this.$store.getters.currentWeather.weather[0].icon}@2x.png`;
     },
+
+    getWeatherIconOWM () {
+      return `wi wi-owm-day-${this.$store.getters.currentWeather.weather[0].id}`;
+    },
     getWeatherDescription () {
       return this.$store.getters.currentWeather.weather[0].description;
     },
@@ -75,7 +80,7 @@ export default Vue.extend({
     },
 
     getWeatherSuffix () {
-      return '\u00B0';
+      return '\u00B0' + 'C';
     }
   }
 });
