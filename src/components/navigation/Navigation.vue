@@ -2,7 +2,7 @@
   <div class="navigation">
     <div class="navigation__bar">
       <div class="navigation__trigger-wrapper">
-        <div class="navigation__trigger is-open">
+        <div role="button" @click="this.toggleMenu" class="navigation__trigger" :class="{'is-open': menuIsOpen}">
           <span></span>
           <span></span>
           <span></span>
@@ -27,8 +27,23 @@ export default Vue.extend({
   },
   data: () => {
     return {
-      iets: 'alles'
+      iets: 'alles',
+      menuIsOpen: false
     };
+  },
+  methods: {
+    toggleMenu () {
+      console.log('menu', this.menuIsOpen);
+      this.menuIsOpen === true ? this.closeMenu() : this.openMenu();
+    },
+
+    closeMenu () {
+      this.menuIsOpen = false;
+    },
+
+    openMenu () {
+      this.menuIsOpen = true;
+    }
   }
 });
 </script>

@@ -202,7 +202,7 @@ $basefontsize: 18px;
 
 ---------------------------------------- */
 
-@mixin position($type: relative, $left: 0, $top: 0, $bottom: auto, $right: auto) {
+@mixin position($type: relative, $left: 0, $top: 0, $right: auto, $bottom: auto) {
   position: $type;
   left: $left;
   top: $top;
