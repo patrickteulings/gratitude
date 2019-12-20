@@ -2,7 +2,7 @@
   <article class="card">
     <div class="card__inner">
       <small class="id">{{ gratitude.id }}</small>
-      <h2 class="card__title">{{ gratitude.title }}</h2>
+      <h2 class="card__title" :style="{ color: getGratitudeColor(gratitude) }">{{ gratitude.title }}</h2>
       <p class="card__body">{{ gratitude.body }}</p>
       <small class="card__createdAt">Created on {{ getReadableDate(gratitude.timeStamp.toDate()) }} at {{ getReadableTime(gratitude.timeStamp.toDate()) }}</small>
     <div class="card__moodstrip" :style="{ background: getGratitudeColor(gratitude) }"></div>

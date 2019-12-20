@@ -1,0 +1,5 @@
+.add-gratitude {
+  &__inner {
+    @include innerspace(1rem);
+  }
+}

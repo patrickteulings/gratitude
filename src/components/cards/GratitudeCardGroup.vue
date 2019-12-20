@@ -40,8 +40,8 @@ export default Vue.extend({
     margin-bottom: 2rem;
 
     &__date {
-      font-size: 24px;
-      background: #CDCDBF;
+      font-size: 12px;
+      background: #F1F1F1;
       padding: 1rem;
     }
   }

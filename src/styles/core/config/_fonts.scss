@@ -1,6 +1,6 @@
 
 
-$primary-font-face: 'Lato', 'Helvetica', 'Lato', sans-serif !default;
+$primary-font-face: 'Martel', 'Helvetica', 'Lato', sans-serif !default;
 $handwriting-font-face: 'Amatic SC', 'Lato', sans-serif !default;
 
 %headings {
@@ -8,6 +8,7 @@ $handwriting-font-face: 'Amatic SC', 'Lato', sans-serif !default;
   font-weight: 300;
   margin-top: 0em;
   margin-bottom: 0.5em;
+  color: color('primary');
 
   article & {
     margin-top: 1em;
@@ -55,12 +56,15 @@ h6 {
 body {
   font-family: $primary-font-face;
   font-weight: 100;
+  -webkit-font-smoothing: antialiased;
 }
 
 p {
   margin: 0 0 1em 0;
-  line-height: 1.4em;
+  line-height: 1.6em;
   font-family: $primary-font-face;
+  font-weight: 200;
+  opacity: 0.87;
 }
 
 $textsize: (

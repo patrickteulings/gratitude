@@ -1,3 +1,10 @@
+
+// @TODO
+// CREATE MODULES FOR:
+// - USER
+// - USER SETTINGS
+// - GRATITUDES
+
 import Vue from 'vue';
 import Vuex from 'vuex';
 import { vuexfireMutations, firestoreAction } from 'vuexfire';
