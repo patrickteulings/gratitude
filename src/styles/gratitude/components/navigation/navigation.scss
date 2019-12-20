@@ -8,6 +8,7 @@
     @include flex-center('vertical');
     @include size(100%, 3rem);
     @include card-shadow(1);
+    justify-content: space-between;
     background: color('white');
     border-radius: 2px;
   }
@@ -22,6 +23,26 @@
     }
   }
 
+  &__user {
+    @include size(30px);
+    margin-right: 1rem;
+    position: relative;
+  }
+
+  &__user-image {
+    border-radius: 50%;
+    width: 100%;
+    min-width: 101%;
+    height: 100%;
+    max-height: auto;
+    position: absolute;
+    top: 50% !important;
+    left: 50% !important;
+    display: block;
+    object-fit: cover;
+    transform: translate(-50%, -50%);
+  }
+
   &__trigger {
     @include size(18px, 12px);
     position: relative;
@@ -29,7 +50,7 @@
     &-wrapper {
       position: relative;
       left: 20px;
-      width: 20px;
+      width: 40px;
       @include innerspace(10px);
       @include outerspace(-10px);
     }
@@ -74,7 +95,5 @@
 
   nav{
     @include font-size(14px);
-    position: relative;
-    left: 100px;
   }
 }

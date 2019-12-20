@@ -2,4 +2,14 @@
   &__inner {
     @include innerspace(1rem);
   }
+
+  &__button {
+    background: color('primary');
+    color: color('white');
+    @include size(40px);
+    @include card-shadow(3);
+    @include font-size(12px);
+    @include flex-center('both');
+    border-radius: 50%;
+  }
 }

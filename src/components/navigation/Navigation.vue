@@ -13,6 +13,9 @@
         <router-link class="navigation__item" to="/about">About</router-link>
         <router-link class="navigation__item" to="/detail">Detail</router-link>
       </nav>
+      <div role="button" class="navigation__user">
+        <img class="navigation__user-image" :src="getUserImage" />
+      </div>
     </div>
   </div>
 </template>
@@ -30,6 +33,11 @@ export default Vue.extend({
       iets: 'alles',
       menuIsOpen: false
     };
+  },
+  computed: {
+    getUserImage () {
+      return this.$store.getters.user.photoURL;
+    }
   },
   methods: {
     toggleMenu () {

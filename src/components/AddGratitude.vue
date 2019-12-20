@@ -1,34 +1,42 @@
+<!-- @TODO -->
+<!-- Move 'ADD' button, AND, make it an actual button -->
+
 <template>
-  <div class="add-gratitude">
-    <div class="add-gratitude__inner">
-      <form @submit.prevent="addGratitude">
-        <Input
-          v-model="title"
-          input-id="title"
-          input-label="Your title"
-          input-placeholder="Title"
-        />
-        <Input
-          v-model="body"
-          input-id="body"
-          input-label="Your body"
-          input-placeholder="Today I'm grateful for"
-        />
-        <Input
-          v-model="color"
-          input-id="color"
-          input-label="Your mood"
-          input-placeholder="#C18D18"
-        />
-        <div class="color-dropdown">
-          <div v-for="(colorItem) in colors" :key="colorItem.colorValue" style="margin-bottom: 1rem;">
-            <label :for="colorItem.colorValue" :style="getColorPalletteItem(colorItem)">{{colorItem.label}}</label>
-            <input :id="colorItem.colorValue" v-model="picked" type="radio" name="colorValue" :value="colorItem.colorValue">
+  <div>
+    <div role="button" class="add-gratitude__button">
+      ADD
+    </div>
+    <div class="add-gratitude">
+      <div class="add-gratitude__inner">
+        <form @submit.prevent="addGratitude">
+          <Input
+            v-model="title"
+            input-id="title"
+            input-label="Your title"
+            input-placeholder="Title"
+          />
+          <Input
+            v-model="body"
+            input-id="body"
+            input-label="Your body"
+            input-placeholder="Today I'm grateful for"
+          />
+          <Input
+            v-model="color"
+            input-id="color"
+            input-label="Your mood"
+            input-placeholder="#C18D18"
+          />
+          <div class="color-dropdown">
+            <div v-for="(colorItem) in colors" :key="colorItem.colorValue" style="margin-bottom: 1rem;">
+              <label :for="colorItem.colorValue" :style="getColorPalletteItem(colorItem)">{{colorItem.label}}</label>
+              <input :id="colorItem.colorValue" v-model="picked" type="radio" name="colorValue" :value="colorItem.colorValue">
+            </div>
+            <div>{{ picked }}</div>
           </div>
-          <div>{{ picked }}</div>
-        </div>
-        <button>Add gratitude</button>
-      </form>
+          <button>Add gratitude</button>
+        </form>
+      </div>
     </div>
   </div>
 </template>
