@@ -86,6 +86,8 @@ export default Vue.extend({
         dayStamp
       });
 
+      // @todo callback for success and error
+
       db.collection('users').doc(this.$store.getters.user.uid).collection('gratitudes').add({
         title,
         body,
@@ -93,6 +95,12 @@ export default Vue.extend({
         timeStamp,
         dayStamp
       });
+
+      // Reset form
+
+      this.title = '';
+      this.body = '';
+      this.color = '';
     },
 
     getColorPalletteItem (colorItem: any) {

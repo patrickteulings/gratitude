@@ -3,12 +3,15 @@
   position: relative;
   border-radius: 2px;
   background: color('white');
+
   &__title {
     font-family: $handwriting-font-face;
+    @include font-size(36px);
   }
+
   &__createdAt{
-    @include font-size(12px);
-    font-weight: bold;
+    @include font-size(10px);
+    font-weight: 100;
   }
 
   &__moodstrip {

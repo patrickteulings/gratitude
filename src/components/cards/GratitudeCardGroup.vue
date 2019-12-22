@@ -36,13 +36,4 @@ export default Vue.extend({
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  .gratitude-group {
-    margin-bottom: 2rem;
-
-    &__date {
-      font-size: 12px;
-      background: #F1F1F1;
-      padding: 1rem;
-    }
-  }
 </style>

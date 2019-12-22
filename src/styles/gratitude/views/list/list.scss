@@ -2,3 +2,14 @@
   background: #F4F4F4;
   @include innerspace(1rem);
 }
+
+.gratitude-group {
+  margin-bottom: 2rem;
+
+  &__date {
+    background: color('white');
+    font-size: 12px;
+    padding: 1rem;
+
+  }
+}
