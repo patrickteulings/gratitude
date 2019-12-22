@@ -10,7 +10,7 @@ export default class WeatherService {
 
   constructor () {
     this.APIKEY = 'ea8619a8f88dc06dcddfd36682d398a2';
-    this.APIURL = 'http://api.openweathermap.org/data/2.5/weather?';
+    this.APIURL = 'https://api.openweathermap.org/data/2.5/weather?';
   }
 
 
