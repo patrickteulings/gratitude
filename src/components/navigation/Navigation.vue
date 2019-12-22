@@ -13,7 +13,7 @@
         <router-link class="navigation__item" to="/about">About</router-link>
         <router-link class="navigation__item" to="/detail">Detail</router-link>
       </nav>
-      <div role="button" class="navigation__user">
+      <div @click="handleLogout" role="button" class="navigation__user">
         <img class="navigation__user-image" :src="getUserImage" />
       </div>
     </div>
@@ -25,6 +25,12 @@ import Vue from 'vue';
 
 export default Vue.extend({
   name: 'Navigation',
+  props: {
+    testvalue: {
+      type: String,
+      default: 'hoi'
+    }
+  },
   components: {
 
   },
@@ -35,13 +41,12 @@ export default Vue.extend({
     };
   },
   computed: {
-    getUserImage () {
+    getUserImage (): string {
       return this.$store.getters.user.photoURL;
     }
   },
   methods: {
     toggleMenu () {
-      console.log('menu', this.menuIsOpen);
       this.menuIsOpen === true ? this.closeMenu() : this.openMenu();
     },
 
@@ -51,6 +56,11 @@ export default Vue.extend({
 
     openMenu () {
       this.menuIsOpen = true;
+    },
+
+    handleLogout () {
+      console.log('handle logout');
+      this.$emit('onLogout');
     }
   }
 });

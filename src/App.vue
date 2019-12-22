@@ -7,7 +7,7 @@
     <div v-else-if="error">{{error}}</div>
     <div v-else-if="user">
       <header>
-        <Navigation />
+        <Navigation @onLogout="logout()"/>
       </header>
       <h5 class="user__test">{{user.displayName}}&nbsp;&nbsp;{{user.email}}</h5>
       <small>{{user.uid}}</small>
@@ -17,7 +17,10 @@
       </h4>
       <hr />
       <br />
-      <div>there is a user, show the routes
+
+      <!-- THERE IS A USER, SHOW THE ROUTES -->
+
+      <div>
         <router-view />
       </div>
     </div>
