@@ -1,4 +1,10 @@
 .add-gratitude {
+  display: none;
+
+  &.is-open {
+    display: block;
+  }
+
   &__inner {
     @include innerspace(1rem);
   }
@@ -10,6 +16,7 @@
     @include card-shadow(3);
     @include font-size(12px);
     @include flex-center('both');
+    line-height: 0;
     border-radius: 50%;
   }
 }

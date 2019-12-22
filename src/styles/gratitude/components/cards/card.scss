@@ -1,6 +1,8 @@
 .card {
   padding: 1rem;
   position: relative;
+  border-radius: 2px;
+  background: color('white');
   &__title {
     font-family: $handwriting-font-face;
   }
@@ -11,9 +13,9 @@
 
   &__moodstrip {
     @include size(4px, 100%);
-    position: absolute;
-    left: 0;
-    top: 0;
+    @include position(absolute);
+    border-bottom-left-radius: 2px;
+    border-top-left-radius: 2px;
   }
 }
 small.id {
