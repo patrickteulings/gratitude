@@ -10,9 +10,8 @@
     </div>
     <br><br>
     <article class="gratitude" v-if="gratitude !== undefined">
-      <small v-if="gratitude.timeStamp !== undefined" class="card__createdAt">Created on {{ getReadableDate(gratitude.timeStamp.toDate()) }} at {{ getReadableTime(gratitude.timeStamp.toDate()) }}</small>
-      <br><br>
       <h2 :style="{ color: getGratitudeColor(gratitude) }">{{gratitude.title}}</h2>
+      <small v-if="gratitude.timeStamp !== undefined" class="gratitude__createdAt">Created on {{ getReadableDate(gratitude.timeStamp.toDate()) }} at {{ getReadableTime(gratitude.timeStamp.toDate()) }}</small>
       <p>{{gratitude.body}}</p>
     </article>
   </div>
