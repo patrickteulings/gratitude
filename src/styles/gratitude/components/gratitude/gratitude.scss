@@ -1,15 +1,23 @@
-article {
-  &.gratitude {
-    @include innerspace(1rem);
+.gratitude {
+  @include innerspace(1rem);
 
-    h2 {
-      font-family: 'Martel';
-    }
+  h2 {
+    font-family: 'Martel';
+  }
 
-    p {
-      line-height: 1.6rem;
-      color: #18302F;
-      @include font-size(17px);
-    }
+  p {
+    line-height: 1.6rem;
+    color: #18302F;
+    @include font-size(17px);
+  }
+
+  &__createdAt {
+    display: inline-block;
+    @include font-size(10px);
+    font-weight: 100;
+    margin-bottom: 24px;
+    @include outerspace(-12px 0 24px 0);
+
   }
 }
+
