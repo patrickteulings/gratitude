@@ -1,0 +1,15 @@
+article {
+  &.gratitude {
+    @include innerspace(1rem);
+
+    h2 {
+      font-family: 'Martel';
+    }
+
+    p {
+      line-height: 1.6rem;
+      color: #18302F;
+      @include font-size(17px);
+    }
+  }
+}

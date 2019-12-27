@@ -9,12 +9,12 @@
       Post details such as time, weather conditions, location(?)
     </div>
     <br><br>
-    <div v-if="gratitude !== undefined">
+    <article class="gratitude" v-if="gratitude !== undefined">
       <small v-if="gratitude.timeStamp !== undefined" class="card__createdAt">Created on {{ getReadableDate(gratitude.timeStamp.toDate()) }} at {{ getReadableTime(gratitude.timeStamp.toDate()) }}</small>
       <br><br>
       <h2 :style="{ color: getGratitudeColor(gratitude) }">{{gratitude.title}}</h2>
-      {{gratitude.body}}
-    </div>
+      <p>{{gratitude.body}}</p>
+    </article>
   </div>
 </template>
 
