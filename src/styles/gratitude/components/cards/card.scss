@@ -5,8 +5,10 @@
   background: color('white');
 
   &__title {
-    font-family: $handwriting-font-face;
+    font-family: 'Martel';
+    font-weight: 100;
     @include font-size(36px);
+    line-height: 3.6rem;
   }
 
   &__createdAt{
@@ -19,6 +21,11 @@
     @include position(absolute);
     border-bottom-left-radius: 2px;
     border-top-left-radius: 2px;
+  }
+
+  &__body {
+    height: 80px;
+    @include truncate-multiline();
   }
 }
 small.id {
