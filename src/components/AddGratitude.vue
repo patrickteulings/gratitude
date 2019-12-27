@@ -72,19 +72,11 @@ export default Vue.extend({
     addGratitude () {
       const title = this.title.trim();
       const body = this.body.trim();
-      const color = this.color.trim().length !== 0 ? this.color.trim() : '#FFFFFF';
+      const color = this.color.trim().length !== 0 ? this.color.trim() : '#000000';
       const timeStamp: Date = new Date();
       const dayStamp: Date = new Date();
 
       dayStamp.setHours(0, 0, 0); // Set to the date at 00:00:00 for easier comparison / filtering in FE
-
-      db.collection('gratitudes').add({
-        title,
-        body,
-        color,
-        timeStamp,
-        dayStamp
-      });
 
       // @todo callback for success and error
 
@@ -94,6 +86,11 @@ export default Vue.extend({
         color,
         timeStamp,
         dayStamp
+      }).then ( function () {
+        console.log("Document successfully written!");
+      })
+      .catch( function ( error ) {
+        console.error("Error writing document: ", error);
       });
 
       // Reset form

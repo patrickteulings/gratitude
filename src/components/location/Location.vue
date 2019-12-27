@@ -46,11 +46,12 @@ export default Vue.extend({
           reject(new Error('Geolocation is not available.'));
         }
 
-        navigator.geolocation.getCurrentPosition(
+        navigator.geolocation.getCurrentPosition (
           (pos) => {
             resolve(pos);
           },
           (err) => {
+            // showGeolocationError();
             reject(err);
           }
         );
@@ -82,6 +83,12 @@ export default Vue.extend({
           console.log('Error: ', err);
         });
     }
+    // showGeolocationError () {
+
+    // }
+  },
+  mounted () {
+    this.locateMe();
   }
 });
 </script>
