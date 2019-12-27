@@ -14,7 +14,7 @@
               input-label="Your title"
               input-placeholder="Title"
             />
-            <Input
+            <TextArea
               v-model="body"
               input-id="body"
               input-label="Your body"
@@ -45,6 +45,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Input from '@/components/UI/Input.vue';
+import TextArea from '@/components/UI/TextArea.vue';
 import { mapActions, mapState } from 'vuex';
 import { firestorePlugin } from 'vuefire';
 import { db } from '@/services/firebaseConfigTypeScript';
@@ -68,7 +69,8 @@ export default Vue.extend({
     };
   },
   components: {
-    Input
+    Input,
+    TextArea
   },
   methods: {
     addGratitude () {
