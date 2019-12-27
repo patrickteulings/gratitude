@@ -9,8 +9,14 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import { vuexfireMutations, firestoreAction } from 'vuexfire';
 import { db } from '@/services/firebaseConfigTypeScript';
+import { User } from '@/interfaces/user';
+import { IGratitude } from '@/interfaces/gratitude';
 
 Vue.use(Vuex);
+
+// interface User {
+
+// }
 
 export default new Vuex.Store({
   state: {
@@ -18,7 +24,8 @@ export default new Vuex.Store({
     userLocation: {} as object,
     user: {} as object,
     currentWeather: {} as object,
-    currentCity: {} as object
+    currentCity: {} as object,
+    selectedGratitude: {} as IGratitude
   },
 
   mutations: {
@@ -28,6 +35,7 @@ export default new Vuex.Store({
     },
 
     SET_USER: (state: any, user: object) => {
+      console.log(user);
       state.user = user;
     },
 
@@ -37,6 +45,11 @@ export default new Vuex.Store({
 
     SET_CURRENT_CITY: (state: any, weather: object) => {
       state.currentCity = weather;
+    },
+
+    SET_SELECTED_GRATITUDE: (state: any, gratitude: IGratitude) => {
+      state.selectedGratitude = gratitude;
+      console.log('hoezee', gratitude);
     }
   },
 
@@ -64,6 +77,18 @@ export default new Vuex.Store({
 
     setCurrentCity: (context: any, data: object) => {
       context.commit('SET_CURRENT_CITY', data);
+    },
+
+    setSelectedGratitude: (context: any, id: string) => {
+      const {commit, state} = context;
+      const user = state.user as User;
+      console.log('selected', user);
+      const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
+
+      ref.get().then( (res) => {
+        commit('SET_SELECTED_GRATITUDE', res.data());
+      });
+
     }
   },
 
@@ -86,6 +111,11 @@ export default new Vuex.Store({
 
     user: (state: any) => {
       return state.user;
+    },
+
+    selectedGratitude: (state: any) => {
+      console.log(state.selectedGratitude);
+      return state.selectedGratitude;
     }
   }
 });

@@ -14,7 +14,7 @@
               input-label="Your title"
               input-placeholder="Title"
             />
-            <Input
+            <TextArea
               v-model="body"
               input-id="body"
               input-label="Your body"
@@ -34,6 +34,7 @@
               <div>{{ picked }}</div>
             </div>
             <button>Add gratitude</button>
+            <div v-if="isSavingGratitude">Saving...</div>
           </form>
         </div>
       </div>
@@ -44,6 +45,7 @@
 <script lang="ts">
 import Vue from 'vue';
 import Input from '@/components/UI/Input.vue';
+import TextArea from '@/components/UI/TextArea.vue';
 import { mapActions, mapState } from 'vuex';
 import { firestorePlugin } from 'vuefire';
 import { db } from '@/services/firebaseConfigTypeScript';
@@ -62,11 +64,13 @@ export default Vue.extend({
       color: '',
       colors: [{label: 'Happy', colorValue: '#E8486F'}, {label: 'Strongish', colorValue: '#C6C150'}, {label: 'Hard times but learning', colorValue: '#942C3F'}, {label: 'Pretty ok', colorValue: '#68B2D0'}], // Move to user-store!!
       picked: '',
-      isViewOpen: false
+      isViewOpen: false,
+      isSavingGratitude: false
     };
   },
   components: {
-    Input
+    Input,
+    TextArea
   },
   methods: {
     addGratitude () {
@@ -78,7 +82,7 @@ export default Vue.extend({
 
       dayStamp.setHours(0, 0, 0); // Set to the date at 00:00:00 for easier comparison / filtering in FE
 
-      // @todo callback for success and error
+      this.isSavingGratitude = true;
 
       db.collection('users').doc(this.$store.getters.user.uid).collection('gratitudes').add({
         title,
@@ -86,11 +90,12 @@ export default Vue.extend({
         color,
         timeStamp,
         dayStamp
-      }).then ( function () {
-        console.log("Document successfully written!");
+      }).then ( () => {
+        console.log('Gratitude successfully written!');
+        this.isSavingGratitude = false;
       })
-      .catch( function ( error ) {
-        console.error("Error writing document: ", error);
+      .catch( ( error ) => {
+        console.error('Error writing document: ', error);
       });
 
       // Reset form

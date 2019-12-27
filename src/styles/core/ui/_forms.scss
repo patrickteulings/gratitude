@@ -32,6 +32,19 @@ input[type="text"] {
   }
 }
 
+textarea {
+  border: 1px solid #1F1F1C;
+  border-radius: 2px;
+  width: 100%;
+  @include innerspace(1rem);
+  @include font-size(16px);
+  padding-right: 40px;
+
+  &:focus {
+    outline-color: lighten(color('primary'),50%);
+  }
+}
+
 /* ----------------------------------------
   RADIO BUTTONS
 ---------------------------------------- */
