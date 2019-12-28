@@ -131,7 +131,6 @@ $basefontsize: 18px;
   display: -webkit-box;
   max-width: 400px;
   // height: calc($font-size * $line-height * $lines); /* Fallback for non-webkit */
-  margin: 0 auto;
   font-size: $font-size;
   line-height: $line-height;
   -webkit-line-clamp: $lines;

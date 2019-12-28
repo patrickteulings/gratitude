@@ -88,7 +88,20 @@ export default new Vuex.Store({
       ref.get().then( (res) => {
         commit('SET_SELECTED_GRATITUDE', res.data());
       });
+    },
 
+    deleteGratitude: (context: any, id: string) => {
+      const { commit, state } = context;
+      const user = state.user as User;
+
+      const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
+
+      return ref.delete();
+      // ref.delete().then( (res) => {
+      //   console.log('deleted');
+      // }).catch( (error) => {
+      //   console.error('Document could not be deleted: ', error);
+      // });
     }
   },
 

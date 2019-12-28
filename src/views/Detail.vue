@@ -13,6 +13,7 @@
       <h2 :style="{ color: getGratitudeColor(gratitude) }">{{gratitude.title}}</h2>
       <small v-if="gratitude.timeStamp !== undefined" class="gratitude__createdAt">Created on {{ getReadableDate(gratitude.timeStamp.toDate()) }} at {{ getReadableTime(gratitude.timeStamp.toDate()) }}</small>
       <p>{{gratitude.body}}</p>
+      <button @click="deleteGratitude" class="btn-delete">delete</button>
     </article>
   </div>
 </template>
@@ -42,6 +43,14 @@ export default Vue.extend({
   methods: {
     getData () {
       this.$store.dispatch('setSelectedGratitude', this.$route.params.id);
+    },
+
+    deleteGratitude () {
+      this.$store.dispatch('deleteGratitude', this.$route.params.id).then( (res) => {
+        console.log('deleted');
+      }).catch( (error) => {
+        console.error('Document could not be deleted: ', error);
+      });
     },
 
     getGratitudeColor (gratitude: any) {

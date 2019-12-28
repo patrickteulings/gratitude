@@ -1,0 +1,6 @@
+.btn-delete {
+  @extend .button-reset;
+  background: color('primary');
+  color: color('white');
+  border-radius: 2px;
+}
