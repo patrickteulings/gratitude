@@ -57,6 +57,7 @@ export default Vue.extend({
         );
       });
     },
+
     async locateMe () {
       this.gettingLocation = true;
       try {
@@ -69,6 +70,7 @@ export default Vue.extend({
         this.errorStr = e.message;
       }
     },
+
     getCityName (location: any) {
       const geocode = new GeocodeService();
 
