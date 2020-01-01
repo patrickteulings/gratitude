@@ -127,7 +127,6 @@ export default new Vuex.Store({
     },
 
     selectedGratitude: (state: any) => {
-      console.log(state.selectedGratitude);
       return state.selectedGratitude;
     }
   }

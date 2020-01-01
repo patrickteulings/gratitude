@@ -62,7 +62,7 @@ export default Vue.extend({
       title: '',
       body: '',
       color: '',
-      colors: [{label: 'Happy', colorValue: '#E8486F'}, {label: 'Strongish', colorValue: '#C6C150'}, {label: 'Hard times but learning', colorValue: '#942C3F'}, {label: 'Pretty ok', colorValue: '#68B2D0'}], // Move to user-store!!
+      colors: [{label: 'Happy', colorValue: '#E8486F'}, {label: 'Strong', colorValue: '#C6C150'}, {label: 'Hard times but learning', colorValue: '#942C3F'}, {label: 'Pretty ok', colorValue: '#68B2D0'}], // Move to user-store!!
       picked: '',
       isViewOpen: false,
       isSavingGratitude: false
@@ -79,6 +79,13 @@ export default Vue.extend({
       const color = this.color.trim().length !== 0 ? this.color.trim() : '#000000';
       const timeStamp: Date = new Date();
       const dayStamp: Date = new Date();
+      const weather: object = {
+        id: this.$store.getters.currentWeather.weather[0].id,
+        description: this.$store.getters.currentWeather.weather[0].description
+      };
+      const location: object = {
+        city: this.$store.getters.currentCity
+      };
 
       dayStamp.setHours(0, 0, 0); // Set to the date at 00:00:00 for easier comparison / filtering in FE
 
@@ -88,10 +95,11 @@ export default Vue.extend({
         title,
         body,
         color,
+        weather,
+        location,
         timeStamp,
         dayStamp
       }).then ( () => {
-        console.log('Gratitude successfully written!');
         this.isSavingGratitude = false;
       })
       .catch( ( error ) => {

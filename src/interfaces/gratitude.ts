@@ -4,4 +4,6 @@ export interface IGratitude {
   title: string;
   body: string;
   color?: string;
+  weather: object;
+  location: object;
 }
