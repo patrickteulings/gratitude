@@ -24,9 +24,9 @@ npm run lint
 A test project to enhance my Vue Skill.
 
 ### Roadmap / todo
-- [ ] Research / UX / STYLING
-- [ ] Authentication and User Settings
-- [ x ] Get location information from browser
+- \[ ] Research / UX / STYLING
+- \[ ] Authentication and User Settings
+- \[x] Get location information from browser
 - [ ] Get fallback location information by IP
 - [ ] Get current weather based on IP (openweathermap / google weather API?) - WIP
 - [ ] Add weather to gratitude post
