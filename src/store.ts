@@ -62,7 +62,6 @@ export default new Vuex.Store({
       const { reference, userID } = ref;
       console.log('hier', reference, userID);
       // return the promise returned by `bindFirestoreRef`
-      // return bindFirestoreRef('gratitudes', reference);
       return bindFirestoreRef('gratitudes', db.collection('users').doc('1RwEzkhpPEYGJxBCNb9enEg6CZr1').collection('gratitudes'));
     }),
 
@@ -71,7 +70,6 @@ export default new Vuex.Store({
     },
 
     setUser: (context: any, user: any) => {
-      console.log('setting user', user);
       context.commit('SET_USER', user);
     },
 
@@ -86,7 +84,6 @@ export default new Vuex.Store({
     setSelectedGratitude: (context: any, id: string) => {
       const {commit, state} = context;
       const user = state.user as User;
-      console.log('selected', user);
       const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
 
       ref.get().then( (res) => {
@@ -104,12 +101,11 @@ export default new Vuex.Store({
     },
 
     updateSelectedGratitude: (context: any, gratitudeObject: any) => {
-      console.log(gratitudeObject);
       const { commit, state } = context;
-      const user = state.user as User;
       const {id, payload} = gratitudeObject;
+      const user = state.user as User;
       const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
-      payload.title = 'tadaa';
+      console.log(payload);
       return ref.update(payload);
     }
   },

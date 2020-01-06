@@ -9,8 +9,35 @@
         <div>{{ getWeatherInfo(gratitude).id }}{{ getWeatherInfo(gratitude).description }}</div>
         <div><i :title="getWeatherInfo(gratitude).description" :class="getWeatherIconOWM(gratitude.weather)"></i></div>
       </div>
-      <button @click="deleteGratitude" class="btn-delete">delete</button>
-      <button @click="updateGratitude(gratitude)" class="btn-delete">update</button>
+      <button @click="deleteGratitude" class="btn-reset">delete</button>
+      <button @click="toggleEditMode" class="btn-reset">edit</button>
+    </article>
+    <article class="gratitude" v-if="gratitude !== undefined">
+      <form @submit.prevent="updateGratitude(gratitude)" class="editableForm " :class="{ isEditing: editMode }">
+        <Input :style="{ color: getGratitudeColor(gratitude) }"
+          v-model="gratitude.title"
+          input-id="title"
+          input-label=""
+          input-placeholder="A title could be really usefull you know..."
+          input-classname="title"
+          :input-color=getGratitudeColor(gratitude)
+        />
+          <TextArea
+            v-model="gratitude.body"
+            input-id="body"
+            input-label=""
+            input-placeholder="Want to add some bodytext?"
+            input-classname="body"
+          />
+          <Input
+            v-model="gratitude.color"
+            input-id="color"
+            input-label=""
+            input-placeholder="Let color brighten your life"
+            input-classname="color"
+          />
+        <button class="btn-delete">update</button><span v-if="isUpdating">Aan het updaten</span>
+      </form>
     </article>
   </div>
 </template>
@@ -26,12 +53,22 @@ import { readableDate, readableTime } from '@/helpers/dateHelper';
 // Interfaces
 import { IGratitude } from '@/interfaces/gratitude';
 
+// Components
+import Input from '@/components/UI/Input.vue';
+import TextArea from '@/components/UI/Input.vue';
+
 export default Vue.extend({
   name: 'Detail',
-  components: {},
+  components: {
+    Input,
+    TextArea
+  },
   data () {
     return {
-      id: this.$route.params.id
+      id: this.$route.params.id,
+      responsiveGratitude: {},
+      editMode: true,
+      isUpdating: false
     };
   },
 
@@ -55,16 +92,13 @@ export default Vue.extend({
     },
 
     updateGratitude (gratitude: IGratitude) {
+      this.isUpdating = true;
+
       this.$store.dispatch('updateSelectedGratitude', {id: this.$route.params.id, payload: gratitude}).then( (response) => {
-        console.log('Updated');
+        this.isUpdating = false;
       }).catch( (error) => {
         console.error('Error updating gratitide ', error);
       });
-      // Set the "capital" field of the city 'DC'
-
-// db.collection("cities").doc("DC").update({
-//     capital: true
-// });
     },
 
     getGratitudeColor (gratitude: any) {
@@ -80,7 +114,6 @@ export default Vue.extend({
     },
 
     getWeatherInfo (gratitude: IGratitude ) {
-      console.log(gratitude);
       return gratitude.weather;
     },
 
@@ -90,8 +123,11 @@ export default Vue.extend({
 
     getWeatherIconOWM (gratitudeWeather: any) {
       return `wi wi-owm-day-${gratitudeWeather.id}`;
-    }
+    },
 
+    toggleEditMode () {
+      this.editMode = !this.editMode;
+    }
   },
 
   mounted () {

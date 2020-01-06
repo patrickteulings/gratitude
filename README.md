@@ -34,7 +34,7 @@ A test project to enhance my Vue Skill.
 - \[ ] Add color dropdown to gratitude post
 - \[ ] Add color picker for gratitude mood at that moment
 - \[ ] Add datepicker to change Gratitudes dayStamp
-- \[ ] Add editmode for a single Gratitude
+- \[ ] Add editmode for a single Gratitude - WIP
 - \[ ] Add a rich text editor
 - \[ ] Add a unique shareable link for sharing with you sponsor for instance
 - \[ ] Add image upload (mobile) for profile picture or even to add an image to a post
