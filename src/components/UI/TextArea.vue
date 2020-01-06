@@ -35,13 +35,6 @@ export default Vue.extend({
   margin-bottom: 1rem;
 }
 
-input[type="text"] {
-  border: 1px solid #1F1F1C;
-  border-radius: 2px;
-  padding: 1rem;
-  font-size: 1rem;
-}
-
 label {
   color: #1F1F1C;
   display: block;

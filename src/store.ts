@@ -50,6 +50,10 @@ export default new Vuex.Store({
     SET_SELECTED_GRATITUDE: (state: any, gratitude: IGratitude) => {
       state.selectedGratitude = gratitude;
       console.log('hoezee', gratitude);
+    },
+
+    UPDATE_SELECTED_GRATITUDE: (state: any) => {
+      console.log('updated');
     }
   },
 
@@ -58,7 +62,6 @@ export default new Vuex.Store({
       const { reference, userID } = ref;
       console.log('hier', reference, userID);
       // return the promise returned by `bindFirestoreRef`
-      // return bindFirestoreRef('gratitudes', reference);
       return bindFirestoreRef('gratitudes', db.collection('users').doc('1RwEzkhpPEYGJxBCNb9enEg6CZr1').collection('gratitudes'));
     }),
 
@@ -67,7 +70,6 @@ export default new Vuex.Store({
     },
 
     setUser: (context: any, user: any) => {
-      console.log('setting user', user);
       context.commit('SET_USER', user);
     },
 
@@ -82,13 +84,29 @@ export default new Vuex.Store({
     setSelectedGratitude: (context: any, id: string) => {
       const {commit, state} = context;
       const user = state.user as User;
-      console.log('selected', user);
       const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
 
       ref.get().then( (res) => {
         commit('SET_SELECTED_GRATITUDE', res.data());
       });
+    },
 
+    deleteGratitude: (context: any, id: string) => {
+      const { commit, state } = context;
+      const user = state.user as User;
+
+      const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
+
+      return ref.delete();
+    },
+
+    updateSelectedGratitude: (context: any, gratitudeObject: any) => {
+      const { commit, state } = context;
+      const {id, payload} = gratitudeObject;
+      const user = state.user as User;
+      const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
+      console.log(payload);
+      return ref.update(payload);
     }
   },
 
@@ -114,7 +132,6 @@ export default new Vuex.Store({
     },
 
     selectedGratitude: (state: any) => {
-      console.log(state.selectedGratitude);
       return state.selectedGratitude;
     }
   }

@@ -1,0 +1,52 @@
+.btn-delete {
+  @extend .button-reset;
+  background: color('primary');
+  color: color('white');
+  border-radius: 2px;
+}
+
+.editableForm {
+  input[type="text"], textarea {
+    border: 0;
+    @include innerspace(0);
+
+    &.title {
+      @extend h2;
+    }
+
+    &.body {
+      @include font-size(16px);
+      color: color('black');
+      font-family: $primary-font-face;
+    }
+
+    &.color {
+      @include font-size(16px);
+      color: color('black');
+      font-family: $primary-font-face;
+    }
+  }
+
+  &.isEditing {
+    input[type="text"] {
+      &.title {
+        @include outerspace(0);
+        @extend h2;
+      }
+
+      &.body {
+        @include font-size(16px);
+        color: color('black');
+        font-family: $primary-font-face;
+      }
+
+      &.color {
+        @include font-size(16px);
+        color: color('black');
+        font-family: $primary-font-face;
+      }
+    }
+  }
+}
+
+

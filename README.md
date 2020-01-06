@@ -24,16 +24,18 @@ npm run lint
 A test project to enhance my Vue Skill.
 
 ### Roadmap / todo
-- [ ] Research / UX / STYLING
-- [ ] Authentication and User Settings - WIP
-- [x] Get location information from browser
-- [ ] Get fallback location information by IP
-- [x] Get current weather based on IP (openweathermap / google weather API?) - WIP
-- [ ] Add weather to gratitude post
-- [ ] Add color picker for gratitude mood at that moment
-- [ ] Add datepicker to change Gratitudes dayStamp
-- [ ] Add editmode for a single Gratitude
-- [ ] Add a rich text editor
-- [ ] Add a unique shareable link for sharing with you sponsor for instance
-- [ ] Add image upload (mobile) for profile picture or even to add an image to a post
+- \[ ] Research / UX / STYLING
+- \[ x ] Authentication
+- \[ ] User Settings
+- \[ x ] Get location information from browser
+- \[ x ] Get current weather based on IP (openweathermap / google weather API?) - WIP
+- \[ ] Add weather to gratitude post
+- \[ x ] Add color to gratitude post
+- \[ ] Add color dropdown to gratitude post
+- \[ ] Add color picker for gratitude mood at that moment
+- \[ ] Add datepicker to change Gratitudes dayStamp
+- \[ ] Add editmode for a single Gratitude - WIP
+- \[ ] Add a rich text editor
+- \[ ] Add a unique shareable link for sharing with you sponsor for instance
+- \[ ] Add image upload (mobile) for profile picture or even to add an image to a post
 

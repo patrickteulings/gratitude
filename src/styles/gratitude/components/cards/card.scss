@@ -7,8 +7,16 @@
   &__title {
     font-family: 'Martel';
     font-weight: 100;
-    @include font-size(36px);
-    line-height: 3.6rem;
+    @include font-size(24px);
+    line-height: 2.4rem;
+  }
+
+  &__body {
+    height: 80px;
+    @include font-size(12px);
+    opacity: 0.87;
+    height: 40px;
+    @include truncate-multiline(2, 1.4, 14px);
   }
 
   &__createdAt{
@@ -23,14 +31,10 @@
     border-top-left-radius: 2px;
   }
 
-  &__body {
-    height: 80px;
-    @include truncate-multiline();
-  }
 }
 small.id {
   font-size: 10px;
   opacity: 0.5;
   padding-bottom: 0.5rem;
-  display: block;
+  display: none;
 }

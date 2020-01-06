@@ -1,17 +1,12 @@
 <template>
   <div class="inputWrapper">
-    <label :for="inputId">{{inputLabel}}</label>
-    <input :id="inputId" :placeholder="inputPlaceholder" type="text" v-bind:value="value" v-on:input="$emit('input', $event.target.value)">
+    <label :for="inputId" v-if="inputLabel">{{inputLabel}}</label>
+    <input :id="inputId" :placeholder="inputPlaceholder" type="text" :class="inputClassname" :style="getInputColor()" v-bind:value="value" v-on:input="$emit('input', $event.target.value)">
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import { mapActions, mapState } from 'vuex';
-import { firestorePlugin } from 'vuefire';
-import { db } from '@/services/firebaseConfigTypeScript';
-
-Vue.use(firestorePlugin);
 
 export default Vue.extend({
   name: 'Input',
@@ -19,7 +14,9 @@ export default Vue.extend({
     value: String,
     inputPlaceholder: String,
     inputId: String,
-    inputLabel: String
+    inputLabel: String,
+    inputColor: String,
+    inputClassname: String
   },
   data: () => {
     return {
@@ -27,7 +24,9 @@ export default Vue.extend({
     };
   },
   methods: {
-
+    getInputColor (): string {
+      return (this.inputColor !== '') ? `color: ${this.inputColor}` : `color: #000000;`;
+    }
   }
 });
 </script>
@@ -38,13 +37,6 @@ export default Vue.extend({
 .inputWrapper {
   text-align: left;
   margin-bottom: 1rem;
-}
-
-input[type="text"] {
-  border: 1px solid #1F1F1C;
-  border-radius: 2px;
-  padding: 1rem;
-  font-size: 1rem;
 }
 
 label {
