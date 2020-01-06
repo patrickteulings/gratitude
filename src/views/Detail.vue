@@ -10,6 +10,7 @@
         <div><i :title="getWeatherInfo(gratitude).description" :class="getWeatherIconOWM(gratitude.weather)"></i></div>
       </div>
       <button @click="deleteGratitude" class="btn-delete">delete</button>
+      <button @click="updateGratitude(gratitude)" class="btn-delete">update</button>
     </article>
   </div>
 </template>
@@ -47,10 +48,23 @@ export default Vue.extend({
 
     deleteGratitude () {
       this.$store.dispatch('deleteGratitude', this.$route.params.id).then( (res) => {
-        console.log('deleted');
+        this.$router.push({path: '/home'});
       }).catch( (error) => {
         console.error('Document could not be deleted: ', error);
       });
+    },
+
+    updateGratitude (gratitude: IGratitude) {
+      this.$store.dispatch('updateSelectedGratitude', {id: this.$route.params.id, payload: gratitude}).then( (response) => {
+        console.log('Updated');
+      }).catch( (error) => {
+        console.error('Error updating gratitide ', error);
+      });
+      // Set the "capital" field of the city 'DC'
+
+// db.collection("cities").doc("DC").update({
+//     capital: true
+// });
     },
 
     getGratitudeColor (gratitude: any) {

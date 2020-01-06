@@ -50,6 +50,10 @@ export default new Vuex.Store({
     SET_SELECTED_GRATITUDE: (state: any, gratitude: IGratitude) => {
       state.selectedGratitude = gratitude;
       console.log('hoezee', gratitude);
+    },
+
+    UPDATE_SELECTED_GRATITUDE: (state: any) => {
+      console.log('updated');
     }
   },
 
@@ -97,11 +101,16 @@ export default new Vuex.Store({
       const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
 
       return ref.delete();
-      // ref.delete().then( (res) => {
-      //   console.log('deleted');
-      // }).catch( (error) => {
-      //   console.error('Document could not be deleted: ', error);
-      // });
+    },
+
+    updateSelectedGratitude: (context: any, gratitudeObject: any) => {
+      console.log(gratitudeObject);
+      const { commit, state } = context;
+      const user = state.user as User;
+      const {id, payload} = gratitudeObject;
+      const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
+      payload.title = 'tadaa';
+      return ref.update(payload);
     }
   },
 
