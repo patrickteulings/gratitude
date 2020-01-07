@@ -69,6 +69,7 @@ export default Vue.extend({
     Input,
     TextArea
   },
+
   data () {
     return {
       id: this.$route.params.id,
@@ -85,10 +86,12 @@ export default Vue.extend({
   },
 
   methods: {
+    // Initial method to get specific Gratitude from database
     getData () {
       this.$store.dispatch('setSelectedGratitude', this.$route.params.id);
     },
 
+    // Well, delete gratitude
     deleteGratitude () {
       this.$store.dispatch('deleteGratitude', this.$route.params.id).then( (res) => {
         this.$router.push({path: '/home'});
@@ -97,11 +100,13 @@ export default Vue.extend({
       });
     },
 
+    // Cancels update/edit and reverts to last saved version
     cancelUpdate () {
       this.$store.dispatch('resetSelectedGratitude');
       this.editMode = false;
     },
 
+    // Update item and save to database
     updateGratitude (gratitude: IGratitude) {
       this.isUpdating = true;
 
@@ -109,7 +114,7 @@ export default Vue.extend({
         this.isUpdating = false; // Spinner
         this.editMode = false; // Edit state, hides cancel / update buttons
       }).catch( (error) => {
-        console.error('Error updating gratitide ', error);
+        throw new Error(error);
       });
     },
 
@@ -117,6 +122,7 @@ export default Vue.extend({
       return gratitude.color !== undefined ? gratitude.color : '#000000';
     },
 
+    // Date / Time helpers to convert timestamp
     getReadableDate (date: Date, longNames: boolean = false) {
       return readableDate(date, longNames);
     },
@@ -125,6 +131,7 @@ export default Vue.extend({
       return readableTime(date, longNames);
     },
 
+    // Weather and city functions
     getWeatherInfo (gratitude: IGratitude ) {
       return gratitude.weather;
     },
@@ -137,10 +144,12 @@ export default Vue.extend({
       return `wi wi-owm-day-${gratitudeWeather.id}`;
     },
 
+    // Will trigger controls to edit or cancel edit
     toggleEditMode () {
       this.editMode = !this.editMode;
     },
 
+    // Hard 'show edit controls'
     setFocus () {
       this.editMode = true;
     }
