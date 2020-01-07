@@ -13,13 +13,14 @@
       <button @click="toggleEditMode" class="btn-reset">edit</button>
     </article>
     <article class="gratitude" v-if="gratitude !== undefined">
-      <form @submit.prevent="updateGratitude(gratitude)" class="editableForm " :class="{ isEditing: editMode }">
+      <form id="detailform" @submit.prevent="updateGratitude(gratitude)" class="editableForm " :class="{ isEditing: editMode }">
         <Input :style="{ color: getGratitudeColor(gratitude) }"
           v-model="gratitude.title"
           input-id="title"
           input-label=""
           input-placeholder="A title could be really usefull you know..."
           input-classname="title"
+          v-on:focus="setFocus"
           :input-color=getGratitudeColor(gratitude)
         />
           <TextArea
@@ -28,6 +29,7 @@
             input-label=""
             input-placeholder="Want to add some bodytext?"
             input-classname="body"
+            v-on:focus="setFocus"
           />
           <Input
             v-model="gratitude.color"
@@ -35,8 +37,12 @@
             input-label=""
             input-placeholder="Let color brighten your life"
             input-classname="color"
+            v-on:focus="setFocus"
           />
-        <button class="btn-delete">update</button><span v-if="isUpdating">Aan het updaten</span>
+      <button type="button" @click.prevent="cancelUpdate()" class="btn-delete" v-if="editMode">cancel</button>
+      <button type="submit" class="btn-delete" v-if="editMode">update</button>
+      <span v-if="isUpdating">Aan het updaten</span>
+
       </form>
     </article>
   </div>
@@ -67,7 +73,7 @@ export default Vue.extend({
     return {
       id: this.$route.params.id,
       responsiveGratitude: {},
-      editMode: true,
+      editMode: false,
       isUpdating: false
     };
   },
@@ -91,11 +97,17 @@ export default Vue.extend({
       });
     },
 
+    cancelUpdate () {
+      this.$store.dispatch('resetSelectedGratitude');
+      this.editMode = false;
+    },
+
     updateGratitude (gratitude: IGratitude) {
       this.isUpdating = true;
 
       this.$store.dispatch('updateSelectedGratitude', {id: this.$route.params.id, payload: gratitude}).then( (response) => {
-        this.isUpdating = false;
+        this.isUpdating = false; // Spinner
+        this.editMode = false; // Edit state, hides cancel / update buttons
       }).catch( (error) => {
         console.error('Error updating gratitide ', error);
       });
@@ -127,6 +139,10 @@ export default Vue.extend({
 
     toggleEditMode () {
       this.editMode = !this.editMode;
+    },
+
+    setFocus () {
+      this.editMode = true;
     }
   },
 

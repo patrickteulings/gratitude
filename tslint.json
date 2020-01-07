@@ -18,6 +18,7 @@
     "trailing-comma": [true, {"multiline": "never", "singleline": "never"}],
     "no-console": false,
     "space-before-function-paren": [true, "always"],
-    "max-line-length": [true, 240]
+    "max-line-length": [true, 240],
+    "curly": [true, "ignore-same-line"]
   }
 }

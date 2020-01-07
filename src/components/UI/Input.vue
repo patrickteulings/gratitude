@@ -1,7 +1,7 @@
 <template>
   <div class="inputWrapper">
     <label :for="inputId" v-if="inputLabel">{{inputLabel}}</label>
-    <input :id="inputId" :placeholder="inputPlaceholder" type="text" :class="inputClassname" :style="getInputColor()" v-bind:value="value" v-on:input="$emit('input', $event.target.value)">
+    <input :id="inputId" :placeholder="inputPlaceholder" type="text" :class="inputClassname" :style="getInputColor()" v-bind:value="value" v-on:input="$emit('input', $event.target.value)" @focus="setFocus()">
   </div>
 </template>
 
@@ -26,6 +26,11 @@ export default Vue.extend({
   methods: {
     getInputColor (): string {
       return (this.inputColor !== '') ? `color: ${this.inputColor}` : `color: #000000;`;
+    },
+
+    setFocus () {
+      console.log('jee from input');
+      this.$emit('focus');
     }
   }
 });
