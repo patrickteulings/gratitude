@@ -1,3 +1,10 @@
+.hero {
+  &--detail {
+    min-height: 40vh;
+  }
+}
+
+
 .btn-delete {
   @extend .button-reset;
   background: color('primary');

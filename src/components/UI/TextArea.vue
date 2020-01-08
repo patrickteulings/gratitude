@@ -14,7 +14,8 @@ export default Vue.extend({
     value: String,
     inputPlaceholder: String,
     inputId: String,
-    inputLabel: String
+    inputLabel: String,
+    resize: Boolean
   },
   data: () => {
     return {
@@ -25,6 +26,11 @@ export default Vue.extend({
   methods: {
     setFocus () {
       this.$emit('focus');
+    },
+
+    // Resizes TextArea (height only) to content on Init and @keyup, not prefferable
+    resizeField () {
+
     }
   }
 });

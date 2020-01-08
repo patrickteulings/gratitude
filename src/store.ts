@@ -117,6 +117,11 @@ export default new Vuex.Store({
       const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
       state.originalGratitude = {...payload};
       return ref.update(payload);
+    },
+    updateSelectedBody: (context: any, payload: string) => {
+      const { commit, state } = context;
+      state.selectedGratitude.body = payload;
+      console.log('hier', state.selectedGratitude);
     }
   },
 

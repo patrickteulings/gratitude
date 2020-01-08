@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="hero hero--detail" :style="{ background: getGratitudeColor(gratitude) }">
+      hero
+    </div>
     <article class="gratitude" v-if="gratitude !== undefined">
       <form id="detailform" @submit.prevent="updateGratitude(gratitude)" class="editableForm " :class="{ isEditing: editMode }">
         <small v-if="gratitude.timeStamp !== undefined" class="gratitude__createdAt">Created on {{ getReadableDate(gratitude.timeStamp.toDate()) }} at {{ getReadableTime(gratitude.timeStamp.toDate()) }}</small>
@@ -27,6 +30,16 @@
           input-classname="body"
           v-on:focus="setFocus"
         />
+        <ContentEditable
+          :content="gratitude.body"
+          input-placeholder="Let color brighten your life"
+          input-classname="color"
+          v-on:focus="setFocus"
+          v-on:edit="editingBody"
+        ></ContentEditable>
+        <div contenteditable="true">
+          {{ gratitude.body }}
+        </div>
         <Input
           v-model="gratitude.color"
           input-id="color"
@@ -61,12 +74,14 @@ import { IGratitude } from '@/interfaces/gratitude';
 // Components
 import Input from '@/components/UI/Input.vue';
 import TextArea from '@/components/UI/Input.vue';
+import ContentEditable from '@/components/UI/ContentEditable.vue';
 
 export default Vue.extend({
   name: 'Detail',
   components: {
     Input,
-    TextArea
+    TextArea,
+    ContentEditable
   },
 
   data () {
@@ -74,12 +89,15 @@ export default Vue.extend({
       id: this.$route.params.id,
       responsiveGratitude: {},
       editMode: false,
-      isUpdating: false
+      isUpdating: false,
+      testG: {}
     };
   },
 
   computed: {
-    gratitude (): string {
+    gratitude (): IGratitude {
+      this.testG = this.$store.getters.selectedGratitude;
+      console.log(this.testG);
       return this.$store.getters.selectedGratitude;
     }
   },
@@ -115,6 +133,13 @@ export default Vue.extend({
       }).catch( (error) => {
         throw new Error(error);
       });
+    },
+
+    editingBody (payload: any) {
+      console.log('editing', payload);
+      this.testG = payload.body;
+      //this.$store.dispatch('updateSelectedBody', payload);
+      console.log('editing', payload.body);
     },
 
     getGratitudeColor (gratitude: any) {
