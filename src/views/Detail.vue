@@ -1,19 +1,15 @@
 <template>
   <div>
     <article class="gratitude" v-if="gratitude !== undefined">
-      <h2 :style="{ color: getGratitudeColor(gratitude) }">{{gratitude.title}}</h2>
-      <small v-if="gratitude.timeStamp !== undefined" class="gratitude__createdAt">Created on {{ getReadableDate(gratitude.timeStamp.toDate()) }} at {{ getReadableTime(gratitude.timeStamp.toDate()) }}</small>
-      <small>{{ getCity(gratitude) }}</small>
-      <p>{{gratitude.body}}</p>
-      <div v-if="gratitude.weather">
-        <div>{{ getWeatherInfo(gratitude).id }}{{ getWeatherInfo(gratitude).description }}</div>
-        <div><i :title="getWeatherInfo(gratitude).description" :class="getWeatherIconOWM(gratitude.weather)"></i></div>
-      </div>
-      <button @click="deleteGratitude" class="btn-reset">delete</button>
-      <button @click="toggleEditMode" class="btn-reset">edit</button>
-    </article>
-    <article class="gratitude" v-if="gratitude !== undefined">
       <form id="detailform" @submit.prevent="updateGratitude(gratitude)" class="editableForm " :class="{ isEditing: editMode }">
+        <small v-if="gratitude.timeStamp !== undefined" class="gratitude__createdAt">Created on {{ getReadableDate(gratitude.timeStamp.toDate()) }} at {{ getReadableTime(gratitude.timeStamp.toDate()) }}</small>
+        <small>{{ getCity(gratitude) }}</small>
+
+        <div v-if="gratitude.weather">
+          <div>{{ getWeatherInfo(gratitude).id }}{{ getWeatherInfo(gratitude).description }}</div>
+          <div><i :title="getWeatherInfo(gratitude).description" :class="getWeatherIconOWM(gratitude.weather)"></i></div>
+        </div>
+
         <Input :style="{ color: getGratitudeColor(gratitude) }"
           v-model="gratitude.title"
           input-id="title"
@@ -23,27 +19,30 @@
           v-on:focus="setFocus"
           :input-color=getGratitudeColor(gratitude)
         />
-          <TextArea
-            v-model="gratitude.body"
-            input-id="body"
-            input-label=""
-            input-placeholder="Want to add some bodytext?"
-            input-classname="body"
-            v-on:focus="setFocus"
-          />
-          <Input
-            v-model="gratitude.color"
-            input-id="color"
-            input-label=""
-            input-placeholder="Let color brighten your life"
-            input-classname="color"
-            v-on:focus="setFocus"
-          />
-      <button type="button" @click.prevent="cancelUpdate()" class="btn-delete" v-if="editMode">cancel</button>
-      <button type="submit" class="btn-delete" v-if="editMode">update</button>
-      <span v-if="isUpdating">Aan het updaten</span>
+        <TextArea
+          v-model="gratitude.body"
+          input-id="body"
+          input-label=""
+          input-placeholder="Want to add some bodytext?"
+          input-classname="body"
+          v-on:focus="setFocus"
+        />
+        <Input
+          v-model="gratitude.color"
+          input-id="color"
+          input-label=""
+          input-placeholder="Let color brighten your life"
+          input-classname="color"
+          v-on:focus="setFocus"
+        />
 
+        <button type="button" @click.prevent="cancelUpdate()" class="btn-delete" v-if="editMode">cancel</button>
+        <button type="submit" class="btn-delete" v-if="editMode">update</button>
+
+        <span v-if="isUpdating">Aan het updaten</span>
       </form>
+
+      <button @click="deleteGratitude" class="btn-reset">delete</button>
     </article>
   </div>
 </template>

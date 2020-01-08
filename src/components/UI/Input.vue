@@ -18,6 +18,7 @@ export default Vue.extend({
     inputColor: String,
     inputClassname: String
   },
+
   data: () => {
     return {
 
@@ -29,7 +30,6 @@ export default Vue.extend({
     },
 
     setFocus () {
-      console.log('jee from input');
       this.$emit('focus');
     }
   }
@@ -37,32 +37,4 @@ export default Vue.extend({
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-
-.inputWrapper {
-  text-align: left;
-  margin-bottom: 1rem;
-}
-
-label {
-  color: #1F1F1C;
-  display: block;
-  margin-bottom: 1rem;
-}
-
-
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
-</style>
+<style scoped lang="scss"></style>
