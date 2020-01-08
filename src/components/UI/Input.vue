@@ -24,6 +24,7 @@ export default Vue.extend({
 
     };
   },
+
   methods: {
     getInputColor (): string {
       return (this.inputColor !== '') ? `color: ${this.inputColor}` : `color: #000000;`;

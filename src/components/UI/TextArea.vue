@@ -1,7 +1,7 @@
 <template>
   <div class="inputWrapper">
     <label :for="inputId">{{inputLabel}}</label>
-    <textarea :id="inputId" :placeholder="inputPlaceholder" rows="10" v-bind:value="value" v-on:input="$emit('input', $event.target.value)"></textarea>
+    <textarea :id="inputId" :placeholder="inputPlaceholder" rows="10" v-bind:value="value" v-on:input="$emit('input', $event.target.value)" @focus="setFocus()"></textarea>
   </div>
 </template>
 
@@ -21,23 +21,14 @@ export default Vue.extend({
 
     };
   },
-  methods: {
 
+  methods: {
+    setFocus () {
+      this.$emit('focus');
+    }
   }
 });
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-
-.inputWrapper {
-  text-align: left;
-  margin-bottom: 1rem;
-}
-
-label {
-  color: #1F1F1C;
-  display: block;
-  margin-bottom: 1rem;
-}
-</style>
+<style scoped lang="scss"></style>
