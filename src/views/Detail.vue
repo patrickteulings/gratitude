@@ -66,16 +66,11 @@ import { readableDate, readableTime } from '@/helpers/dateHelper';
 
 // Interfaces
 import { IGratitude } from '@/interfaces/gratitude';
+import { IWeather } from '@/interfaces/weather';
 
 // Components
 import Input from '@/components/UI/Input.vue';
 import TextArea from '@/components/UI/TextArea.vue';
-
-interface IWeather {
-  description: string;
-  id: string;
-  temp: string;
-}
 
 export default Vue.extend({
   name: 'Detail',
