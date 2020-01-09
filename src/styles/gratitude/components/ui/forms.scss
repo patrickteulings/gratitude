@@ -1,3 +1,14 @@
+.inputWrapper {
+  text-align: left;
+  margin-bottom: 1rem;
+}
+
+label {
+  color: #1F1F1C;
+  display: block;
+  margin-bottom: 1rem;
+}
+
 input[type="text"] {
   border: 1px solid #1F1F1C;
   border-radius: 2px;

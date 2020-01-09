@@ -92,7 +92,7 @@ $basefontsize: 18px;
   sizes to EM
 ---------------------------------------- */
 
-@mixin font-size($px) {
+  @mixin font-size($px) {
   font-size: #{$px / $basefontsize}em;
   font-size: $px;
 }
