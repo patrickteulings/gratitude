@@ -1,6 +1,12 @@
 .hero {
   &--detail {
     min-height: 40vh;
+    @include flex-center('both');
+
+    &__weathericon {
+      color: color('white');
+      font-size: 96px;
+    }
   }
 }
 

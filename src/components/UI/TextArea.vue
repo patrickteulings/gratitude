@@ -38,7 +38,7 @@ export default Vue.extend({
         // (text legibility (cut-off) in the last line)
         const offset = el.offsetHeight - el.clientHeight;
 
-        // el.style.height = 'auto';
+        el.style.height = 'auto';
         el.style.height = el.scrollHeight + offset + 'px';
       }
     }
@@ -54,5 +54,6 @@ export default Vue.extend({
 <style scoped lang="scss">
 textarea {
   box-sizing: border-box;
+  resize: none;
 }
 </style>

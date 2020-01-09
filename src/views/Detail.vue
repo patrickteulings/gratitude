@@ -2,6 +2,7 @@
   <div>
     <div class="hero hero--detail" :style="{ background: getGratitudeColor(gratitude) }">
       hero
+      <div><i :title="getWeatherInfo(gratitude).description" class="hero--detail__weathericon" :class="getWeatherIconOWM(gratitude.weather)" style="color: white;"></i></div>
     </div>
     <article class="gratitude" v-if="gratitude !== undefined">
       <form id="detailform" @submit.prevent="updateGratitude(gratitude)" class="editableForm " :class="{ isEditing: editMode }">
