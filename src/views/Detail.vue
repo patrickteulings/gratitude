@@ -13,40 +13,32 @@
           <div><i :title="getWeatherInfo(gratitude).description" :class="getWeatherIconOWM(gratitude.weather)"></i></div>
         </div>
 
-        <Input :style="{ color: getGratitudeColor(gratitude) }"
-          v-model="gratitude.title"
-          input-id="title"
-          input-label=""
-          input-placeholder="A title could be really usefull you know..."
-          input-classname="title"
-          v-on:focus="setFocus"
-          :input-color=getGratitudeColor(gratitude)
+        <Input
+          v-model = "gratitude.title"
+          input-id = "title"
+          input-label = ""
+          input-placeholder = "A title could be really usefull you know..."
+          input-classname = "title"
+          v-on:focus = "setFocus"
+          :input-color = getGratitudeColor(gratitude)
         />
         <TextArea
           v-model="gratitude.body"
-          input-id="body"
-          input-label=""
-          input-placeholder="Want to add some bodytext?"
-          input-classname="body"
-          v-on:focus="setFocus"
+          input-id = "body"
+          input-label = ""
+          input-placeholder = "Today I'm grateful for"
+          input-resize = "true"
+          v-on:focus = "setFocus"
+          :input-color = getGratitudeColor(gratitude)
+
         />
-        <ContentEditable
-          :content="gratitude.body"
-          input-placeholder="Let color brighten your life"
-          input-classname="color"
-          v-on:focus="setFocus"
-          v-on:edit="editingBody"
-        ></ContentEditable>
-        <div contenteditable="true">
-          {{ gratitude.body }}
-        </div>
         <Input
-          v-model="gratitude.color"
-          input-id="color"
-          input-label=""
-          input-placeholder="Let color brighten your life"
-          input-classname="color"
-          v-on:focus="setFocus"
+          v-model = "gratitude.color"
+          input-id = "color"
+          input-label = ""
+          input-placeholder = "Let color brighten your life"
+          input-classname = "color"
+          v-on:focus = "setFocus"
         />
 
         <button type="button" @click.prevent="cancelUpdate()" class="btn-delete" v-if="editMode">cancel</button>
@@ -73,15 +65,13 @@ import { IGratitude } from '@/interfaces/gratitude';
 
 // Components
 import Input from '@/components/UI/Input.vue';
-import TextArea from '@/components/UI/Input.vue';
-import ContentEditable from '@/components/UI/ContentEditable.vue';
+import TextArea from '@/components/UI/TextArea.vue';
 
 export default Vue.extend({
   name: 'Detail',
   components: {
     Input,
-    TextArea,
-    ContentEditable
+    TextArea
   },
 
   data () {
@@ -138,7 +128,7 @@ export default Vue.extend({
     editingBody (payload: any) {
       console.log('editing', payload);
       this.testG = payload.body;
-      //this.$store.dispatch('updateSelectedBody', payload);
+      this.$store.dispatch('updateSelectedBody', payload);
       console.log('editing', payload.body);
     },
 
