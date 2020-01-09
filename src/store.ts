@@ -25,7 +25,8 @@ export default new Vuex.Store({
     user: {} as object,
     currentWeather: {} as object,
     currentCity: {} as object,
-    selectedGratitude: {} as IGratitude
+    selectedGratitude: {} as IGratitude,
+    originalGratitude: {} as IGratitude // Use this as a cache for reverting edits on a Gratitude
   },
 
   mutations: {
@@ -49,7 +50,11 @@ export default new Vuex.Store({
 
     SET_SELECTED_GRATITUDE: (state: any, gratitude: IGratitude) => {
       state.selectedGratitude = gratitude;
-      console.log('hoezee', gratitude);
+      state.originalGratitude = {...gratitude};
+    },
+
+    RESET_SELECTED_GRATITUDE: (state: any) => {
+      state.selectedGratitude = {...state.originalGratitude};
     },
 
     UPDATE_SELECTED_GRATITUDE: (state: any) => {
@@ -60,7 +65,7 @@ export default new Vuex.Store({
   actions: {
     bindGratitudes: firestoreAction(({ bindFirestoreRef }, ref) => {
       const { reference, userID } = ref;
-      console.log('hier', reference, userID);
+
       // return the promise returned by `bindFirestoreRef`
       return bindFirestoreRef('gratitudes', db.collection('users').doc('1RwEzkhpPEYGJxBCNb9enEg6CZr1').collection('gratitudes'));
     }),
@@ -91,6 +96,11 @@ export default new Vuex.Store({
       });
     },
 
+    resetSelectedGratitude: (context: any) => {
+      const {commit, state} = context;
+      commit('RESET_SELECTED_GRATITUDE');
+    },
+
     deleteGratitude: (context: any, id: string) => {
       const { commit, state } = context;
       const user = state.user as User;
@@ -105,8 +115,13 @@ export default new Vuex.Store({
       const {id, payload} = gratitudeObject;
       const user = state.user as User;
       const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
-      console.log(payload);
+      state.originalGratitude = {...payload};
       return ref.update(payload);
+    },
+    updateSelectedBody: (context: any, payload: string) => {
+      const { commit, state } = context;
+      state.selectedGratitude.body = payload;
+      console.log('hier', state.selectedGratitude);
     }
   },
 
