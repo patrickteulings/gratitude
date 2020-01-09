@@ -74,24 +74,26 @@ export default Vue.extend({
   },
   methods: {
     addGratitude () {
-      console.log(this.$store.getters.currentWeather);
+      this.isSavingGratitude = true; // Loading state
+
       const title = this.title.trim();
       const body = this.body.trim();
       const color = this.color.trim().length !== 0 ? this.color.trim() : '#000000';
+
       const timeStamp: Date = new Date();
       const dayStamp: Date = new Date();
+
       const weather: object = {
         id: this.$store.getters.currentWeather.weather[0].id,
         description: this.$store.getters.currentWeather.weather[0].description,
         temp: this.$store.getters.currentWeather.main.temp
       };
+
       const location: object = {
         city: this.$store.getters.currentCity
       };
 
       dayStamp.setHours(0, 0, 0); // Set to the date at 00:00:00 for easier comparison / filtering in FE
-
-      this.isSavingGratitude = true;
 
       db.collection('users').doc(this.$store.getters.user.uid).collection('gratitudes').add({
         title,
@@ -102,7 +104,7 @@ export default Vue.extend({
         timeStamp,
         dayStamp
       }).then ( () => {
-        this.isSavingGratitude = false;
+        this.isSavingGratitude = false; // LOADING STATE
       })
       .catch( ( error ) => {
         console.error('Error writing document: ', error);
