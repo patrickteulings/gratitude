@@ -74,6 +74,7 @@ export default Vue.extend({
   },
   methods: {
     addGratitude () {
+      console.log(this.$store.getters.currentWeather);
       const title = this.title.trim();
       const body = this.body.trim();
       const color = this.color.trim().length !== 0 ? this.color.trim() : '#000000';
@@ -81,7 +82,8 @@ export default Vue.extend({
       const dayStamp: Date = new Date();
       const weather: object = {
         id: this.$store.getters.currentWeather.weather[0].id,
-        description: this.$store.getters.currentWeather.weather[0].description
+        description: this.$store.getters.currentWeather.weather[0].description,
+        temp: this.$store.getters.currentWeather.main.temp
       };
       const location: object = {
         city: this.$store.getters.currentCity

@@ -1,8 +1,11 @@
 <template>
   <div>
     <div class="hero hero--detail" :style="{ background: getGratitudeColor(gratitude) }">
-      hero
-      <div><i :title="getWeatherInfo(gratitude).description" class="hero--detail__weathericon" :class="getWeatherIconOWM(gratitude.weather)" style="color: white;"></i></div>
+      <div class="hero hero--detail__inner" v-if="gratitude.weather">
+        <div><i :title="getWeatherInfo(gratitude).description" class="hero--detail__weathericon" :class="getWeatherIconOWM(gratitude.weather)" style="color: white;"></i></div>
+        <div style="color: white;">{{ getWeatherInfo(gratitude).temp }}</div>
+        <div style="color: white;">{{ getWeatherDescription(gratitude) }}</div>
+      </div>
     </div>
     <article class="gratitude" v-if="gratitude !== undefined">
       <form id="detailform" @submit.prevent="updateGratitude(gratitude)" class="editableForm " :class="{ isEditing: editMode }">
@@ -68,6 +71,12 @@ import { IGratitude } from '@/interfaces/gratitude';
 import Input from '@/components/UI/Input.vue';
 import TextArea from '@/components/UI/TextArea.vue';
 
+interface IWeather {
+  description: string;
+  id: string;
+  temp: string;
+}
+
 export default Vue.extend({
   name: 'Detail',
   components: {
@@ -126,13 +135,6 @@ export default Vue.extend({
       });
     },
 
-    editingBody (payload: any) {
-      console.log('editing', payload);
-      this.testG = payload.body;
-      this.$store.dispatch('updateSelectedBody', payload);
-      console.log('editing', payload.body);
-    },
-
     getGratitudeColor (gratitude: any) {
       return gratitude.color !== undefined ? gratitude.color : '#000000';
     },
@@ -147,8 +149,23 @@ export default Vue.extend({
     },
 
     // Weather and city functions
-    getWeatherInfo (gratitude: IGratitude ) {
-      return gratitude.weather;
+    getWeatherInfo (gratitude: IGratitude ): IWeather {
+      return gratitude.weather as IWeather;
+    },
+
+    getWeatherDescription (gratitude: IGratitude ): string {
+      const temp = parseInt(this.getWeatherInfo(gratitude).temp, 10);
+      const noTempDescription = 'No temperature info available';
+      let body = '';
+
+      if (temp > 25)  body = `Icecream time`;
+      if (temp < 25)  body = `Ray Ban weather`;
+      if (temp < 20)  body = `Really nice Outside`;
+      if (temp < 15)  body = `Kinda Ok Outside`;
+      if (temp < 10)  body = `Like, Sweater cold`;
+      if (temp < 5)  body = `So Cold You'd want UGGS`;
+      if (temp < 0)  body = `Friggin Cold`;
+      return (!isNaN(temp)) ? `${body} ${temp}` : `${noTempDescription}`;
     },
 
     getCity (gratitude: any) {
