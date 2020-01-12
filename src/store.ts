@@ -26,7 +26,8 @@ export default new Vuex.Store({
     currentWeather: {} as object,
     currentCity: {} as object,
     selectedGratitude: {} as IGratitude,
-    originalGratitude: {} as IGratitude // Use this as a cache for reverting edits on a Gratitude
+    originalGratitude: {} as IGratitude, // Use this as a cache for reverting edits on a Gratitude
+    menuState: false
   },
 
   mutations: {
@@ -59,6 +60,10 @@ export default new Vuex.Store({
 
     UPDATE_SELECTED_GRATITUDE: (state: any) => {
       console.log('updated');
+    },
+
+    SET_MENU_STATE: (state: any, payload: boolean) => {
+      state.menuState = payload;
     }
   },
 
@@ -118,10 +123,15 @@ export default new Vuex.Store({
       state.originalGratitude = {...payload};
       return ref.update(payload);
     },
+
     updateSelectedBody: (context: any, payload: string) => {
       const { commit, state } = context;
       state.selectedGratitude.body = payload;
-      console.log('hier', state.selectedGratitude);
+    },
+
+    setMenuState: (context: any, payload: boolean) => {
+      const { commit, state } = context;
+      commit('SET_MENU_STATE', payload);
     }
   },
 
@@ -148,6 +158,10 @@ export default new Vuex.Store({
 
     selectedGratitude: (state: any) => {
       return state.selectedGratitude;
+    },
+
+    menuState: (state: any) => {
+      return state.menuState;
     }
   }
 });

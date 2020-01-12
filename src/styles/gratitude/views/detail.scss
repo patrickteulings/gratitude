@@ -32,6 +32,10 @@
     font-family: $handwriting-font-face;
   }
 
+  &__meta {
+    margin-bottom: 2rem;
+  }
+
   input[type="text"], textarea {
     border: 0;
     @include innerspace(0);

@@ -1,0 +1,56 @@
+.sidebarmenu {
+  @include position(fixed, 0, 0);
+  @include transition();
+  @include innerspace(1rem);
+  @include size(100vw, 100vh);
+  background: color('white');
+  transform: translateX(-140%);
+
+  z-index: 101;
+
+  &.isOpen {
+    transform: translateX(0%);
+  }
+
+  .navigation__trigger-wrapper {
+    @include position(absolute, auto, 1.3rem, 0.8rem, auto);
+
+    .navigation__trigger {
+      span {
+        background: color('white');
+      }
+    }
+  }
+
+  &__topbar {
+    position: relative;
+    background: lighten(#78BFBF, 5%);
+    height: 3rem;
+    border-bottom: 1px solid color('white');
+  }
+
+  &__user {
+    @include position();
+    @include innerspace(1rem);
+    background: color('primary');
+    height: 8rem;
+
+    .title {
+      text-align: center;
+      color: color('white');
+      font-family: $handwriting-font-face;
+    }
+  }
+
+  &__user-image {
+    @include size(4rem);
+    @include position(absolute, 50%, auto, auto, -2rem);
+
+    img {
+      border: 2px solid color('white');
+      border-radius: 200px;
+      max-width: 100%;
+      margin-left: -50%;
+    }
+  }
+}
