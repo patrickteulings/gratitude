@@ -38,6 +38,7 @@
           :input-color = getGratitudeColor(gratitude)
 
         />
+        <div class="cmon" contenteditable="true" @input="updateTest" v-html="gratitude.body"></div>
         <Input
           v-model = "gratitude.color"
           input-id = "color"
@@ -46,6 +47,11 @@
           input-classname = "color"
           v-on:focus = "setFocus"
         />
+
+        <div contenteditable="true">Start typing</div>
+        <div class="cmon" v-html="test"></div>
+        <h1>PATJE</h1>
+        {{testG.body}}
 
         <button type="button" @click.prevent="cancelUpdate()" class="btn-delete" v-if="editMode">cancel</button>
         <button type="submit" class="btn-delete" v-if="editMode">update</button>
@@ -87,19 +93,28 @@ export default Vue.extend({
       responsiveGratitude: {},
       editMode: false,
       isUpdating: false,
-      testG: {}
+      testG: {} as IGratitude,
+      test: 'Mon test'
     };
   },
 
   computed: {
     gratitude (): IGratitude {
       this.testG = this.$store.getters.selectedGratitude;
-      console.log(this.testG);
       return this.$store.getters.selectedGratitude;
+    },
+    testHtml (): string  {
+      return this.test;
     }
   },
 
   methods: {
+    updateTest (e: { target: HTMLInputElement; }) {
+      this.testG.body = e.target.innerHTML;
+      console.log('hoi', e.target);
+      console.log('hoi', e.target.innerHTML);
+      this.test = e.target.innerHTML;
+    },
     // Initial method to get specific Gratitude from database
     getData () {
       this.$store.dispatch('setSelectedGratitude', this.$route.params.id);
@@ -123,7 +138,7 @@ export default Vue.extend({
     // Update item and save to database
     updateGratitude (gratitude: IGratitude) {
       this.isUpdating = true;
-
+      gratitude.body = this.test;
       this.$store.dispatch('updateSelectedGratitude', {id: this.$route.params.id, payload: gratitude}).then( (response) => {
         this.isUpdating = false; // Spinner
         this.editMode = false; // Edit state, hides cancel / update buttons
