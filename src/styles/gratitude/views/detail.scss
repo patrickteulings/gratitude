@@ -2,10 +2,18 @@
   &--detail {
     min-height: 40vh;
     @include flex-center('both');
+    text-align: center;
 
     &__weathericon {
       color: color('white');
       font-size: 96px;
+      opacity: 0.4;
+    }
+
+    &__weather-description {
+      margin-top: 24px;
+      font-family: $handwriting-font-face;
+      @include font-size(24px);
     }
   }
 }
@@ -19,6 +27,11 @@
 }
 
 .editableForm {
+
+  .createdAt {
+    font-family: $handwriting-font-face;
+  }
+
   input[type="text"], textarea {
     border: 0;
     @include innerspace(0);
@@ -38,6 +51,7 @@
       color: color('black');
       font-family: $primary-font-face;
     }
+
   }
 
   &.isEditing {

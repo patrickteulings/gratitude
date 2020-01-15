@@ -3,14 +3,13 @@
     <div class="hero hero--detail" :style="{ background: getGratitudeColor(gratitude) }">
       <div class="hero hero--detail__inner" v-if="gratitude.weather">
         <div><i :title="getWeatherInfo(gratitude).description" class="hero--detail__weathericon" :class="getWeatherIconOWM(gratitude.weather)" style="color: white;"></i></div>
-        <div style="color: white;">{{ getWeatherInfo(gratitude).temp }}</div>
-        <div style="color: white;">{{ getWeatherDescription(gratitude) }}</div>
+        <div class="hero--detail__weather-description">
+          <div style="color: white;">It was {{ getWeatherDescription(gratitude) }}</div>
+        </div>
       </div>
     </div>
     <article class="gratitude" v-if="gratitude !== undefined">
       <form id="detailform" @submit.prevent="updateGratitude(gratitude)" class="editableForm " :class="{ isEditing: editMode }">
-        <small v-if="gratitude.timeStamp !== undefined" class="gratitude__createdAt">Created on {{ getReadableDate(gratitude.timeStamp.toDate()) }} at {{ getReadableTime(gratitude.timeStamp.toDate()) }}</small>
-        <small>{{ getCity(gratitude) }}</small>
 
         <div v-if="gratitude.weather">
           <div>{{ getWeatherInfo(gratitude).id }}{{ getWeatherInfo(gratitude).description }}</div>
@@ -26,6 +25,9 @@
           v-on:focus = "setFocus"
           :input-color = getGratitudeColor(gratitude)
         />
+        <div class="editableForm__meta">
+          <small v-if="gratitude.timeStamp !== undefined" class="createdAt">{{ getCity(gratitude) }}, {{ getReadableDate(gratitude.timeStamp.toDate()) }} at {{ getReadableTime(gratitude.timeStamp.toDate()) }}</small>
+        </div>
         <TextArea
           v-model="gratitude.body"
           input-id = "body"
