@@ -9,21 +9,15 @@
       </div>
     </div>
     <article class="gratitude" v-if="this.myGratitude !== undefined">
-      <div v-if="this.myGratitude.weather">
-        <div>{{ getWeatherInfo(this.myGratitude).id }}{{ getWeatherInfo(this.myGratitude).description }}</div>
-        <div><i :title="getWeatherInfo(this.myGratitude).description" :class="getWeatherIconOWM(this.myGratitude.weather)"></i></div>
-      </div>
-
-      <div class="editableForm__meta">
-        <small v-if="this.myGratitude.timeStamp !== undefined" class="createdAt">{{ getCity(this.myGratitude) }}, {{ getReadableDate(this.myGratitude.timeStamp.toDate()) }} at {{ getReadableTime(this.myGratitude.timeStamp.toDate()) }}</small>
-      </div>
       <div class="gratitudeWrapper">
         <div class="editableGratitude" :class="{isActive: this.editMode}">
           <content-editable class="detail__title" @onUpdate="updateTitle" :content="originalGratitude.title" :color="myGratitude.color"></content-editable>
-          <content-editable class="detail__body" @onUpdate="updateBody" :content="originalGratitude.body" :color="myGratitude.color"></content-editable>
+          <small v-if="this.myGratitude.timeStamp !== undefined" class="detail__meta">{{ getCity(this.myGratitude) }}, {{ getReadableDate(this.myGratitude.timeStamp.toDate()) }} at {{ getReadableTime(this.myGratitude.timeStamp.toDate()) }}</small>
+          <content-editable class="detail__body" @onUpdate="updateBody" :content="originalGratitude.body"></content-editable>
         </div>
         <div class="staticGratitude" :class="{isActive: !this.editMode}">
           <div ref="title" v-html="getOriginalGratitude.title" @mousedown="enterEditMode" class="detail__title" :style="{color: getGratitudeColor()}"></div>
+          <small v-if="this.myGratitude.timeStamp !== undefined" class="detail__meta">Created on {{ getReadableDate(this.myGratitude.timeStamp.toDate()) }} at {{ getReadableTime(this.myGratitude.timeStamp.toDate()) }} in {{ getCity(this.myGratitude) }}</small>
           <div ref="body" v-html="getOriginalGratitude.body" :focus="enterEditMode" class="detail__body"></div>
         </div>
       </div>
@@ -157,6 +151,7 @@ export default Vue.extend({
 
     getWeatherDescription (gratitude: IGratitude ) {
       const temp = parseInt(this.getWeatherInfo(this.myGratitude).temp, 10);
+      const desc = this.getWeatherInfo(this.myGratitude).description;
       const noTempDescription = 'No temperature info available';
       let body = '';
 
@@ -167,7 +162,7 @@ export default Vue.extend({
       if (temp < 10)  body = `Like, Sweater cold`;
       if (temp < 5)  body = `So Cold You'd want UGGS`;
       if (temp < 0)  body = `Friggin Cold`;
-      return (!isNaN(temp)) ? `${body} ${temp}` : `${noTempDescription}`;
+      return (!isNaN(temp)) ? `${temp}°, ${body}, ${desc} ` : `${noTempDescription}`;
     },
 
     getCity (gratitude: any) {

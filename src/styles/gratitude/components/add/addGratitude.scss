@@ -10,13 +10,25 @@
   }
 
   &__button {
-    background: color('primary');
+    @include position(fixed, 50%, auto, auto, 50px );
+    margin-left: -20px;
+    z-index: 200;
+    background: color('action');
     color: color('white');
     @include size(40px);
     @include card-shadow(3);
     @include font-size(12px);
     @include flex-center('both');
+    @include font-size(30px);
+    @include transition();
+    font-weight: 600;
+    cursor: pointer;
     line-height: 0;
     border-radius: 50%;
+
+    &:hover {
+      @include card-shadow(2);
+      background: lighten(color('action'), 5%);
+    }
   }
 }

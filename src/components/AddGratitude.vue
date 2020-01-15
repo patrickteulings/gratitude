@@ -3,7 +3,7 @@
 
 <template>
   <div>
-    <div role="button" class="add-gratitude__button" @click="toggleView">ADD</div>
+    <div role="button" class="add-gratitude__button" @click="toggleView">+</div>
     <div class="add-gratitude" :class="{'is-open': isViewOpen}">
       <div class="add-gratitude__inner">
         <div class="add-gratitude__form">
