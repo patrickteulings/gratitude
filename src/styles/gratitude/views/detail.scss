@@ -1,10 +1,11 @@
 .hero {
   &--detail {
-    min-height: 40vh;
+    min-height: 50vh;
     @include flex-center('both');
     text-align: center;
 
     &__weathericon {
+      padding-top: 32px;
       color: color('white');
       font-size: 96px;
       opacity: 0.4;
@@ -94,12 +95,37 @@
 .detail {
   &__title {
     @extend h2;
+    @include transition();
+    line-height: 64px;
+    margin-bottom: 40px;
+    word-break: break-all;
+
+
+    &:focus {
+      outline: 0px;
+      opacity: 0.6;
+    }
   }
 
   &__body {
     @include font-size(16px);
+    line-height: 26px;
     color: color('black');
     font-family: $primary-font-face;
+    @include transition();
+
+    &:focus {
+      outline: 0px;
+      opacity: 0.8;
+    }
+  }
+
+  &__meta {
+    display: block;
+    font-family: $handwriting-font-face;
+    font-size: 14px;
+    text-transform: uppercase;
+    @include outerspace(auto auto 32px auto);
   }
 }
 
