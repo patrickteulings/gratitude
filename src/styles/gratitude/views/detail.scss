@@ -91,4 +91,29 @@
   }
 }
 
+.detail {
+  &__title {
+    @extend h2;
+  }
+
+  &__body {
+    @include font-size(16px);
+    color: color('black');
+    font-family: $primary-font-face;
+  }
+}
+
+.gratitudeWrapper {
+  @include position();
+
+  .editableGratitude, .staticGratitude {
+    display: none;
+
+    &.isActive {
+      display: block;
+    }
+  }
+}
+
+
 

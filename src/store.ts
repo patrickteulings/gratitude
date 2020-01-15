@@ -96,9 +96,10 @@ export default new Vuex.Store({
       const user = state.user as User;
       const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
 
-      ref.get().then( (res) => {
-        commit('SET_SELECTED_GRATITUDE', res.data());
-      });
+      return ref.get();
+      // ref.get().then( (res) => {
+      //   commit('SET_SELECTED_GRATITUDE', res.data());
+      // });
     },
 
     resetSelectedGratitude: (context: any) => {
@@ -120,6 +121,7 @@ export default new Vuex.Store({
       const {id, payload} = gratitudeObject;
       const user = state.user as User;
       const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
+      state.selectedGratitude = {...payload};
       state.originalGratitude = {...payload};
       return ref.update(payload);
     },
