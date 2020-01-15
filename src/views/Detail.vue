@@ -1,58 +1,38 @@
 <template>
   <div>
     <div class="hero hero--detail" :style="{ background: getGratitudeColor(gratitude) }">
-      <div class="hero hero--detail__inner" v-if="gratitude.weather">
-        <div><i :title="getWeatherInfo(gratitude).description" class="hero--detail__weathericon" :class="getWeatherIconOWM(gratitude.weather)" style="color: white;"></i></div>
+      <div class="hero hero--detail__inner" v-if="this.myGratitude.weather">
+        <div><i :title="getWeatherInfo(this.myGratitude).description" class="hero--detail__weathericon" :class="getWeatherIconOWM(this.myGratitude.weather)" style="color: white;"></i></div>
         <div class="hero--detail__weather-description">
-          <div style="color: white;">It was {{ getWeatherDescription(gratitude) }}</div>
+          <div style="color: white;">It was {{ getWeatherDescription(this.myGratitude) }}</div>
         </div>
       </div>
     </div>
-    <article class="gratitude" v-if="gratitude !== undefined">
-      <form id="detailform" @submit.prevent="updateGratitude(gratitude)" class="editableForm " :class="{ isEditing: editMode }">
+    <article class="gratitude" v-if="this.myGratitude !== undefined">
+      <div v-if="this.myGratitude.weather">
+        <div>{{ getWeatherInfo(this.myGratitude).id }}{{ getWeatherInfo(this.myGratitude).description }}</div>
+        <div><i :title="getWeatherInfo(this.myGratitude).description" :class="getWeatherIconOWM(this.myGratitude.weather)"></i></div>
+      </div>
 
-        <div v-if="gratitude.weather">
-          <div>{{ getWeatherInfo(gratitude).id }}{{ getWeatherInfo(gratitude).description }}</div>
-          <div><i :title="getWeatherInfo(gratitude).description" :class="getWeatherIconOWM(gratitude.weather)"></i></div>
+      <div class="editableForm__meta">
+        <small v-if="this.myGratitude.timeStamp !== undefined" class="createdAt">{{ getCity(this.myGratitude) }}, {{ getReadableDate(this.myGratitude.timeStamp.toDate()) }} at {{ getReadableTime(this.myGratitude.timeStamp.toDate()) }}</small>
+      </div>
+      <div class="gratitudeWrapper">
+        <div class="editableGratitude" :class="{isActive: this.editMode}">
+          <content-editable class="detail__title" @onUpdate="updateTitle" :content="originalGratitude.title" :color="myGratitude.color"></content-editable>
+          <content-editable class="detail__body" @onUpdate="updateBody" :content="originalGratitude.body" :color="myGratitude.color"></content-editable>
         </div>
-
-        <Input
-          v-model = "gratitude.title"
-          input-id = "title"
-          input-label = ""
-          input-placeholder = "A title could be really usefull you know..."
-          input-classname = "title"
-          v-on:focus = "setFocus"
-          :input-color = getGratitudeColor(gratitude)
-        />
-        <div class="editableForm__meta">
-          <small v-if="gratitude.timeStamp !== undefined" class="createdAt">{{ getCity(gratitude) }}, {{ getReadableDate(gratitude.timeStamp.toDate()) }} at {{ getReadableTime(gratitude.timeStamp.toDate()) }}</small>
+        <div class="staticGratitude" :class="{isActive: !this.editMode}">
+          <div ref="title" v-html="getOriginalGratitude.title" @mousedown="enterEditMode" class="detail__title" :style="{color: getGratitudeColor()}"></div>
+          <div ref="body" v-html="getOriginalGratitude.body" :focus="enterEditMode" class="detail__body"></div>
         </div>
-        <TextArea
-          v-model="gratitude.body"
-          input-id = "body"
-          input-label = ""
-          input-placeholder = "Today I'm grateful for"
-          input-resize = "true"
-          v-on:focus = "setFocus"
-          :input-color = getGratitudeColor(gratitude)
+      </div>
+      <button type="button" @click.prevent="cancelUpdate()" class="btn-delete" v-if="editMode">cancel</button>
+      <button type="button" @click="updateGratitude()" class="btn-delete" v-if="editMode">update</button>
 
-        />
-        <Input
-          v-model = "gratitude.color"
-          input-id = "color"
-          input-label = ""
-          input-placeholder = "Let color brighten your life"
-          input-classname = "color"
-          v-on:focus = "setFocus"
-        />
+      <span v-if="isUpdating">Aan het updaten</span>
 
-        <button type="button" @click.prevent="cancelUpdate()" class="btn-delete" v-if="editMode">cancel</button>
-        <button type="submit" class="btn-delete" v-if="editMode">update</button>
-
-        <span v-if="isUpdating">Aan het updaten</span>
-      </form>
-
+      <button @click="enterEditMode" class="btn-reset">edit</button>
       <button @click="deleteGratitude" class="btn-reset">delete</button>
     </article>
   </div>
@@ -71,42 +51,62 @@ import { IGratitude } from '@/interfaces/gratitude';
 import { IWeather } from '@/interfaces/weather';
 
 // Components
-import Input from '@/components/UI/Input.vue';
-import TextArea from '@/components/UI/TextArea.vue';
+import ContentEditable from '@/components/UI/ContentEditable.vue';
 
 export default Vue.extend({
   name: 'Detail',
   components: {
-    Input,
-    TextArea
+    ContentEditable
   },
 
   data () {
     return {
       id: this.$route.params.id,
-      responsiveGratitude: {},
       editMode: false,
       isUpdating: false,
-      testG: {}
+      myGratitude: this.$store.getters.selectedGratitude as IGratitude,
+      originalGratitude: this.$store.getters.selectedGratitude as IGratitude,
+      newGratitude: this.$store.getters.selectedGratitude as IGratitude
     };
   },
 
   computed: {
-    gratitude (): IGratitude {
-      this.testG = this.$store.getters.selectedGratitude;
-      console.log(this.testG);
-      return this.$store.getters.selectedGratitude;
+    gratitude (): void {
+      this.myGratitude = this.$store.getters.selectedGratitude;
+      // this.originalGratitude = this.$store.getters.selectedGratitude;
+      // return this.$store.getters.selectedGratitude;
+    },
+
+    getOriginalGratitude (): IGratitude {
+      return this.originalGratitude;
     }
   },
 
   methods: {
+    updateBody (body: any): void {
+      this.newGratitude.body = body;
+    },
+
+    updateTitle (title: string): void {
+      this.newGratitude.title = title;
+    },
+
+    updateColor (e: { target: HTMLInputElement; }): void {
+      console.log(e);
+    },
+
     // Initial method to get specific Gratitude from database
-    getData () {
-      this.$store.dispatch('setSelectedGratitude', this.$route.params.id);
+    getData (): void {
+      this.$store.dispatch('setSelectedGratitude', this.$route.params.id).then((response) => {
+        this.newGratitude = response.data();
+        this.originalGratitude = response.data();
+        this.myGratitude = response.data();
+        console.log(response.data());
+      });
     },
 
     // Well, delete gratitude
-    deleteGratitude () {
+    deleteGratitude (): void {
       this.$store.dispatch('deleteGratitude', this.$route.params.id).then( (res) => {
         this.$router.push({path: '/home'});
       }).catch( (error) => {
@@ -114,26 +114,31 @@ export default Vue.extend({
       });
     },
 
+    enterEditMode () {
+      this.editMode = true;
+    },
+
     // Cancels update/edit and reverts to last saved version
     cancelUpdate () {
-      this.$store.dispatch('resetSelectedGratitude');
       this.editMode = false;
     },
 
     // Update item and save to database
-    updateGratitude (gratitude: IGratitude) {
+    updateGratitude () {
       this.isUpdating = true;
-
-      this.$store.dispatch('updateSelectedGratitude', {id: this.$route.params.id, payload: gratitude}).then( (response) => {
+      this.$store.dispatch('updateSelectedGratitude', {id: this.$route.params.id, payload: this.newGratitude}).then( (response) => {
         this.isUpdating = false; // Spinner
+        this.originalGratitude = {...this.$store.getters.selectedGratitude};
+        this.myGratitude = {...this.$store.getters.selectedGratitude};
+        this.newGratitude = {...this.$store.getters.selectedGratitude};
         this.editMode = false; // Edit state, hides cancel / update buttons
       }).catch( (error) => {
         throw new Error(error);
       });
     },
 
-    getGratitudeColor (gratitude: any) {
-      return gratitude.color !== undefined ? gratitude.color : '#000000';
+    getGratitudeColor () {
+      return this.myGratitude.color !== undefined ? this.myGratitude.color : '#000000';
     },
 
     // Date / Time helpers to convert timestamp
@@ -150,8 +155,8 @@ export default Vue.extend({
       return gratitude.weather as IWeather;
     },
 
-    getWeatherDescription (gratitude: IGratitude ): string {
-      const temp = parseInt(this.getWeatherInfo(gratitude).temp, 10);
+    getWeatherDescription (gratitude: IGratitude ) {
+      const temp = parseInt(this.getWeatherInfo(this.myGratitude).temp, 10);
       const noTempDescription = 'No temperature info available';
       let body = '';
 

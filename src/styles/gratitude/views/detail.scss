@@ -26,10 +26,25 @@
   border-radius: 2px;
 }
 
+.cmon {
+  b {
+    font-weight: 700;
+  }
+
+  i {
+    font-style: italic;
+    color: #ff9900;
+  }
+}
+
 .editableForm {
 
   .createdAt {
     font-family: $handwriting-font-face;
+  }
+
+  &__meta {
+    margin-bottom: 2rem;
   }
 
   input[type="text"], textarea {
@@ -75,5 +90,30 @@
     }
   }
 }
+
+.detail {
+  &__title {
+    @extend h2;
+  }
+
+  &__body {
+    @include font-size(16px);
+    color: color('black');
+    font-family: $primary-font-face;
+  }
+}
+
+.gratitudeWrapper {
+  @include position();
+
+  .editableGratitude, .staticGratitude {
+    display: none;
+
+    &.isActive {
+      display: block;
+    }
+  }
+}
+
 
 
