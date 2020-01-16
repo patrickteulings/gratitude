@@ -8,10 +8,16 @@
 </template>
 
 <script lang="ts">
+// Core
 import Vue from 'vue';
-import GratitudeListGrouped from '@/components/GratitudeListGrouped.vue'; // @ is an alias to /src
+
+// Components
+import GratitudeListGrouped from '@/components/GratitudeListGrouped.vue';
 import Clock from '@/components/Clock.vue';
+
+// Helper, Semi-components
 import Location from '@/components/location/Location.vue';
+
 
 export default Vue.extend({
   name: 'home',
