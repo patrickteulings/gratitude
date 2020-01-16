@@ -1,8 +1,9 @@
 <template>
   <div class="home">
+    <div class="home__hero"></div>
     <Clock />
-    <Location />
     <GratitudeListGrouped />
+    <Location />
   </div>
 </template>
 

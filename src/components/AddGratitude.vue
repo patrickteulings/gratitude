@@ -3,7 +3,7 @@
 
 <template>
   <div>
-    <div role="button" class="add-gratitude__button" @click="toggleView">ADD</div>
+    <div role="button" class="add-gratitude__button" @click="toggleView">+</div>
     <div class="add-gratitude" :class="{'is-open': isViewOpen}">
       <div class="add-gratitude__inner">
         <div class="add-gratitude__form">
@@ -62,7 +62,7 @@ export default Vue.extend({
       title: '',
       body: '',
       color: '',
-      colors: [{label: 'Happy', colorValue: '#E8486F'}, {label: 'Strong', colorValue: '#C6C150'}, {label: 'Hard times but learning', colorValue: '#942C3F'}, {label: 'Pretty ok', colorValue: '#68B2D0'}], // Move to user-store!!
+      colors: [{label: 'Happy', colorValue: '#D996C7'}, {label: 'Strong', colorValue: '#C6C150'}, {label: 'Hard times but learning', colorValue: '#942C3F'}, {label: 'Pretty ok', colorValue: '#68B2D0'}], // Move to user-store!!
       picked: '',
       isViewOpen: false,
       isSavingGratitude: false

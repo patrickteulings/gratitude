@@ -9,14 +9,8 @@
       <header>
         <Navigation @onLogout="logout()"/>
       </header>
-      <h5 class="user__test">{{user.displayName}}&nbsp;&nbsp;{{user.email}}</h5>
-      <small>{{user.uid}}</small>
-      <div v-if="user.photoURL" class="user__image"><img :src="user.photoURL" /></div>
-      <h4>
-        <button @click="logout()">LOGOUT</button>
-      </h4>
-      <hr />
-      <br />
+
+      <SidebarMenu>huh</SidebarMenu>
 
       <!-- THERE IS A USER, SHOW THE ROUTES -->
 
@@ -43,6 +37,7 @@ import useAuth from './useAuth';
 import useLogin from './useLogin';
 import LoginForm from './components/login/LoginForm.vue';
 import Navigation from '@/components/navigation/Navigation.vue';
+import SidebarMenu from '@/components/navigation/SidebarMenu.vue';
 import Splash from './views/Splash.vue';
 import FrontPage from './views/FrontPage.vue';
 
@@ -52,7 +47,8 @@ export default {
     LoginForm,
     Splash,
     FrontPage,
-    Navigation
+    Navigation,
+    SidebarMenu
   },
   setup () {
     // load in the authentication properties

@@ -2,7 +2,7 @@
   <div class="navigation">
     <div class="navigation__bar">
       <div class="navigation__trigger-wrapper">
-        <div role="button" @click="this.toggleMenu" class="navigation__trigger" :class="{'is-open': menuIsOpen}">
+        <div role="button" @click="this.toggleMenu" class="navigation__trigger" :class="{'is-open': menuState}">
           <span></span>
           <span></span>
           <span></span>
@@ -34,34 +34,48 @@ export default Vue.extend({
   components: {
 
   },
+
   data: () => {
     return {
       iets: 'alles',
       menuIsOpen: false
     };
   },
+
   computed: {
     getUserImage (): string {
       return this.$store.getters.user.photoURL;
+    },
+    isOpen (): boolean {
+      return this.$store.getters.isMenuOpen;
+    },
+    menuState (): boolean {
+      return this.$store.getters.menuState;
     }
   },
+
   methods: {
     toggleMenu () {
-      this.menuIsOpen === true ? this.closeMenu() : this.openMenu();
+      if (this.$store.getters.menuState === true) {
+        this.closeMenu();
+      } else {
+        this.openMenu();
+      }
     },
 
-    closeMenu () {
-      this.menuIsOpen = false;
+    openMenu (): void {
+      this.$store.dispatch('setMenuState', true);
     },
 
-    openMenu () {
-      this.menuIsOpen = true;
+    closeMenu (): void {
+      this.$store.dispatch('setMenuState', false);
     },
 
-    handleLogout () {
-      console.log('handle logout');
+    handleLogout (): void {
       this.$emit('onLogout');
     }
   }
 });
 </script>
+
+
