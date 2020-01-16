@@ -1,11 +1,6 @@
 <template>
   <div class="hello">
-    <h1>Add</h1>
-    <hr />
-
     <AddGratitude />
-
-    <hr />
     <div class="listWrapper">
       <GratitudeCardGroup v-for="(gratitudeGroup, index) in groupedGratitudes()" :gratitude-group="gratitudeGroup" :key="index" />
     </div>

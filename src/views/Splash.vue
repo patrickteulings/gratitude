@@ -1,8 +1,9 @@
 <template>
   <div class="splash">
     <h2 class="user__test">
-      Checking your login...
+      Have we met yet?
     </h2>
+    <h6>Checking your login</h6>
   </div>
 </template>
 

@@ -47,6 +47,17 @@ import { IWeather } from '@/interfaces/weather';
 // Components
 import ContentEditable from '@/components/UI/ContentEditable.vue';
 
+/*  @TODO
+* Behaviour is not perfect yet...
+* Reproduce:
+* 1. Click edit
+* 2. Edit text and click CANCEL
+* 3. Click Edit again,
+* 4. The previously typed text is shown again.
+* Having a hard time (at 01:30) to ficure out why the data won't update or how to connect to computed..
+* Tip to self, clean up Store Mutations for these ContentEditable field and 'selectedGratitude' and reset functions
+*/
+
 export default Vue.extend({
   name: 'Detail',
   components: {
