@@ -21,6 +21,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     gratitudes: [],
+    defaultColors: [],
     userLocation: {} as object,
     user: {} as object,
     currentWeather: {} as object,
@@ -37,7 +38,6 @@ export default new Vuex.Store({
     },
 
     SET_USER: (state: any, user: object) => {
-      console.log(user);
       state.user = user;
     },
 
@@ -70,10 +70,13 @@ export default new Vuex.Store({
   actions: {
     bindGratitudes: firestoreAction(({ bindFirestoreRef }, ref) => {
       const { reference, userID } = ref;
-
-      // return the promise returned by `bindFirestoreRef`
       return bindFirestoreRef('gratitudes', db.collection('users').doc('1RwEzkhpPEYGJxBCNb9enEg6CZr1').collection('gratitudes'));
     }),
+
+    bindDefaultColors: firestoreAction(({ bindFirestoreRef }) => {
+      return bindFirestoreRef('defaultColors', db.collection('settings').doc('colors').collection('items'));
+    }),
+
 
     setUserLocation: (context: any, location: any) => {
       context.commit('SET_USER_LOCATION', { latitude: location.coords.latitude, longitude: location.coords.longitude });
@@ -97,9 +100,6 @@ export default new Vuex.Store({
       const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
 
       return ref.get();
-      // ref.get().then( (res) => {
-      //   commit('SET_SELECTED_GRATITUDE', res.data());
-      // });
     },
 
     resetSelectedGratitude: (context: any) => {
@@ -116,13 +116,21 @@ export default new Vuex.Store({
       return ref.delete();
     },
 
+    getColorData: (context: any) => {
+      const ref = db.collection('setting').doc('colors').collection('items');
+
+      return ref.get();
+    },
+
     updateSelectedGratitude: (context: any, gratitudeObject: any) => {
       const { commit, state } = context;
       const {id, payload} = gratitudeObject;
       const user = state.user as User;
       const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
+
       state.selectedGratitude = {...payload};
       state.originalGratitude = {...payload};
+
       return ref.update(payload);
     },
 
@@ -156,6 +164,10 @@ export default new Vuex.Store({
 
     user: (state: any) => {
       return state.user;
+    },
+
+    defaultColors: (state: any) => {
+      return state.defaultsettings;
     },
 
     selectedGratitude: (state: any) => {

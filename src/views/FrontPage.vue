@@ -9,6 +9,8 @@
 </template>
 
 <script lang="ts">
+
+// Core
 import Vue from 'vue';
 
 export default Vue.extend({

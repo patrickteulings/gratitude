@@ -12,7 +12,7 @@
 // Core
 import Vue from 'vue';
 
-// FireZone
+// FireStore
 import { firestorePlugin } from 'vuefire';
 import { db } from '@/services/firebaseConfigTypeScript';
 

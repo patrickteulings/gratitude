@@ -1,0 +1,14 @@
+.dropdown {
+  &__trigger {
+    border: 1px solid color('primary');
+  }
+
+  &__list {
+    display: none;
+
+    &.is-open {
+      display: block;
+    }
+  }
+}
+
