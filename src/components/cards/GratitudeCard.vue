@@ -1,8 +1,8 @@
 <template>
-  <article class="card">
+  <article class="card" @click="gotoDetail(gratitude.id)">
     <div class="card__inner">
       <small class="id">{{ gratitude.id }}</small>
-      <h2 class="card__title" @click="gotoDetail(gratitude.id)" :style="{ color: getGratitudeColor(gratitude) }" v-html="gratitude.title"></h2>
+      <h2 class="card__title" :style="{ color: getGratitudeColor(gratitude) }" v-html="gratitude.title"></h2>
       <p class="card__body" v-html="gratitude.body"></p>
       <small class="card__createdAt">Created on {{ getReadableDate(gratitude.timeStamp.toDate()) }} at {{ getReadableTime(gratitude.timeStamp.toDate()) }}</small>
     <div class="card__moodstrip" :style="{ background: getGratitudeColor(gratitude) }"></div>

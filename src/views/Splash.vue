@@ -1,9 +1,11 @@
 <template>
   <div class="splash">
-    <h2 class="user__test">
+    <div class="splash__inner">
+    <h2>
       Have we met yet?
     </h2>
     <h6>Checking your login</h6>
+    </div>
   </div>
 </template>
 
