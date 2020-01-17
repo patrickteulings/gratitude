@@ -29,7 +29,7 @@
             <div class="color-dropdown">
               {{ defaultColors }}
             </div>
-            <DropDown :listData="defaultColors"></DropDown>
+            <DropDown :listData="defaultColors" @onUpdate="onColorSelected"></DropDown>
             <div class="color-dropdown">
               <div v-for="(colorItem) in colors" :key="colorItem.colorValue" style="margin-bottom: 1rem;">
                 <label :for="colorItem.colorValue" :style="getColorPalletteItem(colorItem)">{{colorItem.label}}</label>
@@ -59,6 +59,13 @@ import { db } from '@/services/firebaseConfigTypeScript';
 import Input from '@/components/UI/Input.vue';
 import TextArea from '@/components/UI/TextArea.vue';
 import DropDown from '@/components/UI/DropDown.vue';
+
+// Interfaces
+interface IColorItem {
+  label: string;
+  value: string;
+}
+
 
 // Store
 import { mapActions, mapState } from 'vuex';
@@ -155,12 +162,16 @@ export default Vue.extend({
 
     closeView () {
       this.isViewOpen = false;
+    },
+
+    onColorSelected (selectedColor: IColorItem) {
+      console.log('onColorSelected', selectedColor);
+      this.color = selectedColor.value;
     }
   },
 
   computed: mapState({
     defaultColors: (state: any) => {
-      console.log(state.defaultColors);
       return state.defaultColors;
     }
   }),

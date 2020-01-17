@@ -44,6 +44,7 @@ export default Vue.extend({
     setSelected (colorItem: IColorItem): void {
       this.selected = colorItem;
       this.closeDropDown();
+      this.$emit('onUpdate', colorItem);
     },
 
     toggleDropdown (): void {
