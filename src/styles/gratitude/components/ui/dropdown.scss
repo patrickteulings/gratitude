@@ -7,7 +7,7 @@
     @include innerspace(1rem);
 
     &.is-open {
-      border-bottom: 1px solid color('light');
+      border-bottom: 1px solid color('secondary');
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
     }
@@ -26,6 +26,9 @@
   &__item {
     @include innerspace(1rem);
 
+    &.hidden {
+      display: none;
+    }
     &:not(:last-child) {
       border-bottom: 1px solid color('light');
     }

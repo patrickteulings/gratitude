@@ -2,8 +2,8 @@
   <div class="dropdown dropDownWrapper" :class="classModifier">
     <div class="dropdown__trigger" :class="{'is-open' : isOpen}" :style="getItemColor(selected)" @click="toggleDropdown">{{selected.label}}</div>
     <div class="dropdown__list" :class="{'is-open' : isOpen}">
-      <div class="dropdown__item" :style="getItemColor(colorItem)" @click="setSelected(colorItem)" v-for="(colorItem) in listData" :key="colorItem.value">
-      {{ colorItem.label }}
+      <div class="dropdown__item" :class="[isSelectedItem(colorItem) ? 'hidden': '']" :style="getItemColor(colorItem)" @click="setSelected(colorItem)" v-for="(colorItem) in listData" :key="colorItem.value">
+        {{ colorItem.label }}
       </div>
     </div>
   </div>
@@ -46,6 +46,10 @@ export default Vue.extend({
       this.selected = colorItem;
       // this.closeDropDown();
       this.$emit('onUpdate', colorItem);
+    },
+
+    isSelectedItem (item:IColorItem) {
+      return this.selected === item;
     },
 
     toggleDropdown (): void {
