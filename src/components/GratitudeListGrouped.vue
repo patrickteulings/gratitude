@@ -8,19 +8,26 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { mapActions, mapState } from 'vuex';
-import { firestorePlugin } from 'vuefire';
 
+// Core
+import Vue from 'vue';
+
+// FireStore
+import { firestorePlugin } from 'vuefire';
 import { db } from '@/services/firebaseConfigTypeScript';
-import AddGratitude from '@/components/AddGratitude.vue';
-import GratitudeCardGroup from '@/components/cards/GratitudeCardGroup.vue';
-import GratitudeCard from '@/components/cards/GratitudeCard.vue';
+
+// Helpers
 import { readableDate, getUniqueDates, readableTime } from '@/helpers/dateHelper';
 import { isEmptyArray } from '@/helpers/emptyHelper';
 
+// Store
+import { mapActions, mapState } from 'vuex';
 
-Vue.use(firestorePlugin);
+// Comnponents
+import AddGratitude from '@/components/AddGratitude.vue';
+import GratitudeCardGroup from '@/components/cards/GratitudeCardGroup.vue';
+import GratitudeCard from '@/components/cards/GratitudeCard.vue';
+
 
 export default Vue.extend({
   name: 'GratitudeListGrouped',
@@ -29,22 +36,19 @@ export default Vue.extend({
     GratitudeCard,
     GratitudeCardGroup
   },
+
   data: () => {
     return {
       color: '#C18D18'
     };
   },
-  firestore: () => {
-    return {
-      // gratitudes: db.collection('gratitudes').orderBy('timeStamp', 'desc')
-    };
-  },
+
   computed: mapState({
     gratitudes: (state: any) => state.gratitudes,
     user: (state: any) => state.user
   }),
-  methods: {
 
+  methods: {
     getReadableDate (date: Date, longNames: boolean = false) {
       return readableDate(date, longNames);
     },
@@ -52,25 +56,21 @@ export default Vue.extend({
     getReadableTime (date: Date, longNames: boolean = false) {
       return readableTime(date, longNames);
     },
-
+    // @TODO - Add check before returning data, return a nice error please
     groupedGratitudes () {
-      const iets = Array.from(getUniqueDates (this.gratitudes));
-      const test = ['1', '2'];
-      return iets;
+      return Array.from(getUniqueDates (this.gratitudes));
     },
 
     isEmptyArr (obj: object[]) {
       return isEmptyArray(obj);
     },
-    testData () {
+
+    loadData () {
       this.$store.dispatch('bindGratitudes', { reference: db.collection('gratitudes'), userID: '123456'} );
-    },
-    ...mapActions({
-      getData: 'bindGratitudes' // Initializes firebase state-binding in Vuex Store
-    })
+    }
   },
   created () {
-    this.testData();
+    this.loadData();
   }
 });
 </script>

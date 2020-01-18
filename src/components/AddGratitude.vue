@@ -20,19 +20,9 @@
               input-label="Your body"
               input-placeholder="Today I'm grateful for"
             />
-            <Input
-              v-model="color"
-              input-id="color"
-              input-label="Your mood"
-              input-placeholder="#C18D18"
-            />
-            <div class="color-dropdown">
-              <div v-for="(colorItem) in colors" :key="colorItem.colorValue" style="margin-bottom: 1rem;">
-                <label :for="colorItem.colorValue" :style="getColorPalletteItem(colorItem)">{{colorItem.label}}</label>
-                <input :id="colorItem.colorValue" v-model="picked" type="radio" name="colorValue" :value="colorItem.colorValue">
-              </div>
-              <div>{{ picked }}</div>
-            </div>
+
+            <DropDown :listData="defaultColors" @onUpdate="onColorSelected"></DropDown>
+
             <button>Add gratitude</button>
             <div v-if="isSavingGratitude">Saving...</div>
           </form>
@@ -43,36 +33,62 @@
 </template>
 
 <script lang="ts">
+
+// Core
 import Vue from 'vue';
-import Input from '@/components/UI/Input.vue';
-import TextArea from '@/components/UI/TextArea.vue';
-import { mapActions, mapState } from 'vuex';
+
+// Firestore
 import { firestorePlugin } from 'vuefire';
 import { db } from '@/services/firebaseConfigTypeScript';
+
+// Components
+import Input from '@/components/UI/Input.vue';
+import TextArea from '@/components/UI/TextArea.vue';
+import DropDown from '@/components/UI/DropDown.vue';
+
+// Interfaces
+interface IColorItem {
+  label: string;
+  value: string;
+}
+
+// Store
+import { mapActions, mapState } from 'vuex';
 
 Vue.use(firestorePlugin);
 
 export default Vue.extend({
   name: 'AddGratitude',
+
   props: {
     msg: String
   },
+
+  components: {
+    Input,
+    TextArea,
+    DropDown
+  },
+
   data: () => {
     return {
       title: '',
       body: '',
       color: '',
       colors: [{label: 'Happy', colorValue: '#D996C7'}, {label: 'Strong', colorValue: '#C6C150'}, {label: 'Hard times but learning', colorValue: '#942C3F'}, {label: 'Pretty ok', colorValue: '#68B2D0'}], // Move to user-store!!
+      defaultColorArray: [],
       picked: '',
       isViewOpen: false,
       isSavingGratitude: false
     };
   },
-  components: {
-    Input,
-    TextArea
-  },
+
+
   methods: {
+    getColorData () {
+      this.$store.dispatch('bindDefaultColors', { reference: db.collection('gratitudes')} );
+    },
+
     addGratitude () {
       this.isSavingGratitude = true; // Loading state
 
@@ -111,7 +127,6 @@ export default Vue.extend({
       });
 
       // Reset form
-
       this.title = '';
       this.body = '';
       this.color = '';
@@ -131,13 +146,27 @@ export default Vue.extend({
 
     closeView () {
       this.isViewOpen = false;
+    },
+
+    onColorSelected (selectedColor: IColorItem) {
+      this.color = selectedColor.value;
     }
   },
+
+  computed: mapState({
+    defaultColors: (state: any) => {
+      return state.defaultColors;
+    }
+  }),
+
   watch: {
     // whenever question changes, this function will run
     picked (val) {
       this.color = val;
     }
+  },
+  created () {
+    this.getColorData();
   }
 });
 </script>

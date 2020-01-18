@@ -6,10 +6,15 @@
 </template>
 
 <script lang="ts">
+
+// Core
 import Vue from 'vue';
 
-import { readableDate, getUniqueDates, readableTime } from '@/helpers/dateHelper';
+// Components
 import GratitudeCard from '@/components/cards/GratitudeCard.vue';
+
+// Helpers
+import { readableDate, getUniqueDates, readableTime } from '@/helpers/dateHelper';
 import { isEmptyArray } from '@/helpers/emptyHelper';
 
 
@@ -18,14 +23,17 @@ export default Vue.extend({
   components: {
     GratitudeCard
   },
+
   props: {
     gratitudeGroup: Array
   },
+
   data: () => {
     return {
 
     };
   },
+
   methods: {
     getReadableDate (date: Date, longNames: boolean = false) {
       return readableDate(date, longNames);

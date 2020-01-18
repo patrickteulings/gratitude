@@ -1,19 +1,15 @@
 `<template>
   <div id="app">
-
     <div v-if="loading">
       <Splash />
     </div>
     <div v-else-if="error">{{error}}</div>
+    <!-- THERE IS A USER, SHOW THE ROUTES -->
     <div v-else-if="user">
       <header>
         <Navigation @onLogout="logout()"/>
       </header>
-
       <SidebarMenu>huh</SidebarMenu>
-
-      <!-- THERE IS A USER, SHOW THE ROUTES -->
-
       <div>
         <router-view />
       </div>

@@ -78,8 +78,6 @@ export default Vue.extend({
   computed: {
     gratitude (): void {
       this.myGratitude = this.$store.getters.selectedGratitude;
-      // this.originalGratitude = this.$store.getters.selectedGratitude;
-      // return this.$store.getters.selectedGratitude;
     },
 
     getOriginalGratitude (): IGratitude {
@@ -106,7 +104,6 @@ export default Vue.extend({
         this.newGratitude = response.data();
         this.originalGratitude = response.data();
         this.myGratitude = response.data();
-        console.log(response.data());
       });
     },
 
