@@ -66,10 +66,8 @@ interface IColorItem {
   value: string;
 }
 
-
 // Store
 import { mapActions, mapState } from 'vuex';
-
 
 Vue.use(firestorePlugin);
 
