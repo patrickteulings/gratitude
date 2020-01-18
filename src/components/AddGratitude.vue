@@ -20,23 +20,9 @@
               input-label="Your body"
               input-placeholder="Today I'm grateful for"
             />
-            <Input
-              v-model="color"
-              input-id="color"
-              input-label="Your mood"
-              input-placeholder="#C18D18"
-            />
-            <div class="color-dropdown">
-              {{ defaultColors }}
-            </div>
+
             <DropDown :listData="defaultColors" @onUpdate="onColorSelected"></DropDown>
-            <div class="color-dropdown">
-              <div v-for="(colorItem) in colors" :key="colorItem.colorValue" style="margin-bottom: 1rem;">
-                <label :for="colorItem.colorValue" :style="getColorPalletteItem(colorItem)">{{colorItem.label}}</label>
-                <input :id="colorItem.colorValue" v-model="picked" type="radio" name="colorValue" :value="colorItem.colorValue">
-              </div>
-              <div>{{ picked }}</div>
-            </div>
+
             <button>Add gratitude</button>
             <div v-if="isSavingGratitude">Saving...</div>
           </form>
@@ -163,7 +149,6 @@ export default Vue.extend({
     },
 
     onColorSelected (selectedColor: IColorItem) {
-      console.log('onColorSelected', selectedColor);
       this.color = selectedColor.value;
     }
   },
