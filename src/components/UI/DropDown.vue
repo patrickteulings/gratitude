@@ -71,10 +71,10 @@ export default Vue.extend({
     },
 
     handleOutsideClick (e: Event): void {
-      e.stopPropagation();
-      const wrapper = document.querySelectorAll('.dropDownWrapper');
       const target = e.target as HTMLElement;
-      console.log(target.closest('.dropDownWrapper'));
+
+      e.stopPropagation();
+
       if (!target.closest('.dropDownWrapper')) this.closeDropDown();
     }
   },
