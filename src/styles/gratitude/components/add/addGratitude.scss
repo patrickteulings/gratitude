@@ -1,8 +1,16 @@
 .add-gratitude {
-  display: none;
+  background: color('white');
+  position: fixed;
+  left: 0;
+  bottom: -100%;
+  z-index: 199;
+  @include transition(all, 0.3s);
+  @include size(100vw, 50vh);
+  @include card-shadow(5);
 
   &.is-open {
     display: block;
+    bottom: 0%;
   }
 
   &__inner {

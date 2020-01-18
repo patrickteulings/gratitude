@@ -48,7 +48,7 @@ export default Vue.extend({
       this.$emit('onUpdate', colorItem);
     },
 
-    isSelectedItem (item:IColorItem) {
+    isSelectedItem (item: IColorItem) {
       return this.selected === item;
     },
 
