@@ -38,7 +38,7 @@
     color: color('action');
 
     @include size(64px);
-    @include card-shadow(3);
+    @include card-shadow(2);
     @include flex-center('both');
     @include font-size(32px);
     @include transition();
@@ -46,11 +46,60 @@
     cursor: pointer;
     line-height: 0;
     border-radius: 50%;
+    @include transition();
+    transform: rotate(180deg);
+    pointer-events: none;
+    opacity: 0;
 
+
+    &.is-visible {
+      pointer-events: auto;
+      transform: rotate(0deg);
+      opacity: 1;
+    }
     &:hover {
       @include card-shadow(2);
       background: lighten(color('action'), 5%);
       color: color('white');
+    }
+
+    &.button-cancel {
+      transform: translate(80px, -8px);
+      @include size(48px);
+      @include transition();
+      @include card-shadow(2);
+      pointer-events: none;
+      opacity: 0;
+
+      &.is-visible {
+        pointer-events: auto;
+        opacity: 1;
+      }
+
+      .gratitude-icon {
+        fill: lighten(color('secondary'), 30%);
+      }
+    }
+  }
+
+  &__button-confirm {
+    color: color('positive');
+    z-index: 300;
+    opacity: 0;
+    transform-origin: 50% 50%;
+    transform: rotate(-180deg);
+    pointer-events: none;
+    @include transition();
+
+    .gratitude-icon {
+      fill: color('positive');
+    }
+
+    &.is-visible {
+      display: flex;
+      opacity: 1;
+      transform: rotate(0);
+      @include transition();
     }
   }
 }

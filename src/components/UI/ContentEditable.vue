@@ -1,5 +1,5 @@
 <template>
-  <div class="inputWrapper" contenteditable="true" @focus="dispatchFocus" @input="updateContent" v-html="content" :style="getStyle()"><slot></slot></div>
+  <div class="inputWrapper" contenteditable="true" @focus="dispatchFocus" @input="updateContent" v-html="myContent" :style="getStyle()"><slot></slot></div>
 </template>
 
 <script lang="ts">
@@ -14,11 +14,12 @@ export default Vue.extend({
     inputLabel: String,
     resize: Boolean,
     content: String,
+    placeholder: String,
     color: String
   },
   data: () => {
     return {
-
+      myContent: ''
     };
   },
 
@@ -37,6 +38,14 @@ export default Vue.extend({
 
     dispatchFocus () {
       this.$emit('onFocus');
+    }
+  },
+
+  mounted () {
+    console.log(this.placeholder);
+    console.log(this.content.length);
+    if (!this.content.length && this.placeholder) {
+      this.myContent = this.placeholder;
     }
   }
 });

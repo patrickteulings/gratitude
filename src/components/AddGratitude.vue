@@ -3,16 +3,17 @@
 
 <template>
   <div>
-    <div role="button" class="add-gratitude__button" @click="toggleView">+</div>
+    <div role="button" class="add-gratitude__button" :class="{'is-visible': !isViewOpen}" @click="toggleView">+</div>
+    <div role="button" class="add-gratitude__button add-gratitude__button-confirm" :class="{'is-visible': isViewOpen}" @click="confirmAdd"><span class="gratitude-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span></div>
+    <div role="button" class="add-gratitude__button button-cancel" :class="{'is-visible': isViewOpen}" @click="confirmCancel"><span class="gratitude-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></div>
     <div class="add-gratitude" :class="{'is-open': isViewOpen}">
       <div class="add-gratitude__inner">
         <div class="add-gratitude__form">
-          <content-editable class="add-gratitude__title" @onUpdate="updateTitle" content="originalGratitude.title" color="#ff9900"></content-editable>
-          <content-editable class="add-gratitude__body" @onUpdate="updateBody" content="originalGratitude.body" color="#ff9900"></content-editable>
+          <content-editable class="add-gratitude__title" @onUpdate="updateTitle" content="" placeholder="Five million stones" color="#D996C7"></content-editable>
+          <content-editable class="add-gratitude__body" @onUpdate="updateBody" content="" placeholder="Five million body stones" color="#D996C7"></content-editable>
           <DropDown :listData="defaultColors" @onUpdate="onColorSelected"></DropDown>
           <button @click="addGratitude">Add gratitude</button>
           <div v-if="isSavingGratitude">Saving...</div>
-
         </div>
       </div>
     </div>
@@ -76,6 +77,14 @@ export default Vue.extend({
   methods: {
     getColorData () {
       this.$store.dispatch('bindDefaultColors', { reference: db.collection('gratitudes')} );
+    },
+
+    confirmAdd () {
+      this.addGratitude();
+    },
+
+    confirmCancel () {
+      this.closeView();
     },
 
     addGratitude () {
