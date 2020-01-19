@@ -1,8 +1,8 @@
 <template>
   <div class="home">
-    <div class="home__hero"></div>
+    <HomepageHero :gratitudes="gratitudes"/>
     <Clock />
-    <GratitudeListGrouped />
+    <GratitudeListGrouped @onDataLoaded="setGratitudes"/>
     <Location />
   </div>
 </template>
@@ -13,6 +13,7 @@ import Vue from 'vue';
 
 // Components
 import GratitudeListGrouped from '@/components/GratitudeListGrouped.vue';
+import HomepageHero from '@/components/hero/HomepageHero.vue';
 import Clock from '@/components/Clock.vue';
 
 // Helper, Semi-components
@@ -21,10 +22,24 @@ import Location from '@/components/location/Location.vue';
 
 export default Vue.extend({
   name: 'home',
+  data: () => {
+    return {
+      nrGratitudes: Number,
+      gratitudes: new Array()
+    };
+  },
+
   components: {
+    HomepageHero,
     GratitudeListGrouped,
     Clock,
     Location
+  },
+
+  methods: {
+    setGratitudes (data: string[]): void {
+      this.gratitudes = Array.from(data);
+    }
   }
 });
 </script>

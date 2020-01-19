@@ -1,0 +1,36 @@
+.homepage-hero {
+  @include size(100vw, 50vh);
+  display: flex;
+  align-items: flex-end;
+  background: color('accent');
+}
+
+.numberbar {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+
+  &-item {
+    @include innerspace(0.5rem);
+    @include flex-center('horizontal');
+
+    &__inner {
+
+    }
+
+    &__amount {
+      display: block;
+      font-family: $numbers-accent;
+      font-weight: 700;
+      @include font-size(32px);
+      color: color('white');
+    }
+
+    &__description {
+      display: block;
+      font-family: $handwriting-font-face;
+      color: color('white');
+    }
+  }
+
+}

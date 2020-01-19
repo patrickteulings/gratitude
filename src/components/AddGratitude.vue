@@ -7,6 +7,8 @@
     <div class="add-gratitude" :class="{'is-open': isViewOpen}">
       <div class="add-gratitude__inner">
         <div class="add-gratitude__form">
+          <content-editable class="detail__title" @onUpdate="updateTitle" content="originalGratitude.title" color="#ff9900"></content-editable>
+          <content-editable class="detail__body" @onUpdate="updateBody" content="originalGratitude.body" color="#ff9900"></content-editable>
           <form @submit.prevent="addGratitude">
             <Input
               v-model="title"
@@ -44,6 +46,7 @@ import { db } from '@/services/firebaseConfigTypeScript';
 // Components
 import Input from '@/components/UI/Input.vue';
 import TextArea from '@/components/UI/TextArea.vue';
+import ContentEditable from '@/components/UI/ContentEditable.vue';
 import DropDown from '@/components/UI/DropDown.vue';
 
 // Interfaces
@@ -67,6 +70,7 @@ export default Vue.extend({
   components: {
     Input,
     TextArea,
+    ContentEditable,
     DropDown
   },
 
@@ -130,6 +134,14 @@ export default Vue.extend({
       this.title = '';
       this.body = '';
       this.color = '';
+    },
+
+    updateTitle (title: string): void {
+      this.title = title.trim();
+    },
+
+    updateBody (body: string): void {
+      this.body = body.trim();
     },
 
     getColorPalletteItem (colorItem: any) {

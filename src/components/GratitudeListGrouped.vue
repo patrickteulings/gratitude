@@ -66,7 +66,10 @@ export default Vue.extend({
     },
 
     loadData () {
-      this.$store.dispatch('bindGratitudes', { reference: db.collection('gratitudes'), userID: '123456'} );
+      this.$store.dispatch('bindGratitudes', { reference: db.collection('gratitudes'), userID: '123456'} ).then(() => {
+        console.log('data geladen');
+        this.$emit('onDataLoaded', this.gratitudes);
+      });
     }
   },
   created () {
