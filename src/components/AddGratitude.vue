@@ -7,27 +7,12 @@
     <div class="add-gratitude" :class="{'is-open': isViewOpen}">
       <div class="add-gratitude__inner">
         <div class="add-gratitude__form">
-          <content-editable class="detail__title" @onUpdate="updateTitle" content="originalGratitude.title" color="#ff9900"></content-editable>
-          <content-editable class="detail__body" @onUpdate="updateBody" content="originalGratitude.body" color="#ff9900"></content-editable>
-          <form @submit.prevent="addGratitude">
-            <Input
-              v-model="title"
-              input-id="title"
-              input-label="Your title"
-              input-placeholder="Title"
-            />
-            <TextArea
-              v-model="body"
-              input-id="body"
-              input-label="Your body"
-              input-placeholder="Today I'm grateful for"
-            />
+          <content-editable class="add-gratitude__title" @onUpdate="updateTitle" content="originalGratitude.title" color="#ff9900"></content-editable>
+          <content-editable class="add-gratitude__body" @onUpdate="updateBody" content="originalGratitude.body" color="#ff9900"></content-editable>
+          <DropDown :listData="defaultColors" @onUpdate="onColorSelected"></DropDown>
+          <button @click="addGratitude">Add gratitude</button>
+          <div v-if="isSavingGratitude">Saving...</div>
 
-            <DropDown :listData="defaultColors" @onUpdate="onColorSelected"></DropDown>
-
-            <button>Add gratitude</button>
-            <div v-if="isSavingGratitude">Saving...</div>
-          </form>
         </div>
       </div>
     </div>

@@ -1,33 +1,46 @@
 .add-gratitude {
-  background: color('white');
   position: fixed;
   left: 0;
-  bottom: -100%;
+  top: 100vh;
   z-index: 199;
+  background: color('white');
+  border-radius: 5px 5px 0px 0px;
   @include transition(all, 0.3s);
-  @include size(100vw, 50vh);
+  @include size(100vw, 96vh);
   @include card-shadow(5);
+  overflow: scroll;
 
   &.is-open {
     display: block;
-    bottom: 0%;
+    top: 4vh;
   }
 
   &__inner {
-    @include innerspace(1rem);
+    @include innerspace(3rem 2rem);
+  }
+
+  &__title {
+    font-family: 'Martel';
+    font-size: 48px;
+  }
+
+  &__body {
+    font-family: $primary-font-face;
+    line-height: 26px;
+    @include font-size(16px);
   }
 
   &__button {
-    @include position(fixed, 50%, auto, auto, 50px );
-    margin-left: -20px;
+    @include position(fixed, 50%, auto, auto, 32px );
+    margin-left: -32px;
     z-index: 200;
-    background: color('action');
-    color: color('white');
-    @include size(40px);
+    background: color('white');
+    color: color('action');
+
+    @include size(64px);
     @include card-shadow(3);
-    @include font-size(12px);
     @include flex-center('both');
-    @include font-size(30px);
+    @include font-size(32px);
     @include transition();
     font-weight: 600;
     cursor: pointer;
@@ -37,6 +50,7 @@
     &:hover {
       @include card-shadow(2);
       background: lighten(color('action'), 5%);
+      color: color('white');
     }
   }
 }
