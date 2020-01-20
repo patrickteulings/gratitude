@@ -51,6 +51,9 @@
     pointer-events: none;
     opacity: 0;
 
+    .gratitude-icon {
+      fill: color('action');
+    }
 
     &.is-visible {
       pointer-events: auto;
@@ -58,16 +61,15 @@
       opacity: 1;
     }
     &:hover {
-      @include card-shadow(2);
-      background: lighten(color('action'), 5%);
-      color: color('white');
+      @include card-shadow(1);
+      background: color('light');
     }
 
     &.button-cancel {
-      transform: translate(80px, -8px);
-      @include size(48px);
+      transform: translate(80px, -12px);
+      @include size(40px);
       @include transition();
-      @include card-shadow(2);
+      @include card-shadow(1);
       pointer-events: none;
       opacity: 0;
 

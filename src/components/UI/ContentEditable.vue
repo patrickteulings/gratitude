@@ -42,10 +42,10 @@ export default Vue.extend({
   },
 
   mounted () {
-    console.log(this.placeholder);
-    console.log(this.content.length);
+    if (!this.content !== undefined) {
     if (!this.content.length && this.placeholder) {
       this.myContent = this.placeholder;
+    }
     }
   }
 });

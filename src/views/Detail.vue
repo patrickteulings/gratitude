@@ -11,9 +11,9 @@
     <article class="gratitude" v-if="this.myGratitude !== undefined">
       <div class="gratitudeWrapper">
         <div class="editableGratitude" :class="{isActive: this.editMode}">
-          <content-editable class="detail__title" @onUpdate="updateTitle" :content="originalGratitude.title" :color="myGratitude.color"></content-editable>
+          <content-editable class="detail__title" @onUpdate="updateTitle" placeholder="Placeholder when empty" :content="originalGratitude.title" :color="myGratitude.color"></content-editable>
           <small v-if="this.myGratitude.timeStamp !== undefined" class="detail__meta">{{ getCity(this.myGratitude) }}, {{ getReadableDate(this.myGratitude.timeStamp.toDate()) }} at {{ getReadableTime(this.myGratitude.timeStamp.toDate()) }}</small>
-          <content-editable class="detail__body" @onUpdate="updateBody" :content="originalGratitude.body"></content-editable>
+          <content-editable class="detail__body" @onUpdate="updateBody" placeholder="Placeholder when empty" :content="originalGratitude.body"></content-editable>
         </div>
         <div class="staticGratitude" :class="{isActive: !this.editMode}">
           <div ref="title" v-html="getOriginalGratitude.title" @mousedown="enterEditMode" class="detail__title" :style="{color: getGratitudeColor()}"></div>
