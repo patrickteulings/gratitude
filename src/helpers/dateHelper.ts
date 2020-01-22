@@ -85,3 +85,23 @@ export const getUniqueDates = (data: Gratitude[]) => {
   }
   return testArr;
 };
+
+/*
+ * Get the nr of consecutive days the user has added at least one gratitude
+*/
+
+export function getStreak (): number {
+  return 8;
+}
+
+export function getDayBefore (date: Date): Date {
+  let dayBefore = new Date(date).setDate(date.getDate() - 3);
+  dayBefore = new Date(dayBefore).setHours(0, 0, 0);
+  return new Date(dayBefore);
+}
+
+export function isEqualDate (date: Date, otherdate: Date) {
+  return date.getDate() === otherdate.getDate() &&
+    date.getMonth() === otherdate.getMonth() &&
+    date.getFullYear() === otherdate.getFullYear();
+}

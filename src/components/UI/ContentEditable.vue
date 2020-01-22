@@ -17,6 +17,7 @@ export default Vue.extend({
     placeholder: String,
     color: String
   },
+
   data: () => {
     return {
       myContent: ''
@@ -41,11 +42,14 @@ export default Vue.extend({
     }
   },
 
-  mounted () {
-    if (!this.content !== undefined) {
-    if (!this.content.length && this.placeholder) {
-      this.myContent = this.placeholder;
-    }
+  created () {
+    console.log('hier', this.content);
+    if (this.content !== undefined) {
+      if (!this.content.length && this.placeholder) {
+        this.myContent = this.placeholder;
+      } else {
+        this.myContent = this.content;
+      }
     }
   }
 });

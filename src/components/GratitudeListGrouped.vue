@@ -56,6 +56,7 @@ export default Vue.extend({
     getReadableTime (date: Date, longNames: boolean = false) {
       return readableTime(date, longNames);
     },
+
     // @TODO - Add check before returning data, return a nice error please
     groupedGratitudes () {
       return Array.from(getUniqueDates (this.gratitudes));
@@ -67,7 +68,6 @@ export default Vue.extend({
 
     loadData () {
       this.$store.dispatch('bindGratitudes', { reference: db.collection('gratitudes'), userID: '123456'} ).then(() => {
-        console.log('data geladen');
         this.$emit('onDataLoaded', this.gratitudes);
       });
     }
