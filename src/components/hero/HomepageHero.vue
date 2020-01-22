@@ -3,20 +3,20 @@
     <div class="numberbar">
       <div class="numberbar-item">
         <div class="numberbar-item__inner">
-          <span class="numberbar-item__amount">{{gratitudes.length}}</span>
-          <span class="numberbar-item__description">gratitudes</span>
-        </div>
-      </div>
-      <div class="numberbar-item">
-        <div class="numberbar-item__inner">
           <span class="numberbar-item__amount">{{ streakDays }} </span>
-          <span class="numberbar-item__description">streak</span>
+          <span class="numberbar-item__description">Current streak (days)</span>
         </div>
       </div>
       <div class="numberbar-item">
         <div class="numberbar-item__inner">
-          <span class="numberbar-item__amount">{{gratitudes.length}}</span>
+          <span class="numberbar-item__amount" v-if="gratitudes">{{gratitudes.length}}</span>
           <span class="numberbar-item__description">gratitudes</span>
+        </div>
+      </div>
+      <div class="numberbar-item">
+        <div class="numberbar-item__inner">
+          <span class="numberbar-item__amount" v-if="gratitudes">{{dataObject.length}}</span>
+          <span class="numberbar-item__description">days of gratitude</span>
         </div>
       </div>
     </div>
@@ -60,58 +60,107 @@ export default Vue.extend({
     return {
       streakDays: 0,
       iets: 'alles',
-      menuIsOpen: false
+      menuIsOpen: false,
+      dataObject: []
     };
   },
 
   methods: {
     getStreak (data: IGratitude[]) {
-      let streak: number = 0;
       const arr = Array.from(getUniqueDates (data));
-
       const today = new Date();
+
+      let startDay = new Date();
+      let streak: number = 0;
+      let todayHasGratitude = false;
+      let yesterdayHasGratitude = false;
+
       let dayBefore = new Date();
       dayBefore = getDayBefore(dayBefore);
 
-      for (const item of arr) {
-        const el = item as [];
-        const el2 =  [...el];
-        const el3 = el2[0] as IGratitude;
 
-        console.log(dayBefore, el3.dayStamp.toDate());
-        // console.log(dayBefore.getTime(), el3.dayStamp.toDate().getTime())
-        console.log(isEqualDate(dayBefore, el3.dayStamp.toDate()));
-        console.log('--');
-        if (dayBefore.getTime() === el3.dayStamp.toDate().getTime()) {
-          console.log('jee');
-        }
-        let x = 0;
-        while (x < 10) {
-          x += 1;
-          streak += 1;
-          console.log('huh');
-        }
+      // First we need to find out if the user has posted today
+      // If there is a post today, it should count in the streak
+      // If not, we start by checking 'yesterday', because the user
+      // might have just opened the app, so 'today' COULD NEVER have a post
+      // and the streak would always be zero
+      const latest = arr[0] as IGratitude[];
+      const latestDate = latest[0] as IGratitude;
 
-        // while (isEqualDate(dayBefore, el3.dayStamp.toDate())) {
-        //   streak += 1;
-        // }
-          // console.log('hier niet', dayBefore, el3.dayStamp.toDate());
-
-        // const arrr: IGratitude[0] = item[0] as IGratitude
-        // const myItem: IGratitude = item[0] as IGratitude;
-        // if (item[0].dayStamp.toDate() === dayBefore) {
-        //   console.log()
-        // }
-        // const found = arr.find((ite: any) => ite[0].dayStamp.toDate() === dayBefore);
-        // console.log(el3);
+      if (isEqualDate(latestDate.dayStamp.toDate(), today)) {
+        streak += 1;
+        todayHasGratitude = true;
+        startDay = today;
       }
 
-      this.streakDays = streak;
+
+      // If the above is not true, check to see if yesterday had any gratitudes,
+      // otherwise there is no 'Current streak', so ony continue if one of these is true;
+
+      if (!todayHasGratitude) {
+        const yesterday = getDayBefore(today);
+
+        if (isEqualDate(latestDate.dayStamp.toDate(), yesterday)) {
+          streak += 1;
+          yesterdayHasGratitude = true;
+          startDay = today;
+        }
+      }
+
+
+      // If both today and yesterday have no Gratitudes, theres not really a streak,
+      // so abort. If only today has a Gratitude return only today
+
+      if (!todayHasGratitude && !yesterdayHasGratitude) return streak;
+      if (todayHasGratitude && !yesterdayHasGratitude) { this.streakDays = 1; }
+
+
+      // Now we know at which point to start counting for you streak
+      // Simple check every day 'before', or yesterday, until the quation is false
+
+      // firt reset
+      streak = 0;
+
+      let dayToCheck = startDay;
+
+      for (let i = 0; i < 8; i++) {
+        let mayContinue = false;
+
+        for (const item of arr) {
+
+          const dayArry = item as IGratitude[];
+          const dayEntry = dayArry[0] as IGratitude;
+          const found = isEqualDate(dayEntry.dayStamp.toDate(), dayToCheck);
+          if (found) streak = streak + 1;
+          if (found) mayContinue = true;
+        }
+
+        // Finish up, set new day (always yesterday)
+        // Update view
+        // Check if we can continue
+        dayToCheck = getDayBefore(dayToCheck);
+        this.streakDays = streak;
+        if (!mayContinue) return;
+      }
+    },
+
+    setTotalDaysOfGratitudes (data: IGratitude[]) {
+      this.dataObject = Array.from(getUniqueDates (data));
     }
   },
 
   mounted () {
-    this.getStreak(this.gratitudes as IGratitude[]);
+    if (this.gratitudes.length) {
+      this.getStreak(this.gratitudes as IGratitude[]);
+      this.setTotalDaysOfGratitudes(this.gratitudes as IGratitude[]);
+    }
+  },
+
+  watch: {
+    gratitudes () {
+      this.getStreak(this.gratitudes as IGratitude[]);
+      this.setTotalDaysOfGratitudes(this.gratitudes as IGratitude[]);
+    }
   }
 });
 </script>

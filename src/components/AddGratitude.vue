@@ -107,7 +107,7 @@ export default Vue.extend({
         city: this.$store.getters.currentCity
       };
 
-      dayStamp.setHours(0, 0, 0); // Set to the date at 00:00:00 for easier comparison / filtering in FE
+      dayStamp.setHours(0, 0, 0, 0); // Set to the date at 00:00:00 for easier comparison / filtering in FE
 
       db.collection('users').doc(this.$store.getters.user.uid).collection('gratitudes').add({
         title,

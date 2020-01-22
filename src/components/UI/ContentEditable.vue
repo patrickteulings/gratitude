@@ -43,7 +43,6 @@ export default Vue.extend({
   },
 
   created () {
-    console.log('hier', this.content);
     if (this.content !== undefined) {
       if (!this.content.length && this.placeholder) {
         this.myContent = this.placeholder;

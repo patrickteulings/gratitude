@@ -95,8 +95,8 @@ export function getStreak (): number {
 }
 
 export function getDayBefore (date: Date): Date {
-  let dayBefore = new Date(date).setDate(date.getDate() - 3);
-  dayBefore = new Date(dayBefore).setHours(0, 0, 0);
+  let dayBefore = new Date(date).setDate(date.getDate() - 1);
+  dayBefore = new Date(dayBefore).setHours(0, 0, 0, 0);
   return new Date(dayBefore);
 }
 
@@ -105,3 +105,5 @@ export function isEqualDate (date: Date, otherdate: Date) {
     date.getMonth() === otherdate.getMonth() &&
     date.getFullYear() === otherdate.getFullYear();
 }
+
+
