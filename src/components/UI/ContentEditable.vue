@@ -1,5 +1,5 @@
 <template>
-  <div class="inputWrapper" contenteditable="true" @focus="dispatchFocus" @input="updateContent" v-html="myContent" :style="getStyle()"><slot></slot></div>
+  <div class="inputWrapper contenteditable" contenteditable="true" @focus="handleFocus" @blur="handleBlur" @input="updateContent" v-html="myContent" :style="getStyle()"></div>
 </template>
 
 <script lang="ts">
@@ -9,10 +9,6 @@ export default Vue.extend({
   name: 'ContentEditable',
   props: {
     value: String,
-    inputPlaceholder: String,
-    inputId: String,
-    inputLabel: String,
-    resize: Boolean,
     content: String,
     placeholder: String,
     color: String
@@ -20,16 +16,14 @@ export default Vue.extend({
 
   data: () => {
     return {
-      myContent: ''
+      myContent: '',
+      newContent: ''
     };
   },
 
   methods: {
-    setFocus () {
-      this.$emit('focus');
-    },
-
     updateContent (e: { target: HTMLInputElement}) {
+      this.newContent = e.target.innerHTML;
       this.$emit('onUpdate', e.target.innerHTML);
     },
 
@@ -37,8 +31,17 @@ export default Vue.extend({
       return (this.color !== undefined) ? `color: ${this.color}` : `color: #000000;`;
     },
 
-    dispatchFocus () {
+    handleFocus () {
+      if (this.myContent === this.placeholder) {
+        this.myContent = '';
+      }
       this.$emit('onFocus');
+    },
+
+    handleBlur () {
+      if (!this.newContent.trim().length) {
+        this.myContent = this.placeholder;
+      }
     }
   },
 

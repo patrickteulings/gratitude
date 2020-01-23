@@ -1,9 +1,9 @@
 <template>
   <div class="dropdown dropDownWrapper" :class="classModifier">
-    <div class="dropdown__trigger" :class="{'is-open' : isOpen}" :style="getItemColor(selected)" @click="toggleDropdown">{{selected.label}}</div>
+    <div class="dropdown__trigger" :class="{'is-open' : isOpen}" :style="getItemColor(selected)" @click="toggleDropdown">{{ getFormattedItemLabel(selected) }}</div>
     <div class="dropdown__list" :class="{'is-open' : isOpen}">
       <div class="dropdown__item" :class="[isSelectedItem(colorItem) ? 'hidden': '']" :style="getItemColor(colorItem)" @click="setSelected(colorItem)" v-for="(colorItem) in listData" :key="colorItem.value">
-        {{ colorItem.label }}
+        {{ getFormattedItemLabel(colorItem) }}
       </div>
     </div>
   </div>
@@ -14,11 +14,12 @@
 // Core
 import Vue from 'vue';
 
+// Helpers
+import { firstLetterUpperCase } from '@/helpers/stringHelper';
 
-interface IColorItem {
-  label: string;
-  value: string;
-}
+// Interfaces
+import { IColorItem } from '@/interfaces/color';
+
 
 export default Vue.extend({
   name: 'DropDown',
@@ -44,8 +45,12 @@ export default Vue.extend({
 
     setSelected (colorItem: IColorItem): void {
       this.selected = colorItem;
-      // this.closeDropDown();
+      this.closeDropDown();
       this.$emit('onUpdate', colorItem);
+    },
+
+    getFormattedItemLabel (colorItem: IColorItem) {
+      return firstLetterUpperCase(colorItem.label);
     },
 
     isSelectedItem (item: IColorItem) {

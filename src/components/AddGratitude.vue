@@ -9,8 +9,8 @@
     <div class="add-gratitude" :class="{'is-open': isViewOpen}">
       <div class="add-gratitude__inner">
         <div class="add-gratitude__form">
-          <content-editable class="add-gratitude__title" @onUpdate="updateTitle" content="" placeholder="Five million stones" color="#D996C7"></content-editable>
-          <content-editable class="add-gratitude__body" @onUpdate="updateBody" content="" placeholder="Five million body stones" color="#D996C7"></content-editable>
+          <content-editable class="add-gratitude__title" @onUpdate="updateTitle" content="" :placeholder="getRandomPlaceHolder()" :color="color"></content-editable>
+          <content-editable class="add-gratitude__body" @onUpdate="updateBody" content="" :placeholder="getRandomPlaceHolder()"></content-editable>
           <DropDown :listData="defaultColors" @onUpdate="onColorSelected"></DropDown>
           <button @click="addGratitude">Add gratitude</button>
           <div v-if="isSavingGratitude">Saving...</div>
@@ -36,10 +36,10 @@ import ContentEditable from '@/components/UI/ContentEditable.vue';
 import DropDown from '@/components/UI/DropDown.vue';
 
 // Interfaces
-interface IColorItem {
-  label: string;
-  value: string;
-}
+import { IColorItem } from '@/interfaces/color';
+
+// Helpers
+import { getBeastie } from '@/helpers/beastie';
 
 // Store
 import { mapActions, mapState } from 'vuex';
@@ -64,7 +64,7 @@ export default Vue.extend({
     return {
       title: '',
       body: '',
-      color: '',
+      color: '#444548',
       colors: [{label: 'Happy', colorValue: '#D996C7'}, {label: 'Strong', colorValue: '#C6C150'}, {label: 'Hard times but learning', colorValue: '#942C3F'}, {label: 'Pretty ok', colorValue: '#68B2D0'}], // Move to user-store!!
       defaultColorArray: [],
       picked: '',
@@ -156,6 +156,10 @@ export default Vue.extend({
 
     onColorSelected (selectedColor: IColorItem) {
       this.color = selectedColor.value;
+    },
+
+    getRandomPlaceHolder () {
+      return getBeastie();
     }
   },
 

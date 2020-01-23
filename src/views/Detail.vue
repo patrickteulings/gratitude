@@ -11,9 +11,9 @@
     <article class="gratitude" v-if="this.myGratitude !== undefined">
       <div class="gratitudeWrapper">
         <div class="editableGratitude" :class="{isActive: this.editMode}">
-          <content-editable id="editableTitle" class="detail__title" @onUpdate="updateTitle" placeholder="Placeholder when empty" :content="getOriginalGratitude.title" :color="myGratitude.color"></content-editable>
+          <content-editable id="editableTitle" class="detail__title" @onUpdate="updateTitle" :placeholder="getRandomPlaceholder()" :content="getOriginalGratitude.title" :color="myGratitude.color"></content-editable>
           <small v-if="this.myGratitude.timeStamp !== undefined" class="detail__meta">{{ getCity(this.myGratitude) }}, {{ getReadableDate(this.myGratitude.timeStamp.toDate()) }} at {{ getReadableTime(this.myGratitude.timeStamp.toDate()) }}</small>
-          <content-editable class="detail__body" @onUpdate="updateBody" placeholder="Placeholder when empty" :content="getOriginalGratitude.body"></content-editable>
+          <content-editable class="detail__body" @onUpdate="updateBody" :placeholder="getRandomPlaceholder()" :content="getOriginalGratitude.body"></content-editable>
         </div>
         <div class="staticGratitude" :class="{isActive: !this.editMode}">
           <div ref="title" v-html="getOriginalGratitude.title" @mousedown="enterEditMode" class="detail__title" :style="{color: getGratitudeColor()}"></div>
@@ -39,6 +39,7 @@ import { mapState } from 'vuex';
 
 // Helpers
 import { readableDate, readableTime } from '@/helpers/dateHelper';
+import { getBeastie } from '@/helpers/beastie';
 
 // Interfaces
 import { IGratitude } from '@/interfaces/gratitude';
@@ -143,6 +144,10 @@ export default Vue.extend({
 
     getGratitudeColor () {
       return this.myGratitude.color !== undefined ? this.myGratitude.color : '#000000';
+    },
+
+    getRandomPlaceholder (): string {
+      return 'getBeastie().toString()';
     },
 
     // Date / Time helpers to convert timestamp

@@ -1,8 +1,9 @@
 .dropdown {
   font-weight: 400;
+  position: relative;
 
   &__trigger {
-    border: 1px solid color('secondary');
+    border: 1px solid color('light');
     border-radius: 3px;
     @include innerspace(1rem);
 
@@ -14,12 +15,20 @@
   }
 
   &__list {
-    display: none;
-    border: 1px solid color('secondary');
-    border-top: 0px;
+    opacity: 0;
+    pointer-events: none;
+    border: 1px solid color('light');
+    border-radius: 3px;
+    background: #fff;
+    transform: translate(1%, -80px);
+    width:98%;
+    @include card-shadow(1);
+    @include transition(transform, 0.1s);
 
     &.is-open {
-      display: block;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(1%, -100px);
     }
   }
 
@@ -30,7 +39,7 @@
       display: none;
     }
     &:not(:last-child) {
-      border-bottom: 1px solid color('light');
+      border-bottom: 1px solid lighten(color('light'), 50%);
     }
   }
 }
