@@ -39,6 +39,7 @@ export default Vue.extend({
     },
 
     handleBlur () {
+      console.log(!this.newContent.trim().length, this.newContent)
       if (!this.newContent.trim().length) {
         this.myContent = this.placeholder;
       }
@@ -51,6 +52,17 @@ export default Vue.extend({
         this.myContent = this.placeholder;
       } else {
         this.myContent = this.content;
+      }
+    }
+  },
+  watch: {
+    content: function (newVal, oldVal) { // watch it
+      if (!this.content.length && this.placeholder) {
+        this.myContent = this.placeholder;
+        this.newContent = this.placeholder;
+      } else {
+        this.myContent = this.content;
+        this.newContent = this.content;
       }
     }
   }

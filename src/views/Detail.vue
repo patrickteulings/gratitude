@@ -11,23 +11,24 @@
     <article class="gratitude" v-if="this.myGratitude !== undefined">
       <div class="gratitudeWrapper">
         <div class="editableGratitude" :class="{isActive: this.editMode}">
-          <content-editable id="editableTitle" class="detail__title" @onUpdate="updateTitle" :placeholder="getRandomPlaceholder()" :content="getOriginalGratitude.title" :color="myGratitude.color"></content-editable>
+          {{getOriginalGratitude.title}}
+          <content-editable id="editableTitle" class="detail__title" :placeholder="getRandomPlaceholder()" :content="getOriginalGratitude.title" :color="myGratitude.color"></content-editable>
           <small v-if="this.myGratitude.timeStamp !== undefined" class="detail__meta">{{ getCity(this.myGratitude) }}, {{ getReadableDate(this.myGratitude.timeStamp.toDate()) }} at {{ getReadableTime(this.myGratitude.timeStamp.toDate()) }}</small>
           <content-editable class="detail__body" @onUpdate="updateBody" :placeholder="getRandomPlaceholder()" :content="getOriginalGratitude.body"></content-editable>
         </div>
         <div class="staticGratitude" :class="{isActive: !this.editMode}">
           <div ref="title" v-html="getOriginalGratitude.title" @mousedown="enterEditMode" class="detail__title" :style="{color: getGratitudeColor()}"></div>
           <small v-if="this.myGratitude.timeStamp !== undefined" class="detail__meta">Created on {{ getReadableDate(this.myGratitude.timeStamp.toDate()) }} at {{ getReadableTime(this.myGratitude.timeStamp.toDate()) }} in {{ getCity(this.myGratitude) }}</small>
-          <div ref="body" v-html="getOriginalGratitude.body" :focus="enterEditMode" class="detail__body"></div>
+          <div ref="body" v-html="getOriginalGratitude.body" :mousedown="enterEditMode" class="detail__body"></div>
         </div>
       </div>
       <button type="button" @click.prevent="cancelUpdate()" class="btn-delete" v-if="editMode">cancel</button>
       <button type="button" @click="updateGratitude()" class="btn-delete" v-if="editMode">update</button>
 
       <span v-if="isUpdating">Aan het updaten</span>
-
-      <button @click="enterEditMode" class="btn-reset">edit</button>
-      <button @click="deleteGratitude" class="btn-reset">delete</button>
+      <br>
+      <button @click="enterEditMode" class="btn-delete">edit</button>
+      <button @click="deleteGratitude" class="btn-delete">delete</button>
     </article>
   </div>
 </template>
@@ -105,6 +106,7 @@ export default Vue.extend({
         this.newGratitude = response.data();
         this.originalGratitude = response.data();
         this.myGratitude = response.data();
+        console.log('getData', this.originalGratitude);
       });
     },
 
@@ -133,7 +135,7 @@ export default Vue.extend({
       this.isUpdating = true;
       this.$store.dispatch('updateSelectedGratitude', {id: this.$route.params.id, payload: this.newGratitude}).then( (response) => {
         this.isUpdating = false; // Spinner
-        this.originalGratitude = {...this.$store.getters.selectedGratitude};
+        // this.originalGratitude = {...this.$store.getters.selectedGratitude};
         this.myGratitude = {...this.$store.getters.selectedGratitude};
         this.newGratitude = {...this.$store.getters.selectedGratitude};
         this.editMode = false; // Edit state, hides cancel / update buttons
@@ -147,7 +149,7 @@ export default Vue.extend({
     },
 
     getRandomPlaceholder (): string {
-      return 'getBeastie().toString()';
+      return getBeastie().toString();
     },
 
     // Date / Time helpers to convert timestamp
