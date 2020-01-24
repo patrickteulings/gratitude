@@ -12,7 +12,6 @@
           <content-editable class="add-gratitude__title" @onUpdate="updateTitle" content="" :placeholder="getRandomPlaceHolder()" :color="color"></content-editable>
           <content-editable class="add-gratitude__body" @onUpdate="updateBody" content="" :placeholder="getRandomPlaceHolder()"></content-editable>
           <DropDown :listData="defaultColors" @onUpdate="onColorSelected"></DropDown>
-          <button @click="addGratitude">Add gratitude</button>
           <div v-if="isSavingGratitude">Saving...</div>
         </div>
       </div>
@@ -80,11 +79,12 @@ export default Vue.extend({
     },
 
     confirmAdd () {
-      this.addGratitude();
+      this.addGratitude(); // @TODO Why not call this directly?
     },
 
     confirmCancel () {
-      this.closeView();
+      this.resetView();
+      this.closeView(); // @TODO Why not call this directly?
     },
 
     addGratitude () {
@@ -152,6 +152,10 @@ export default Vue.extend({
 
     closeView () {
       this.isViewOpen = false;
+    },
+
+    resetView () {
+      console.log('resetView');
     },
 
     onColorSelected (selectedColor: IColorItem) {

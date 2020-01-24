@@ -113,7 +113,7 @@ export default Vue.extend({
     // Well, delete gratitude
     deleteGratitude (): void {
       this.$store.dispatch('deleteGratitude', this.$route.params.id).then( (res) => {
-        this.$router.push({path: '/home'});
+        this.$router.push({path: '/'});
       }).catch( (error) => {
         console.error('Document could not be deleted: ', error);
       });

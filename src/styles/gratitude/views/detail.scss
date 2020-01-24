@@ -98,7 +98,8 @@
     @include transition();
     line-height: 64px;
     margin-bottom: 40px;
-    word-break: break-all;
+    // word-break: break-all;
+    text-align: justify;
 
 
     &:focus {
@@ -112,6 +113,8 @@
     line-height: 26px;
     color: color('black');
     font-family: $primary-font-face;
+    // word-break: break-all;
+    text-align: justify;
     @include transition();
 
     &:focus {
