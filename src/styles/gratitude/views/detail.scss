@@ -95,7 +95,7 @@
 .detail {
   &__title {
     @extend h2;
-    @include transition();
+    @include transition(color, 0.2s);
     line-height: 64px;
     margin-bottom: 40px;
     // word-break: break-all;
@@ -104,7 +104,10 @@
 
     &:focus {
       outline: 0px;
-      opacity: 0.6;
+      opacity: 1;
+      background: #F3F3F3;
+      padding: 1rem;
+      margin: -2rem -1rem 2rem !important;
     }
   }
 

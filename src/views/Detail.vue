@@ -11,8 +11,7 @@
     <article class="gratitude" v-if="this.myGratitude !== undefined">
       <div class="gratitudeWrapper">
         <div class="editableGratitude" :class="{isActive: this.editMode}">
-          {{getOriginalGratitude.title}}
-          <content-editable id="editableTitle" class="detail__title" :placeholder="getRandomPlaceholder()" :content="getOriginalGratitude.title" :color="myGratitude.color"></content-editable>
+          <content-editable id="editableTitle" @onUpdate="updateTitle" class="detail__title" :placeholder="getRandomPlaceholder()" :content="getOriginalGratitude.title" :color="myGratitude.color"></content-editable>
           <small v-if="this.myGratitude.timeStamp !== undefined" class="detail__meta">{{ getCity(this.myGratitude) }}, {{ getReadableDate(this.myGratitude.timeStamp.toDate()) }} at {{ getReadableTime(this.myGratitude.timeStamp.toDate()) }}</small>
           <content-editable class="detail__body" @onUpdate="updateBody" :placeholder="getRandomPlaceholder()" :content="getOriginalGratitude.body"></content-editable>
         </div>
@@ -132,6 +131,9 @@ export default Vue.extend({
 
     // Update item and save to database
     updateGratitude () {
+
+      console.log(this.newGratitude);
+
       this.isUpdating = true;
       this.$store.dispatch('updateSelectedGratitude', {id: this.$route.params.id, payload: this.newGratitude}).then( (response) => {
         this.isUpdating = false; // Spinner
