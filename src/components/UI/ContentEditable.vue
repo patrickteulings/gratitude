@@ -32,7 +32,7 @@ export default Vue.extend({
     },
 
     handleFocus () {
-      if (this.myContent === this.placeholder) {
+      if (this.myContent.trim() === this.placeholder.trim() || this.myContent.trim() === '') {
         this.myContent = '';
       }
       this.$emit('onFocus');
@@ -42,6 +42,10 @@ export default Vue.extend({
       if (!this.newContent.trim().length) {
         this.myContent = this.placeholder;
       }
+    },
+
+    reset () {
+      console.log('reset');
     }
   },
 

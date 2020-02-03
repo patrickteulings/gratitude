@@ -9,13 +9,12 @@
       <header>
         <Navigation @onLogout="logout()"/>
       </header>
-      <SidebarMenu>huh</SidebarMenu>
+      <SidebarMenu></SidebarMenu>
       <div>
         <router-view />
       </div>
     </div>
     <div v-else>
-      <FrontPage></FrontPage>
       <LoginForm></LoginForm>
     </div>
     <main>

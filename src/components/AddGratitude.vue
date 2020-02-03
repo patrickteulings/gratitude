@@ -9,10 +9,14 @@
     <div class="add-gratitude" :class="{'is-open': isViewOpen}">
       <div class="add-gratitude__inner">
         <div class="add-gratitude__form">
-          <content-editable class="add-gratitude__title" @onUpdate="updateTitle" content="" :placeholder="getRandomPlaceHolder()" :color="color"></content-editable>
-          <content-editable class="add-gratitude__body" @onUpdate="updateBody" content="" :placeholder="getRandomPlaceHolder()"></content-editable>
+          <content-editable ref="title" class="add-gratitude__title" @onUpdate="updateTitle" content="" :placeholder="getRandomPlaceHolder()" :color="color"></content-editable>
+          <content-editable ref="body" class="add-gratitude__body" @onUpdate="updateBody" content="" :placeholder="getRandomPlaceHolder()"></content-editable>
           <DropDown :listData="defaultColors" @onUpdate="onColorSelected"></DropDown>
-          <div v-if="isSavingGratitude">Saving...</div>
+          <div v-if="isSavingGratitude">
+            <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+              <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+            </svg>
+          </div>
         </div>
       </div>
     </div>
@@ -39,6 +43,7 @@ import { IColorItem } from '@/interfaces/color';
 
 // Helpers
 import { getBeastie } from '@/helpers/beastie';
+import { EventBus } from '@/helpers/eventbus';
 
 // Store
 import { mapActions, mapState } from 'vuex';
@@ -163,7 +168,8 @@ export default Vue.extend({
     },
 
     getRandomPlaceHolder () {
-      return getBeastie();
+      const randomBeastie = getBeastie();
+      return randomBeastie;
     }
   },
 
