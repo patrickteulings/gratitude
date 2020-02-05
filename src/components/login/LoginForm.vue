@@ -17,7 +17,7 @@
 
 <script>
 // import { reactive, toRefs } from "@vue/composition-api";
-import useLogin from '@/useLogin';
+import useLogin from '@/components/auth/useLogin';
 export default {
   setup () {
     const state = useLogin();

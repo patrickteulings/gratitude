@@ -28,13 +28,13 @@ import { computed } from '@vue/composition-api';
 
 // our custom composition functions for firebase auth check
 // and for logging in and logging out of firebase
-import useAuth from './useAuth';
-import useLogin from './useLogin';
-import LoginForm from './components/login/LoginForm.vue';
+import useAuth from '@/components/auth/useAuth';
+import useLogin from '@/components/auth/useLogin';
+import LoginForm from '@/components/login/LoginForm.vue';
 import Navigation from '@/components/navigation/Navigation.vue';
 import SidebarMenu from '@/components/navigation/SidebarMenu.vue';
-import Splash from './views/Splash.vue';
-import FrontPage from './views/FrontPage.vue';
+import Splash from '@/views/Splash.vue';
+import FrontPage from '@/views/FrontPage.vue';
 
 export default {
   name: 'app',

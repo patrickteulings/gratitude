@@ -203,7 +203,7 @@ export default Vue.extend({
         if (isEqualDate(latestDate.dayStamp.toDate(), yesterday)) {
           streak += 1;
           yesterdayHasGratitude = true;
-          startDay = today;
+          startDay = yesterday;
         }
       }
 
