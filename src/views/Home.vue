@@ -12,9 +12,9 @@
 import Vue from 'vue';
 
 // Components
-import GratitudeListGrouped from '@/components/GratitudeListGrouped.vue';
+import GratitudeListGrouped from '@/components/frontpage/GratitudeListGrouped.vue';
 import HomepageHero from '@/components/hero/HomepageHero.vue';
-import Clock from '@/components/Clock.vue';
+import Clock from '@/components/clock/Clock.vue';
 
 // Helper, Semi-components
 import Location from '@/components/location/Location.vue';

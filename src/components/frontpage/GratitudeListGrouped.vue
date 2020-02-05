@@ -24,7 +24,7 @@ import { isEmptyArray } from '@/helpers/emptyHelper';
 import { mapActions, mapState } from 'vuex';
 
 // Comnponents
-import AddGratitude from '@/components/AddGratitude.vue';
+import AddGratitude from '@/components/frontpage/AddGratitude.vue';
 import GratitudeCardGroup from '@/components/cards/GratitudeCardGroup.vue';
 import GratitudeCard from '@/components/cards/GratitudeCard.vue';
 

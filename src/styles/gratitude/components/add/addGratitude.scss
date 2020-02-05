@@ -62,7 +62,7 @@
     }
     &:hover {
       @include card-shadow(1);
-      background: color('light');
+      // background: color('light');
     }
 
     &.button-cancel {
