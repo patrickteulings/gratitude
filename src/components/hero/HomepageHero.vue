@@ -1,27 +1,37 @@
 <template>
   <div class="homepage-hero">
     <div class="homepage-hero__background">
-
-<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
-<svg version="1.1" id="Capa_1" x="0px" y="0px"
-	 viewBox="0 0 512.002 512.002" >
-<g>
-	<g>
-		<path fill="#ff9900" d="M366.627,228.093c-2.696-4.82-8.787-6.537-13.61-3.842l-0.528,0.299c-4.799,2.734-6.473,8.84-3.74,13.639
+      <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+      <svg
+        version="1.1"
+        id="Capa_1"
+        x="0px"
+        y="0px"
+        viewBox="0 0 512.002 512.002"
+      >
+        <g>
+          <g>
+            <path
+              fill="#ff9900"
+              d="M366.627,228.093c-2.696-4.82-8.787-6.537-13.61-3.842l-0.528,0.299c-4.799,2.734-6.473,8.84-3.74,13.639
 			c1.844,3.237,5.221,5.052,8.698,5.052c1.677,0,3.379-0.423,4.94-1.313l0.399-0.225
-			C367.605,239.006,369.325,232.912,366.627,228.093z"/>
-	</g>
-</g>
-<g>
-	<g>
-		<path d="M203.07,299.932c-1.859-1.86-4.439-2.93-7.069-2.93s-5.21,1.07-7.07,2.93c-1.861,1.86-2.93,4.44-2.93,7.07
+			C367.605,239.006,369.325,232.912,366.627,228.093z"
+            />
+          </g>
+        </g>
+        <g>
+          <g>
+            <path
+              d="M203.07,299.932c-1.859-1.86-4.439-2.93-7.069-2.93s-5.21,1.07-7.07,2.93c-1.861,1.86-2.93,4.44-2.93,7.07
 			s1.07,5.21,2.93,7.07s4.44,2.93,7.07,2.93s5.21-1.07,7.069-2.93c1.861-1.86,2.931-4.44,2.931-7.07S204.93,301.792,203.07,299.932z
-			"/>
-	</g>
-</g>
-<g>
-	<g>
-		<path d="M258.001,252.002h-24.475c14.316-31.929,23.805-65.657,28.236-100.487l4.159-32.69c0.531-4.175-1.608-8.235-5.352-10.158
+			"
+            />
+          </g>
+        </g>
+        <g>
+          <g>
+            <path
+              d="M258.001,252.002h-24.475c14.316-31.929,23.805-65.657,28.236-100.487l4.159-32.69c0.531-4.175-1.608-8.235-5.352-10.158
 			c-3.746-1.924-8.291-1.295-11.374,1.568l-3.346,3.107c-13.921,12.931-26.344,27.097-37.179,42.292
 			c8.781-42.155,20.071-84.765,32.344-111.514l0.051-0.111c1.895-4.134,0.761-9.026-2.76-11.905
 			c-3.519-2.879-8.538-3.021-12.216-0.345c-19.866,14.461-37.74,31.645-53.065,50.859c2.791-23.629,9.275-46.901,19.188-68.436
@@ -42,12 +52,14 @@
 			 M32.416,160.89c33.92,18.024,56.27,52.856,58.636,91.112H61.734C55.714,220.455,45.891,189.928,32.416,160.89z M248.001,427.502
 			c0,35.565-28.935,64.5-64.5,64.5h-99c-35.565,0-64.5-28.934-64.5-64.5v-110.5h137.5c5.522,0,10-4.477,10-10s-4.478-10-10-10
 			h-137.5v-25h152.933c0.039,0,0.078,0,0.117,0h44.615c0.011,0,0.023,0.002,0.034,0.002c0.01,0,0.019-0.002,0.028-0.002h30.273
-			V427.502z"/>
-	</g>
-</g>
-<g>
-	<g>
-		<path d="M509.87,359.831c-1.896-2.417-4.797-3.829-7.869-3.829h-54.166l-0.002-73.857c0-4.101-0.408-8.182-1.177-12.188
+			V427.502z"
+            />
+          </g>
+        </g>
+        <g>
+          <g>
+            <path
+              d="M509.87,359.831c-1.896-2.417-4.797-3.829-7.869-3.829h-54.166l-0.002-73.857c0-4.101-0.408-8.182-1.177-12.188
 			l36.664-24.685c8.778-5.91,15.42-14.706,18.7-24.765c7.039-21.579-2.229-45.289-22.035-56.377c-0.124-0.069-0.249-0.136-0.376-0.2
 			c-16.08-8.123-35.041-6.289-49.166,3.755l-0.001-27.444c0-8.453-2.865-16.778-8.068-23.441
 			c-11.159-14.292-31.004-18.73-47.191-10.55c-0.127,0.064-0.253,0.131-0.377,0.201c-15.821,8.86-23.221,27.803-17.596,45.041
@@ -64,41 +76,26 @@
 			c11.369,6.48,16.669,20.162,12.605,32.62c-1.905,5.84-5.761,10.945-10.856,14.376l-32.51,21.888
 			c-1.639-2.963-3.503-5.807-5.597-8.489c-1.143-1.464-2.351-2.857-3.596-4.204l-0.003-31.391
 			C430.444,200.344,432.525,194.295,436.305,189.451z M480.917,410.002H370.334c-5.522,0-10,4.477-10,10s4.478,10,10,10h105.679
-			l-15.201,62H353.191l-28.441-116h87.647h25.438h51.418L480.917,410.002z"/>
-	</g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-<g>
-</g>
-</svg>
-
+			l-15.201,62H353.191l-28.441-116h87.647h25.438h51.418L480.917,410.002z"
+            />
+          </g>
+        </g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+        <g></g>
+      </svg>
     </div>
     <div class="numberbar">
       <div class="numberbar-item">
@@ -109,13 +106,17 @@
       </div>
       <div class="numberbar-item">
         <div class="numberbar-item__inner">
-          <span class="numberbar-item__amount" v-if="gratitudes">{{gratitudes.length}}</span>
+          <span class="numberbar-item__amount" v-if="gratitudes">{{
+            gratitudes.length
+          }}</span>
           <span class="numberbar-item__description">gratitudes</span>
         </div>
       </div>
       <div class="numberbar-item">
         <div class="numberbar-item__inner">
-          <span class="numberbar-item__amount" v-if="gratitudes">{{dataObject.length}}</span>
+          <span class="numberbar-item__amount" v-if="gratitudes">{{
+            dataObject.length
+          }}</span>
           <span class="numberbar-item__description">days of gratitude</span>
         </div>
       </div>
@@ -125,20 +126,18 @@
 
 <script lang="ts">
 
-interface Gratitude {
-  timeStamp: any;
-  dayStamp?: any;
-  title: string;
-  body: string;
-  color?: string;
-}
-
 // Core
 import Vue from 'vue';
 
 // Helpers
-import { getStreak, getUniqueDates, getDayBefore, isEqualDate } from '@/helpers/dateHelper';
+import {
+  getStreak,
+  getUniqueDates,
+  getDayBefore,
+  isEqualDate
+} from '@/helpers/dateHelper';
 
+// Interfaces
 import { IGratitude } from '@/interfaces/gratitude';
 
 export default Vue.extend({
@@ -146,7 +145,7 @@ export default Vue.extend({
   props: {
     testvalue: {
       type: String,
-      default: 'hoi'
+      default: ''
     },
     gratitudes: {
       type: Array,
@@ -159,7 +158,7 @@ export default Vue.extend({
   data: () => {
     return {
       streakDays: 0,
-      iets: 'alles',
+      iets: '',
       menuIsOpen: false,
       dataObject: []
     };
@@ -167,7 +166,7 @@ export default Vue.extend({
 
   methods: {
     getStreak (data: IGratitude[]) {
-      const arr = Array.from(getUniqueDates (data));
+      const arr = Array.from(getUniqueDates(data));
       const today = new Date();
 
       let startDay = new Date();
@@ -177,7 +176,6 @@ export default Vue.extend({
 
       let dayBefore = new Date();
       dayBefore = getDayBefore(dayBefore);
-
 
       // First we need to find out if the user has posted today
       // If there is a post today, it should count in the streak
@@ -193,7 +191,6 @@ export default Vue.extend({
         startDay = today;
       }
 
-
       // If the above is not true, check to see if yesterday had any gratitudes,
       // otherwise there is no 'Current streak', so ony continue if one of these is true;
 
@@ -207,13 +204,13 @@ export default Vue.extend({
         }
       }
 
-
       // If both today and yesterday have no Gratitudes, theres not really a streak,
       // so abort. If only today has a Gratitude return only today
 
       if (!todayHasGratitude && !yesterdayHasGratitude) return streak;
-      if (todayHasGratitude && !yesterdayHasGratitude) { this.streakDays = 1; }
-
+      if (todayHasGratitude && !yesterdayHasGratitude) {
+        this.streakDays = 1;
+      }
 
       // Now we know at which point to start counting for you streak
       // Simple check every day 'before', or yesterday, until the quation is false
@@ -227,10 +224,10 @@ export default Vue.extend({
         let mayContinue = false;
 
         for (const item of arr) {
-
           const dayArry = item as IGratitude[];
           const dayEntry = dayArry[0] as IGratitude;
           const found = isEqualDate(dayEntry.dayStamp.toDate(), dayToCheck);
+
           if (found) streak = streak + 1;
           if (found) mayContinue = true;
         }
@@ -245,7 +242,7 @@ export default Vue.extend({
     },
 
     setTotalDaysOfGratitudes (data: IGratitude[]) {
-      this.dataObject = Array.from(getUniqueDates (data));
+      this.dataObject = Array.from(getUniqueDates(data));
     }
   },
 
@@ -264,5 +261,3 @@ export default Vue.extend({
   }
 });
 </script>
-
-

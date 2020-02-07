@@ -132,8 +132,6 @@ export default Vue.extend({
     // Update item and save to database
     updateGratitude () {
 
-      console.log(this.newGratitude);
-
       this.isUpdating = true;
       this.$store.dispatch('updateSelectedGratitude', {id: this.$route.params.id, payload: this.newGratitude}).then( (response) => {
         this.isUpdating = false; // Spinner
@@ -151,7 +149,7 @@ export default Vue.extend({
     },
 
     getRandomPlaceholder (): string {
-      return getBeastie().toString();
+      return getBeastie();
     },
 
     // Date / Time helpers to convert timestamp

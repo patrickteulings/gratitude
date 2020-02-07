@@ -9,8 +9,8 @@
     <div class="add-gratitude" :class="{'is-open': isViewOpen}">
       <div class="add-gratitude__inner">
         <div class="add-gratitude__form">
-          <content-editable ref="title" class="add-gratitude__title" @onUpdate="updateTitle" content="" :placeholder="getRandomPlaceHolder()" :color="color"></content-editable>
-          <content-editable ref="body" class="add-gratitude__body" @onUpdate="updateBody" content="" :placeholder="getRandomPlaceHolder()"></content-editable>
+          <content-editable ref="title" class="add-gratitude__title" @onUpdate="updateTitle" content=""  :contentPlaceholder="placeholders[0]" :color="color"></content-editable>
+          <content-editable ref="body" class="add-gratitude__body" @onUpdate="updateBody" content="" :contentPlaceholder="placeholders[1]"></content-editable>
           <DropDown :listData="defaultColors" @onUpdate="onColorSelected"></DropDown>
           <div v-if="isSavingGratitude">
             <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
@@ -73,7 +73,8 @@ export default Vue.extend({
       defaultColorArray: [],
       picked: '',
       isViewOpen: false,
-      isSavingGratitude: false
+      isSavingGratitude: false,
+      placeholders: [getBeastie(), getBeastie()]
     };
   },
 
@@ -124,6 +125,7 @@ export default Vue.extend({
         dayStamp
       }).then ( () => {
         this.isSavingGratitude = false; // LOADING STATE
+        this.resetView();
       })
       .catch( ( error ) => {
         console.error('Error writing document: ', error);
@@ -160,16 +162,17 @@ export default Vue.extend({
     },
 
     resetView () {
-      console.log('resetView');
+      console.log('resetView'); // @TODO Is this necessary
     },
 
     onColorSelected (selectedColor: IColorItem) {
-      this.color = selectedColor.value;
+      this.color = selectedColor.value; // @TODO refactor color Strings to color Objects
     },
 
     getRandomPlaceHolder () {
-      const randomBeastie = getBeastie();
-      return randomBeastie;
+      this.test += 1;
+      // const plc = getBeastie();
+      return 'hi';
     }
   },
 
@@ -187,6 +190,9 @@ export default Vue.extend({
   },
   created () {
     this.getColorData();
+  },
+  mounted () {
+    // console.log('mounted', this.getRandomPlaceHolder());
   }
 });
 </script>

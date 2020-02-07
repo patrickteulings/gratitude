@@ -32,19 +32,19 @@
 
   &__button {
     @include position(fixed, 50%, auto, auto, 32px );
+    background: color('white');
     margin-left: -32px;
     z-index: 200;
-    background: color('white');
     color: color('action');
+    font-weight: 600;
+    line-height: 0;
+    cursor: pointer;
 
     @include size(64px);
     @include card-shadow(2);
     @include flex-center('both');
     @include font-size(32px);
     @include transition();
-    font-weight: 600;
-    cursor: pointer;
-    line-height: 0;
     border-radius: 50%;
     @include transition();
     transform: rotate(180deg);
@@ -62,7 +62,6 @@
     }
     &:hover {
       @include card-shadow(1);
-      // background: color('light');
     }
 
     &.button-cancel {

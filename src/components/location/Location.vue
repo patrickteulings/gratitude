@@ -25,13 +25,14 @@
 <script lang="ts">
 import Vue from 'vue';
 import Weather from '@/components/weather/Weather.vue';
-import GeocodeService from '@/services/geocodeService.ts';
+import GeocodeService from '@/services/geocodeService.ts'; // @TODO Refactor to Composition API - Renderless Component
 
 export default Vue.extend({
   name: 'Location',
   components: {
     Weather
   },
+
    data: () => {
     return {
       location: '',
@@ -39,6 +40,7 @@ export default Vue.extend({
       errorStr: null
     };
   },
+
   methods: {
     async getLocation () {
       return new Promise((resolve, reject) => {
