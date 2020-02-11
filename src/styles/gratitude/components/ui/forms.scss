@@ -19,3 +19,37 @@ input[type="text"] {
 .contenteditable {
   @include transition(all, 0.3s);
 }
+
+.customTextarea {
+  border: 0;
+  padding: 0;
+  margin: 0;
+  height: auto;
+  resize: none;
+  @include transition(all, 0.3s);
+  word-wrap: break-word;
+
+  &:focus {
+    outline: none;
+  }
+
+  &--title {
+    font-family: $heading-font-face;
+    @include font-size(48px);
+    line-height: font-size(64px);
+  }
+
+  &--body {
+    font-family: $primary-font-face;
+    @include font-size(16px);
+    line-height: font-size(26px);
+  }
+
+  .isActive & {
+    @include innerspace(1rem);
+    margin-left: -1rem;
+    margin-top: -1rem;
+    margin-right: -1rem;
+    background: lighten(color('light'), 10%);
+  }
+}

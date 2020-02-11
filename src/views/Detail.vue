@@ -10,15 +10,20 @@
     </div>
     <article class="gratitude" v-if="this.myGratitude !== undefined">
       <div class="gratitudeWrapper">
-        <div class="editableGratitude" :class="{isActive: this.editMode}">
-          <content-editable id="editableTitle" @onUpdate="updateTitle" class="detail__title" :placeholder="getRandomPlaceholder()" :content="getOriginalGratitude.title" :color="myGratitude.color"></content-editable>
+        <!-- <div class="editableGratitude" :class="{isActive: this.editMode}">
+          <content-editable id="editableTitle" @onUpdate="updateTitle" class="detail__title" :contentPlaceholder="this.placeHolders[0]" :content="getOriginalGratitude.title" :color="myGratitude.color"></content-editable>
           <small v-if="this.myGratitude.timeStamp !== undefined" class="detail__meta">{{ getCity(this.myGratitude) }}, {{ getReadableDate(this.myGratitude.timeStamp.toDate()) }} at {{ getReadableTime(this.myGratitude.timeStamp.toDate()) }}</small>
-          <content-editable class="detail__body" @onUpdate="updateBody" :placeholder="getRandomPlaceholder()" :content="getOriginalGratitude.body"></content-editable>
+          <content-editable class="detail__body" @onUpdate="updateBody" :contentPlaceholder="this.placeHolders[1]" :content="getOriginalGratitude.body"></content-editable>
         </div>
         <div class="staticGratitude" :class="{isActive: !this.editMode}">
           <div ref="title" v-html="getOriginalGratitude.title" @mousedown="enterEditMode" class="detail__title" :style="{color: getGratitudeColor()}"></div>
           <small v-if="this.myGratitude.timeStamp !== undefined" class="detail__meta">Created on {{ getReadableDate(this.myGratitude.timeStamp.toDate()) }} at {{ getReadableTime(this.myGratitude.timeStamp.toDate()) }} in {{ getCity(this.myGratitude) }}</small>
           <div ref="body" v-html="getOriginalGratitude.body" :mousedown="enterEditMode" class="detail__body"></div>
+        </div> -->
+        <div class="editableGratitude" :class="{isActive: this.editMode}">
+          <content-editable id="editableTitle" @onUpdate="updateTitle" class="detail__title" :content="getGratitude.title" textAreaType="title" :color="myGratitude.color"></content-editable>
+          <small v-if="this.myGratitude.timeStamp !== undefined" class="detail__meta">{{ getCity(this.myGratitude) }}, {{ getReadableDate(this.myGratitude.timeStamp.toDate()) }} at {{ getReadableTime(this.myGratitude.timeStamp.toDate()) }}</small>
+          <content-editable class="detail__body" @onUpdate="updateBody" :content="getGratitude.body"></content-editable>
         </div>
       </div>
       <button type="button" @click.prevent="cancelUpdate()" class="btn-delete" v-if="editMode">cancel</button>
@@ -40,6 +45,7 @@ import { mapState } from 'vuex';
 // Helpers
 import { readableDate, readableTime } from '@/helpers/dateHelper';
 import { getBeastie } from '@/helpers/beastie';
+import { EventBus } from '@/helpers/eventbus';
 
 // Interfaces
 import { IGratitude } from '@/interfaces/gratitude';
@@ -72,7 +78,8 @@ export default Vue.extend({
       isUpdating: false,
       myGratitude: this.$store.getters.selectedGratitude as IGratitude,
       originalGratitude: this.$store.getters.selectedGratitude as IGratitude,
-      newGratitude: this.$store.getters.selectedGratitude as IGratitude
+      newGratitude: this.$store.getters.selectedGratitude as IGratitude,
+      placeHolders: [getBeastie(), getBeastie()]
     };
   },
 
@@ -83,6 +90,10 @@ export default Vue.extend({
 
     getOriginalGratitude (): IGratitude {
       return this.originalGratitude;
+    },
+
+    getGratitude (): IGratitude {
+      return this.myGratitude;
     }
   },
 
@@ -105,7 +116,6 @@ export default Vue.extend({
         this.newGratitude = response.data();
         this.originalGratitude = response.data();
         this.myGratitude = response.data();
-        console.log('getData', this.originalGratitude);
       });
     },
 
@@ -126,6 +136,7 @@ export default Vue.extend({
 
     // Cancels update/edit and reverts to last saved version
     cancelUpdate () {
+      EventBus.$emit('resetContentEditable', 'my-test-parameter');
       this.editMode = false;
     },
 

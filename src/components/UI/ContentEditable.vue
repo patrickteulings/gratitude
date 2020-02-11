@@ -1,16 +1,47 @@
 <template>
-  <div class="inputWrapper contenteditable" :class="{ hasPlaceholderContent: isPlaceholder }" contenteditable="true" @focus="handleFocus" @blur="handleBlur" @input="updateContent" v-html="myContent" :style="getStyle()"></div>
+  <div>
+    <textarea
+      :class="['customTextarea', {hasPlaceholderContent: isPlaceholder}, getFieldType() ]"
+      :placeholder='getRandomPlaceholder()'
+      :style='getStyle()'
+      contenteditable='true'
+      @focus='handleFocus'
+      @blur='handleBlur'
+      @input='handleUpdate'
+      @keyup="isPlaceholderText"
+      rows='1'
+      value='lets test'
+      v-model="myContent"
+      ref="textArea"
+    />
+  </div>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
+
+// Core
 import Vue from 'vue';
+
+// Events
+import { EventBus } from '@/helpers/eventbus';
+
+// Helpers
+import { getBeastie } from '@/helpers/beastie';
 
 export default Vue.extend({
   name: 'ContentEditable',
   props: {
     value: String,
-    content: String,
-    contentPlaceholder: String,
+    content: {
+      type: String,
+      default: '',
+      required: false
+    },
+    textAreaType: {
+      type: String,
+      default: 'body',
+      required: false
+    },
     color: String
   },
 
@@ -18,76 +49,91 @@ export default Vue.extend({
     return {
       myContent: '',
       newContent: '',
-      isPlaceholder: false
+      isPlaceholder: false,
+      duplicate: ''
     };
   },
 
   methods: {
-    updateContent (e: { target: HTMLInputElement}) {
-      this.newContent = e.target.innerHTML;
+    handleUpdate (e: { target: HTMLInputElement }) {
+      this.handleHeight(e.target);
       this.isPlaceholderText();
-      this.$emit('onUpdate', e.target.innerHTML);
+      this.$emit('onUpdate', e.target.value);
     },
 
-    getStyle () {
-      return (this.color !== undefined) ? `color: ${this.color}` : `color: #000000;`;
+    handleHeight (el: HTMLElement) {
+      el.style.height = 'auto';
+      el.style.height = `${el.scrollHeight}px`;
+      console.log(this.content, el.scrollHeight);
     },
 
     handleFocus () {
-      if (this.myContent.trim() === this.contentPlaceholder.trim() || this.myContent.trim() === '') {
-        this.myContent = '';
-      }
-      this.isPlaceholderText();
       this.$emit('onFocus');
     },
 
     handleBlur () {
-      if (!this.newContent.trim().length) {
-        this.myContent = this.contentPlaceholder;
-      }
       this.isPlaceholderText();
     },
 
-    reset () {
-      console.log('reset');
+    getFieldType () {
+      return this.textAreaType === 'title' ? 'customTextarea--title' : 'customTextarea--body';
     },
 
-    isPlaceholderText () {
-      this.isPlaceholder = (this.newContent.trim() === this.contentPlaceholder.trim() || this.newContent.trim() === '') ? true : false;
+    getStyle () {
+      return this.color !== undefined
+        ? `color: ${this.color}`
+        : `color: #000000;`;
+    },
+
+    isPlaceholderText (): void {
+      if (this.myContent !== undefined) {
+        this.isPlaceholder = (this.myContent.trim() === '') ? true : false;
+      }
+    },
+
+    getRandomPlaceholder (): string {
+      return getBeastie();
+    },
+
+    reset () {
+      this.myContent = this.duplicate;
     }
   },
 
-  created () {
+  mounted () {
+
     if (this.content !== undefined) {
-      if (!this.content.length && this.contentPlaceholder) {
-        this.myContent = this.contentPlaceholder;
-      } else {
-        this.myContent = this.content;
-      }
+      this.myContent = this.content;
+      this.duplicate = this.content.slice();
+    } else {
+      this.isPlaceholderText();
     }
-    this.isPlaceholderText();
+    this.handleHeight(this.$el.querySelectorAll('.customTextarea')[0] as HTMLElement);
+    setTimeout(() => {
+      this.handleHeight(this.$el.querySelectorAll('.customTextarea')[0] as HTMLElement);
+    }, 1000);
+    EventBus.$on('resetContentEditable', (clickCount: string) => this.reset() );
   },
+
   watch: {
-    // content (newVal, oldVal) { // watch it
-    //   if (!this.content.length && this.contentPlaceholder) {
-    //     this.myContent = this.contentPlaceholder;
-    //     this.newContent = this.contentPlaceholder;
-    //   } else {
-    //     this.myContent = this.content;
-    //     this.newContent = this.content;
-    //   }
-    // }
+    content (newValue, oldValue) {
+      console.log(this.$el.querySelectorAll('.customTextarea')[0])
+      this.handleHeight(this.$el.querySelectorAll('.customTextarea')[0] as HTMLElement);
+      this.myContent = newValue;
+      this.duplicate = newValue;
+    }
   }
 });
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
-  .contenteditable {
-    transition: all 0.3s;
-  }
+<!-- Add 'scoped' attribute to limit CSS to this component only -->
+<style scoped lang='scss'>
+.contenteditable {
+  transition: all 0.3s;
+}
 
-  .hasPlaceholderContent {
-    opacity: 0.6
-  }
+.hasPlaceholderContent {
+  opacity: 0.6;
+  font-weight: 100;
+}
 </style>

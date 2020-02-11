@@ -139,10 +139,10 @@
   @include position();
 
   .editableGratitude, .staticGratitude {
-    display: none;
+    pointer-events: none;
 
     &.isActive {
-      display: block;
+      pointer-events: auto;
     }
   }
 }

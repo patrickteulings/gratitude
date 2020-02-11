@@ -9,8 +9,8 @@
     <div class="add-gratitude" :class="{'is-open': isViewOpen}">
       <div class="add-gratitude__inner">
         <div class="add-gratitude__form">
-          <content-editable ref="title" class="add-gratitude__title" @onUpdate="updateTitle" content=""  :contentPlaceholder="placeholders[0]" :color="color"></content-editable>
-          <content-editable ref="body" class="add-gratitude__body" @onUpdate="updateBody" content="" :contentPlaceholder="placeholders[1]"></content-editable>
+          <content-editable ref="title" class="add-gratitude__title" @onUpdate="updateTitle" content="" textAreaType="title" :color="color"></content-editable>
+          <content-editable ref="body" class="add-gratitude__body" @onUpdate="updateBody" content="" textAreaType="body"></content-editable>
           <DropDown :listData="defaultColors" @onUpdate="onColorSelected"></DropDown>
           <div v-if="isSavingGratitude">
             <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +42,6 @@ import DropDown from '@/components/UI/DropDown.vue';
 import { IColorItem } from '@/interfaces/color';
 
 // Helpers
-import { getBeastie } from '@/helpers/beastie';
 import { EventBus } from '@/helpers/eventbus';
 
 // Store
@@ -73,8 +72,7 @@ export default Vue.extend({
       defaultColorArray: [],
       picked: '',
       isViewOpen: false,
-      isSavingGratitude: false,
-      placeholders: [getBeastie(), getBeastie()]
+      isSavingGratitude: false
     };
   },
 
@@ -162,17 +160,11 @@ export default Vue.extend({
     },
 
     resetView () {
-      console.log('resetView'); // @TODO Is this necessary
+      EventBus.$emit('resetContentEditable', 'my-test-parameter');
     },
 
     onColorSelected (selectedColor: IColorItem) {
       this.color = selectedColor.value; // @TODO refactor color Strings to color Objects
-    },
-
-    getRandomPlaceHolder () {
-      this.test += 1;
-      // const plc = getBeastie();
-      return 'hi';
     }
   },
 
