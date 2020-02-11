@@ -16,6 +16,7 @@ import Vue from 'vue';
 
 // Helpers
 import { firstLetterUpperCase } from '@/helpers/stringHelper';
+import { EventBus } from '@/helpers/eventbus';
 
 // Interfaces
 import { IColorItem } from '@/interfaces/color';
@@ -23,6 +24,7 @@ import { IColorItem } from '@/interfaces/color';
 
 export default Vue.extend({
   name: 'DropDown',
+
   props: {
     listData: Array,
     classModifier: String
@@ -69,9 +71,14 @@ export default Vue.extend({
       this.isOpen = false;
     },
 
+    resetDropdown (): void {
+      this.selected = { label: 'Select a color', value: '#616161' };
+    },
+
     addEvents (): void {
       document.addEventListener('click', (e) => this.handleOutsideClick(e));
       document.addEventListener('touchstart', (e) => this.handleOutsideClick(e));
+      EventBus.$on('resetContentEditable', () => this.resetDropdown());
     },
 
     removeEvents (): void {

@@ -9,7 +9,7 @@
     <div class="add-gratitude" :class="{'is-open': isViewOpen}">
       <div class="add-gratitude__inner">
         <div class="add-gratitude__form">
-          <content-editable ref="title" class="add-gratitude__title" @onUpdate="updateTitle" content="" textAreaType="title" :color="color"></content-editable>
+          <content-editable ref="title" class="add-gratitude__title" @onUpdate="updateTitle" content="" textAreaType="title" :color="mood.value"></content-editable>
           <content-editable ref="body" class="add-gratitude__body" @onUpdate="updateBody" content="" textAreaType="body"></content-editable>
           <DropDown :listData="defaultColors" @onUpdate="onColorSelected"></DropDown>
           <div v-if="isSavingGratitude">
@@ -68,6 +68,7 @@ export default Vue.extend({
       title: '',
       body: '',
       color: '#444548',
+      mood: {label: 'Neutral', value: '#999999'},
       colors: [{label: 'Happy', colorValue: '#D996C7'}, {label: 'Strong', colorValue: '#C6C150'}, {label: 'Hard times but learning', colorValue: '#942C3F'}, {label: 'Pretty ok', colorValue: '#68B2D0'}], // Move to user-store!!
       defaultColorArray: [],
       picked: '',
@@ -75,7 +76,6 @@ export default Vue.extend({
       isSavingGratitude: false
     };
   },
-
 
   methods: {
     getColorData () {
@@ -97,6 +97,7 @@ export default Vue.extend({
       const title = this.title.trim();
       const body = this.body.trim();
       const color = this.color.trim().length !== 0 ? this.color.trim() : '#000000';
+      const mood: IColorItem = {label: this.mood.label, value: this.mood.value};
 
       const timeStamp: Date = new Date();
       const dayStamp: Date = new Date();
@@ -120,7 +121,8 @@ export default Vue.extend({
         weather,
         location,
         timeStamp,
-        dayStamp
+        dayStamp,
+        mood
       }).then ( () => {
         this.isSavingGratitude = false; // LOADING STATE
         this.resetView();
@@ -133,6 +135,7 @@ export default Vue.extend({
       this.title = '';
       this.body = '';
       this.color = '';
+      this.mood = {label: 'Neutral', value: '#999999'};
     },
 
     updateTitle (title: string): void {
@@ -141,10 +144,6 @@ export default Vue.extend({
 
     updateBody (body: string): void {
       this.body = body.trim();
-    },
-
-    getColorPalletteItem (colorItem: any) {
-      return `color: ${colorItem.colorValue}`;
     },
 
     toggleView () {
@@ -165,6 +164,7 @@ export default Vue.extend({
 
     onColorSelected (selectedColor: IColorItem) {
       this.color = selectedColor.value; // @TODO refactor color Strings to color Objects
+      this.mood = selectedColor; // @TODO refactor color Strings to color Objects
     }
   },
 
