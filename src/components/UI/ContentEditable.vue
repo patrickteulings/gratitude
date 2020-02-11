@@ -62,9 +62,10 @@ export default Vue.extend({
     },
 
     handleHeight (el: HTMLElement) {
+      const style = getComputedStyle(el, null);
+      const padding = Number(style.paddingTop) * 2 || 0;
       el.style.height = 'auto';
-      el.style.height = `${el.scrollHeight}px`;
-      console.log(this.content, el.scrollHeight);
+      el.style.height = `${el.scrollHeight + padding}px`;
     },
 
     handleFocus () {
@@ -117,7 +118,6 @@ export default Vue.extend({
 
   watch: {
     content (newValue, oldValue) {
-      console.log(this.$el.querySelectorAll('.customTextarea')[0])
       this.handleHeight(this.$el.querySelectorAll('.customTextarea')[0] as HTMLElement);
       this.myContent = newValue;
       this.duplicate = newValue;

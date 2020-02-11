@@ -20,6 +20,7 @@ input[type="text"] {
   @include transition(all, 0.3s);
 }
 
+
 .customTextarea {
   border: 0;
   padding: 0;
@@ -28,6 +29,12 @@ input[type="text"] {
   resize: none;
   @include transition(all, 0.3s);
   word-wrap: break-word;
+  @include innerspace(1rem);
+  margin-left: -1rem;
+  margin-top: -1rem;
+  margin-right: -1rem;
+  width: calc(100% + 2rem);
+  @include position();
 
   &:focus {
     outline: none;
@@ -46,10 +53,6 @@ input[type="text"] {
   }
 
   .isActive & {
-    @include innerspace(1rem);
-    margin-left: -1rem;
-    margin-top: -1rem;
-    margin-right: -1rem;
     background: lighten(color('light'), 10%);
   }
 }

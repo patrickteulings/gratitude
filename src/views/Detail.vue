@@ -26,13 +26,15 @@
           <content-editable class="detail__body" @onUpdate="updateBody" :content="getGratitude.body"></content-editable>
         </div>
       </div>
-      <button type="button" @click.prevent="cancelUpdate()" class="btn-delete" v-if="editMode">cancel</button>
-      <button type="button" @click="updateGratitude()" class="btn-delete" v-if="editMode">update</button>
+      <div style="margin-top: 4rem">
+        <button type="button" @click.prevent="cancelUpdate()" class="btn-delete" v-if="editMode">cancel</button>
+        <button type="button" @click="updateGratitude()" class="btn-delete" v-if="editMode">update</button>
 
-      <span v-if="isUpdating">Aan het updaten</span>
-      <br>
-      <button @click="enterEditMode" class="btn-delete">edit</button>
-      <button @click="deleteGratitude" class="btn-delete">delete</button>
+        <span v-if="isUpdating">Aan het updaten</span>
+        <br>
+        <button @click="enterEditMode" class="btn-delete">edit</button>
+        <button @click="deleteGratitude" class="btn-delete">delete</button>
+      </div>
     </article>
   </div>
 </template>
