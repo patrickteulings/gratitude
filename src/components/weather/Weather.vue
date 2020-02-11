@@ -11,10 +11,8 @@
 </template>
 
 <script lang="ts">
-interface Coords {
-  lat: any;
-  lon: any;
-}
+// Imports
+import { ICoords } from '@/interfaces/coords';
 import Vue from 'vue';
 import WeatherService from '@/services/weatherService';
 import { isEmptyObject } from '@/helpers/emptyHelper';
@@ -35,7 +33,7 @@ export default Vue.extend({
   computed: {
     getLocation () {
       if (!isEmptyObject(this.$store.getters.location)) {
-        this.tryWeather({lat: this.$store.getters.location.latitude, lon: this.$store.getters.location.longitude});
+        this.tryWeather({latitude: this.$store.getters.location.latitude, longitude: this.$store.getters.location.longitude});
       }
       return this.$store.getters.location;
     },
@@ -59,7 +57,7 @@ export default Vue.extend({
     }
   },
   methods: {
-    tryWeather (coords: Coords) {
+    tryWeather (coords: ICoords) {
       const weather = new WeatherService();
       weather.getRequest(coords)
         .then((data: any) => {

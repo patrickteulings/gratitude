@@ -1,3 +1,5 @@
+import { IGratitude } from '@/interfaces/gratitude';
+
 const day = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 const dayFull = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -62,15 +64,7 @@ const addLeadingZero = (nmbr: number) => (nmbr < 10) ? '0' + nmbr : nmbr;
  */
 
 
-interface Gratitude {
-  timeStamp: any;
-  dayStamp?: any;
-  title: string;
-  body: string;
-  color?: string;
-}
-
-export const getUniqueDates = (data: Gratitude[]) => {
+export const getUniqueDates = (data: IGratitude[]) => {
   const uniqueDays: any = [...new Set(data.map((dataItem) => dataItem.dayStamp.seconds))];
   const testArr: any = [];
 

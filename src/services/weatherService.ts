@@ -1,8 +1,6 @@
 
-interface Coords {
-  lat: any;
-  lon: any;
-}
+// Interfaces
+import { ICoords } from '@/interfaces/coords';
 
 export default class WeatherService {
   private APIKEY: string;
@@ -15,9 +13,9 @@ export default class WeatherService {
 
 
   // async function
-  public async getRequest (coords: Coords) {
-    const {lon, lat} = coords;
-    const response = await fetch(`${this.APIURL}lat=${coords.lat}&lon=${coords.lon}&appid=${this.APIKEY}&units=metric`);
+  public async getRequest (coords: ICoords) {
+    const {longitude, latitude} = coords;
+    const response = await fetch(`${this.APIURL}lat=${coords.latitude}&lon=${coords.longitude}&appid=${this.APIKEY}&units=metric`);
     const data = await response.json();
     return data;
   }
