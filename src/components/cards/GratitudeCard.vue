@@ -40,7 +40,16 @@ export default Vue.extend({
     getGratitudeColor (gratitude: any) {
       // console.log(process.env);
       // console.log(process.env.VUE_APP_MY_ENV_VARIABLE);
-      return gratitude.color !== undefined ? gratitude.color : '#999';
+      let colorValue;
+      console.log(gratitude.mood)
+      if (gratitude.mood) {
+        colorValue = gratitude.mood.value;
+      } else if (gratitude.color !== undefined) {
+        colorValue = gratitude.color;
+      } else {
+        colorValue = '#616161';
+      }
+      return colorValue;
     },
 
     getReadableDate (date: Date, longNames: boolean = false) {
