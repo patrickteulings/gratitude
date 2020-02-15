@@ -33,7 +33,7 @@ export default Vue.extend({
   data: () => {
     return {
       selected: {
-        label: 'select a color',
+        label: 'select a mood',
         value: '#999'
       } as IColorItem,
       isOpen: false

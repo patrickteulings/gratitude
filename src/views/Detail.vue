@@ -7,7 +7,9 @@
           <div style="color: white;">It was {{ getWeatherDescription(getGratitude) }}</div>
         </div>
       </div>
-      <div role="button" class="btn btn--round hero--detail__edit" @click="enterEditMode"><span class="gratitude-icon" :style="{ fill: getGratitudeColor(getGratitude) }"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></div>
+      <div role="button" v-if="!editMode" class="btn btn--round hero--detail__edit" @click="enterEditMode"><span class="gratitude-icon" :style="{ fill: getGratitudeColor(getGratitude) }"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></div>
+      <div role="button" v-if="editMode" class="btn btn--round hero--detail__update" @click="updateGratitude"><span class="gratitude-icon" :style="{ fill: getGratitudeColor(getGratitude) }"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span></div>
+      <div role="button" v-if="editMode" class="btn btn--round hero--detail__back" @click="cancelUpdate"><span class="gratitude-icon" :style="{ fill: getGratitudeColor(getGratitude) }"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></span></div>
     </div>
     <article class="gratitude" v-if="this.getGratitude !== undefined">
       <div class="gratitudeWrapper">
@@ -25,13 +27,7 @@
             <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
           </svg>
         </div>
-
-        <!-- buttons -->
-        <button type="button" @click.prevent="cancelUpdate()" class="btn-delete" v-if="editMode">cancel</button>&nbsp;
-        <button type="button" @click="updateGratitude()" class="btn-delete" v-if="editMode">update</button>
-        <br>
-        <button @click="enterEditMode" class="btn-delete">edit</button>&nbsp;
-        <button @click="deleteGratitude" class="btn-delete">delete</button>
+        <button v-if="editMode" @click="deleteGratitude" class="btn btn--reset btn--delete">delete</button>
       </div>
     </article>
   </div>
@@ -137,7 +133,7 @@ export default Vue.extend({
     // Cancels update/edit and reverts to last saved version
     cancelUpdate () {
       EventBus.$emit('resetContentEditable', 'my-test-parameter');
-      this.newGratitude = { ...this.originalGratitude }
+      this.newGratitude = { ...this.originalGratitude };
       this.editMode = false;
     },
 

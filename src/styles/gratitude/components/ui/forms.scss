@@ -54,6 +54,6 @@ input[type="text"] {
   }
 
   .isActive & {
-    background: lighten(color('light'), 10%);
+    background: lighten(color('light'), 90%);
   }
 }

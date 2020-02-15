@@ -19,7 +19,7 @@
       @include font-size(24px);
     }
 
-    &__edit {
+    &__edit, &__back, &__update {
       @include size(32px);
       @include innerspace(24px);
       @include position(absolute, auto, auto, 32px, -24px);
@@ -29,6 +29,10 @@
       .gratitude-icon {
         fill: color('white');
       }
+    }
+
+    &__back {
+      @include position(absolute, 32px, auto, auto, -24px);
     }
   }
 }
@@ -111,8 +115,7 @@
     @extend h2;
     @include transition(color, 0.2s);
     line-height: 64px;
-    margin-bottom: 40px;
-    // word-break: break-all;
+    margin-bottom: 0;
     text-align: justify;
 
 
@@ -130,7 +133,6 @@
     line-height: 26px;
     color: color('black');
     font-family: $primary-font-face;
-    // word-break: break-all;
     text-align: justify;
     @include transition();
 
@@ -157,6 +159,10 @@
 
     &.isActive {
       pointer-events: auto;
+
+      .dropdown {
+        margin-top: 2rem;
+      }
     }
   }
 }
