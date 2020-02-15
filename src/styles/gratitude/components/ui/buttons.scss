@@ -1,0 +1,56 @@
+.btn {
+  @include transition();
+  @include font-size(32px);
+  @include card-shadow(2);
+  @include flex-center('both');
+
+  &--round {
+    @include size(64px);
+    @include transition();
+    background: color('white');
+    color: color('action');
+    font-weight: 600;
+    line-height: 0;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+
+  .gratitude-icon {
+    fill: color('action');
+  }
+}
+
+// &__button {
+//   @include position(fixed, 50%, auto, auto, 32px );
+//   background: color('white');
+//   margin-left: -32px;
+//   z-index: 200;
+//   color: color('action');
+//   font-weight: 600;
+//   line-height: 0;
+//   cursor: pointer;
+
+//   @include size(64px);
+//   @include card-shadow(2);
+//   @include flex-center('both');
+//   @include font-size(32px);
+//   @include transition();
+//   border-radius: 50%;
+//   @include transition();
+//   transform: rotate(180deg);
+//   pointer-events: none;
+//   opacity: 0;
+
+//   .gratitude-icon {
+//     fill: color('action');
+//   }
+
+//   &.is-visible {
+//     pointer-events: auto;
+//     transform: rotate(0deg);
+//     opacity: 1;
+//   }
+//   &:hover {
+//     @include card-shadow(1);
+//   }
+// }

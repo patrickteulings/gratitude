@@ -41,7 +41,7 @@ export default Vue.extend({
       // console.log(process.env);
       // console.log(process.env.VUE_APP_MY_ENV_VARIABLE);
       let colorValue;
-      console.log(gratitude.mood)
+
       if (gratitude.mood) {
         colorValue = gratitude.mood.value;
       } else if (gratitude.color !== undefined) {

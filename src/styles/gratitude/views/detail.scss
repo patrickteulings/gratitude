@@ -1,7 +1,9 @@
 .hero {
   &--detail {
-    min-height: 50vh;
+    @include position(relative);
     @include flex-center('both');
+    @include transition();
+    min-height: 50vh;
     text-align: center;
 
     &__weathericon {
@@ -15,6 +17,18 @@
       margin-top: 24px;
       font-family: $handwriting-font-face;
       @include font-size(24px);
+    }
+
+    &__edit {
+      @include size(32px);
+      @include innerspace(24px);
+      @include position(absolute, auto, auto, 32px, -24px);
+      @include card-shadow(1);
+      // border: 3px solid #fff;
+
+      .gratitude-icon {
+        fill: color('white');
+      }
     }
   }
 }

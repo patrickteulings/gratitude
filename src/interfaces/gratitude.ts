@@ -6,4 +6,5 @@ export interface IGratitude {
   color?: string;
   weather: object;
   location: object;
+  mood?: any;
 }

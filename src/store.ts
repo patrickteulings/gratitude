@@ -167,7 +167,7 @@ export default new Vuex.Store({
     },
 
     defaultColors: (state: any) => {
-      return state.defaultsettings;
+      return state.defaultColors;
     },
 
     selectedGratitude: (state: any) => {

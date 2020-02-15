@@ -64,6 +64,7 @@ export default Vue.extend({
     },
 
     openDropDown (): void {
+      console.log('open');
       this.isOpen = true;
     },
 
@@ -97,6 +98,7 @@ export default Vue.extend({
 
   mounted () {
     this.addEvents();
+    console.log('this.listData', this.listData);
   },
 
   beforeDestroy () {

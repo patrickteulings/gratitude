@@ -83,7 +83,7 @@ export default Vue.extend({
     getStyle () {
       return this.color !== undefined
         ? `color: ${this.color}`
-        : `color: #000000;`;
+        : `color: #616161;`;
     },
 
     isPlaceholderText (): void {
@@ -109,11 +109,14 @@ export default Vue.extend({
     } else {
       this.isPlaceholderText();
     }
+
     this.handleHeight(this.$el.querySelectorAll('.customTextarea')[0] as HTMLElement);
+
     setTimeout(() => {
       this.handleHeight(this.$el.querySelectorAll('.customTextarea')[0] as HTMLElement);
     }, 1000);
-    EventBus.$on('resetContentEditable', (clickCount: string) => this.reset() );
+
+    EventBus.$on('resetContentEditable', () => this.reset() );
   },
 
   watch: {
