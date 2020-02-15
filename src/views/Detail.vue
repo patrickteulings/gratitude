@@ -2,7 +2,7 @@
   <div>
     <div class="hero hero--detail" :style="{ background: getGratitudeColor(getGratitude) }">
       <div class="hero hero--detail__inner" v-if="getGratitude.weather">
-        <div><i :title="getWeatherInfo(getGratitude).description" class="hero--detail__weathericon" :class="getWeatherIconOWM(getGratitude.weather)" style="color: white;"></i></div>
+        <div><i :title="getWeatherInfo(getGratitude).description" class="hero--detail__weathericon" :class="getWeatherIcon(getGratitude.weather)" style="color: white;"></i></div>
         <div class="hero--detail__weather-description">
           <div style="color: white;">It was {{ getWeatherDescription(getGratitude) }}</div>
         </div>
@@ -43,6 +43,7 @@ import { db } from '@/services/firebaseConfigTypeScript';
 // Helpers
 import { readableDate, readableTime } from '@/helpers/dateHelper';
 import { getBeastie } from '@/helpers/beastie';
+import { getCustomWeatherDescription } from '@/helpers/weatherHelper';
 import { EventBus } from '@/helpers/eventbus';
 
 // Interfaces
@@ -117,7 +118,6 @@ export default Vue.extend({
       });
     },
 
-    // Well, delete gratitude
     deleteGratitude (): void {
       this.$store.dispatch('deleteGratitude', this.$route.params.id).then( (res) => {
         this.$router.push({path: '/'});
@@ -126,6 +126,7 @@ export default Vue.extend({
       });
     },
 
+    // Used to highlight, show or hide elements in the template
     enterEditMode () {
       this.editMode = true;
     },
@@ -147,7 +148,7 @@ export default Vue.extend({
         this.newGratitude = {...this.$store.getters.selectedGratitude};
         this.editMode = false; // Edit state, hides cancel / update buttons
       }).catch( (error) => {
-        throw new Error(error);
+        throw new Error(error); // @TODO need sitewide Toast message?
       });
     },
 
@@ -174,25 +175,19 @@ export default Vue.extend({
 
     getWeatherDescription (gratitude: IGratitude ) {
       const temp = parseInt(this.getWeatherInfo(this.getGratitude).temp, 10);
-      const desc = this.getWeatherInfo(this.getGratitude).description;
+      const plainDescription = this.getWeatherInfo(this.getGratitude).description;
+      const funkyDescription = getCustomWeatherDescription(temp);
       const noTempDescription = 'No temperature info available';
-      let body = '';
 
-      if (temp > 25)  body = `Icecream time`;
-      if (temp < 25)  body = `Ray Ban weather`;
-      if (temp < 20)  body = `Really nice Outside`;
-      if (temp < 15)  body = `Kinda Ok Outside`;
-      if (temp < 10)  body = `Like, Sweater cold`;
-      if (temp < 5)  body = `So Cold You'd want UGGS`;
-      if (temp < 0)  body = `Friggin Cold`;
-      return (!isNaN(temp)) ? `${temp}°, ${body}, ${desc} ` : `${noTempDescription}`;
+      return (!isNaN(temp)) ? `${temp}°, ${funkyDescription}, ${plainDescription} ` : `${noTempDescription}`;
     },
 
     getCity (gratitude: any) {
-      return (gratitude.location !== undefined) ? gratitude.location.city.osmtags['name-en'] : 'looking...';
+      console.log(gratitude.location);
+      return (gratitude.location !== undefined) ? gratitude.location.city.osmtags.name : 'looking...';
     },
 
-    getWeatherIconOWM (gratitudeWeather: any) {
+    getWeatherIcon (gratitudeWeather: any) {
       return `wi wi-owm-day-${gratitudeWeather.id}`;
     },
 

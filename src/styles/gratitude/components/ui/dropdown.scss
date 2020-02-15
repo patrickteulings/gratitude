@@ -36,7 +36,9 @@
   }
 
   &__item {
-    @include innerspace(1rem);
+    @include innerspace(0.8rem, 1rem);
+    @include font-size(24px);
+    font-family: $handwriting-font-face;
 
     &.hidden {
       display: none;
