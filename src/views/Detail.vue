@@ -7,9 +7,9 @@
           <div style="color: white;">It was {{ getWeatherDescription(getGratitude) }}</div>
         </div>
       </div>
-      <div role="button" v-if="!editMode" class="btn btn--round hero--detail__edit" @click="enterEditMode"><span class="gratitude-icon" :style="{ fill: getGratitudeColor(getGratitude) }"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></div>
-      <div role="button" v-if="editMode" class="btn btn--round hero--detail__update" @click="updateGratitude"><span class="gratitude-icon" :style="{ fill: getGratitudeColor(getGratitude) }"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span></div>
-      <div role="button" v-if="editMode" class="btn btn--round hero--detail__back" @click="cancelUpdate"><span class="gratitude-icon" :style="{ fill: getGratitudeColor(getGratitude) }"><svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 0 24 24" width="24"><path d="M0 0h24v24H0z" fill="none"/><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></span></div>
+      <button-round v-if="!editMode" @buttonClick="enterEditMode" buttonIcon="edit" classModifier="hero--detail__edit" :iconColor="getGratitudeColor(getGratitude)" />
+      <button-round v-if="editMode" @buttonClick="updateGratitude" buttonIcon="update" classModifier="hero--detail__update" :iconColor="getGratitudeColor(getGratitude)"/>
+      <button-round v-if="editMode" @buttonClick="cancelUpdate" buttonIcon="close" classModifier="hero--detail__back" :iconColor="getGratitudeColor(getGratitude)"/>
     </div>
     <article class="gratitude" v-if="this.getGratitude !== undefined">
       <div class="gratitudeWrapper">
@@ -22,14 +22,15 @@
       </div>
       <div style="margin-top: 4rem">
         <!-- Loading -->
-        <div v-if="isUpdating">
-          <svg class="spinner" width="65px" height="65px" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
-            <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-          </svg>
-        </div>
+        <loading-spinner v-if="isUpdating"></loading-spinner>
         <button v-if="editMode" @click="deleteGratitude" class="btn btn--reset btn--delete">delete</button>
       </div>
     </article>
+
+    <!-- PREV NEXT BUTTONS -->
+    <button-round @buttonClick="enterEditMode" buttonIcon="back" classModifier="hero--detail__prev" :iconColor="getGratitudeColor(getGratitude)" />
+    <button-round @buttonClick="updateGratitude" buttonIcon="forward" classModifier="hero--detail__next" :iconColor="getGratitudeColor(getGratitude)"/>
+
   </div>
 </template>
 
@@ -54,12 +55,17 @@ import { IColorItem } from '../interfaces/color';
 // Components
 import ContentEditable from '@/components/UI/ContentEditable.vue';
 import DropDown from '@/components/UI/DropDown.vue';
+import ButtonRound from '@/components/UI/ButtonRound.vue';
+import LoadingSpinner from '@/components/UI/loading-spinner.vue';
+
 
 export default Vue.extend({
   name: 'Detail',
   components: {
     ContentEditable,
-    DropDown
+    DropDown,
+    ButtonRound,
+    LoadingSpinner
   },
 
   data () {
@@ -69,7 +75,8 @@ export default Vue.extend({
       isUpdating: false,
       originalGratitude: this.$store.getters.selectedGratitude as IGratitude,
       newGratitude: this.$store.getters.selectedGratitude as IGratitude,
-      placeHolders: [getBeastie(), getBeastie()]
+      placeHolders: [getBeastie(), getBeastie()],
+      touchMovement: {startX: 0, endX: 0, isMoving: true}
     };
   },
 
@@ -182,12 +189,11 @@ export default Vue.extend({
       return (!isNaN(temp)) ? `${temp}°, ${funkyDescription}, ${plainDescription} ` : `${noTempDescription}`;
     },
 
-    getCity (gratitude: any) {
-      console.log(gratitude.location);
+    getCity (gratitude: any): string {
       return (gratitude.location !== undefined) ? gratitude.location.city.osmtags.name : 'looking...';
     },
 
-    getWeatherIcon (gratitudeWeather: any) {
+    getWeatherIcon (gratitudeWeather: any): string {
       return `wi wi-owm-day-${gratitudeWeather.id}`;
     },
 
@@ -196,19 +202,68 @@ export default Vue.extend({
     },
 
     // Will trigger controls to edit or cancel edit
-    toggleEditMode () {
+    toggleEditMode (): void {
       this.editMode = !this.editMode;
     },
 
     // Hard 'show edit controls'
-    setFocus () {
+    setFocus (): void {
       this.editMode = true;
+    },
+
+    //
+    // TESTING SWIPE
+    //
+
+    handleTouchStart (e: TouchEvent): void {
+      this.touchMovement.startX = e.touches[0].pageX;
+    },
+
+    handleTouchEnd (e: TouchEvent): void {
+      this.touchMovement.endX = e.changedTouches[0].pageX;
+      if (this.touchMovement.endX < this.touchMovement.startX) {
+        console.log('links');
+      } else if (this.touchMovement.endX > this.touchMovement.startX) {
+        console.log('rechts');
+      }
+      this.resetTouch();
+    },
+
+    handleTouchMove (e: TouchEvent): void {
+      this.touchMovement.isMoving = true;
+
+      if (e.changedTouches[0].pageX < this.touchMovement.startX) {
+        console.log('going left');
+      }
+    },
+
+    handleTouchCancel (e: TouchEvent): void {
+      console.log(e);
+    },
+
+    resetTouch (): void {
+      this.touchMovement.startX = 0;
+      this.touchMovement.endX = 0;
+      this.touchMovement.isMoving = false;
     }
   },
 
   mounted () {
     this.getData();
     this.getColorData();
+
+    this.$el.addEventListener('touchstart', (e) => this.handleTouchStart(e as TouchEvent), false);
+    this.$el.addEventListener('touchend', (e) => this.handleTouchEnd(e as TouchEvent), false);
+    this.$el.addEventListener('touchcancel', (e) => this.handleTouchCancel(e as TouchEvent), false);
+    this.$el.addEventListener('touchmove', (e) => this.handleTouchMove(e as TouchEvent), false);
+  },
+
+  beforeDestroy () {
+    this.$el.removeEventListener('touchstart', (e) => this.handleTouchStart(e as TouchEvent), false);
+    this.$el.removeEventListener('touchend', (e) => this.handleTouchEnd(e as TouchEvent));
+    this.$el.removeEventListener('touchcancel', (e) => this.handleTouchCancel(e as TouchEvent));
+    this.$el.removeEventListener('touchmove', (e) => this.handleTouchMove(e as TouchEvent));
+
   }
 });
 
