@@ -71,7 +71,7 @@ export default new Vuex.Store({
     bindGratitudes: firestoreAction(({ bindFirestoreRef }, ref) => {
       const { reference, userID } = ref;
       console.log('userID: ', userID);
-      return bindFirestoreRef('gratitudes', db.collection('users').doc('1RwEzkhpPEYGJxBCNb9enEg6CZr1').collection('gratitudes'));
+      return bindFirestoreRef('gratitudes', db.collection('users').doc(userID).collection('gratitudes'));
     }),
 
     bindDefaultColors: firestoreAction(({ bindFirestoreRef }) => {
