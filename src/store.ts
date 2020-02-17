@@ -70,7 +70,6 @@ export default new Vuex.Store({
   actions: {
     bindGratitudes: firestoreAction(({ bindFirestoreRef }, ref) => {
       const { reference, userID } = ref;
-      console.log('userID: ', userID);
       return bindFirestoreRef('gratitudes', db.collection('users').doc(userID).collection('gratitudes'));
     }),
 
