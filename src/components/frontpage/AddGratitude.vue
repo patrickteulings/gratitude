@@ -3,11 +3,12 @@
 
 <template>
   <div>
-    <div role="button" class="add-gratitude__button" :class="{'is-visible': !isViewOpen}" @click="toggleView"><span class="gratitude-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></div>
-    <div role="button" class="add-gratitude__button add-gratitude__button-confirm" :class="{'is-visible': isViewOpen}" @click="confirmAdd"><span class="gratitude-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="none" d="M0 0h24v24H0z"/><path d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/></svg></span></div>
-    <div role="button" class="add-gratitude__button button-cancel" :class="{'is-visible': isViewOpen}" @click="confirmCancel"><span class="gratitude-icon"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/><path d="M0 0h24v24H0z" fill="none"/></svg></span></div>
+    <button-round @buttonClick="toggleView" buttonIcon="add" :class="{'is-visible': !isViewOpen}" classModifier="add-gratitude__button" iconColor="#C8285C"/>
+    <button-round @buttonClick="confirmAdd" buttonIcon="done" :class="{'is-visible': isViewOpen}" classModifier="add-gratitude__button-confirm" iconColor="#C8285C"/>
+
     <div class="add-gratitude" :class="{'is-open': isViewOpen}">
       <div class="add-gratitude__inner">
+        <button-round @buttonClick="confirmCancel" buttonIcon="back" classModifier="btn--round-small add-gratitude__button--back" iconColor="#616161"/>
         <div class="add-gratitude__form">
           <content-editable ref="title" class="add-gratitude__title" @onUpdate="updateTitle" content="" textAreaType="title" :color="mood.value"></content-editable>
           <content-editable ref="body" class="add-gratitude__body" @onUpdate="updateBody" content="" textAreaType="body"></content-editable>
@@ -37,6 +38,7 @@ import Input from '@/components/UI/Input.vue';
 import TextArea from '@/components/UI/TextArea.vue';
 import ContentEditable from '@/components/UI/ContentEditable.vue';
 import DropDown from '@/components/UI/DropDown.vue';
+import ButtonRound from '@/components/UI/ButtonRound.vue';
 
 // Interfaces
 import { IColorItem } from '@/interfaces/color';
@@ -60,7 +62,8 @@ export default Vue.extend({
     Input,
     TextArea,
     ContentEditable,
-    DropDown
+    DropDown,
+    ButtonRound
   },
 
   data: () => {
@@ -114,10 +117,6 @@ export default Vue.extend({
 
       dayStamp.setHours(0, 0, 0, 0); // Set to the date at 00:00:00 for easier comparison / filtering in FE
 
-      console.log(mood);
-
-      // return;
-
       db.collection('users').doc(this.$store.getters.user.uid).collection('gratitudes').add({
         title,
         body,
@@ -164,6 +163,10 @@ export default Vue.extend({
 
     resetView () {
       EventBus.$emit('resetContentEditable', 'my-test-parameter');
+    },
+
+    backToHome (): void {
+      this.$router.push({path: '/'});
     },
 
     onColorSelected (selectedColor: IColorItem) {

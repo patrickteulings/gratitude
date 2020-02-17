@@ -4,15 +4,13 @@
   top: 100vh;
   z-index: 199;
   background: color('white');
-  border-radius: 5px 5px 0px 0px;
   @include transition(all, 0.3s);
-  @include size(100vw, 96vh);
-  @include card-shadow(5);
+  @include size(100vw, 100vh);
   overflow: scroll;
 
   &.is-open {
     display: block;
-    top: 4vh;
+    top: 0vh;
   }
 
   &__inner {
@@ -31,60 +29,26 @@
   }
 
   &__button {
-    @include position(fixed, 50%, auto, auto, 32px );
-    background: color('white');
+    position: fixed;
+    z-index: 300;
+    left: 50%;
     margin-left: -32px;
-    z-index: 200;
-    color: color('action');
-    font-weight: 600;
-    line-height: 0;
-    cursor: pointer;
-
-    @include size(64px);
-    @include card-shadow(2);
-    @include flex-center('both');
-    @include font-size(32px);
-    @include transition();
-    border-radius: 50%;
-    @include transition();
-    transform: rotate(180deg);
-    pointer-events: none;
+    bottom: 3rem;
     opacity: 0;
-
-    .gratitude-icon {
-      fill: color('action');
-    }
+    transform: rotate(-90deg);
 
     &.is-visible {
       pointer-events: auto;
       transform: rotate(0deg);
       opacity: 1;
     }
-    &:hover {
-      @include card-shadow(1);
-    }
 
-    &.button-cancel {
-      transform: translate(80px, -12px);
-      @include size(40px);
-      @include transition();
-      @include card-shadow(1);
-      pointer-events: none;
-      opacity: 0;
-
-      &.is-visible {
-        pointer-events: auto;
-        opacity: 1;
-      }
-
-      .gratitude-icon {
-        fill: lighten(color('secondary'), 30%);
-      }
-    }
   }
 
   &__button-confirm {
-    color: color('positive');
+    @include position(fixed, 50%, auto, 48px);
+    bottom: 48px;
+    margin-left: -32px;
     z-index: 300;
     opacity: 0;
     transform-origin: 50% 50%;
@@ -93,7 +57,7 @@
     @include transition();
 
     .gratitude-icon {
-      fill: color('positive');
+      fill: #C8285C;
     }
 
     &.is-visible {
@@ -102,5 +66,14 @@
       transform: rotate(0);
       @include transition();
     }
+  }
+
+  &__button--back {
+    position: relative;
+    top: 10px;
+    left: 50%;
+    margin-left: -32px;
+    opacity: 1;
+    margin-bottom: 4rem;
   }
 }

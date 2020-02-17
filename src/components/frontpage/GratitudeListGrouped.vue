@@ -1,5 +1,5 @@
 <template>
-  <div class="hello">
+  <div>
     <AddGratitude />
     <div class="listWrapper">
       <GratitudeCardGroup v-for="(gratitudeGroup, index) in groupedGratitudes()" :gratitude-group="gratitudeGroup" :key="index" />
