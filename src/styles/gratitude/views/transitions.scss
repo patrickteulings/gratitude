@@ -1,0 +1,28 @@
+// .slide-enter-active, .slide-leave-active {
+//   @include transition(all, 0.5s);
+//   //transform: translateX(-50vw);
+// }
+
+// .slide-leave-to /* .fade-leave-active below version 2.1.8 */ {
+//   opacity: 0;
+//   transform: translateX(-100vw);
+// }
+
+// .slide-enter, .slide-leave {
+//   opacity: 1;
+//   transform: translateX(100vw);
+// }
+
+// .slide-enter-to {
+//   transform: translateX(0vw);
+// }
+
+.slide-enter { transform: translateX(100%) }
+.slide-enter-to { transform: translateX(0) }
+.slide-enter-active { position: absolute }
+
+.slide-leave { transform: translateX(0) }
+.slide-leave-to { transform: translateX(-100%) }
+
+.slide-enter-active,
+.slide-leave-active { transition: all 750ms ease-in-out }

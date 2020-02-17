@@ -11,7 +11,9 @@
       </header>
       <SidebarMenu></SidebarMenu>
       <div>
-        <router-view />
+        <transition name="slide">
+          <router-view />
+        </transition>
       </div>
     </div>
     <div v-else>
