@@ -43,14 +43,15 @@ input[type="text"] {
   &--title {
     font-family: $heading-font-face;
     @include font-size(48px);
-    line-height: font-size(64px);
+    line-height: 64px;
   }
 
   &--body {
     font-family: $primary-font-face;
     @include font-size(16px);
     color: color('secondary');
-    line-height: font-size(26px);
+    opacity: 0.87;
+    line-height: 26px;
   }
 
   .isActive & {

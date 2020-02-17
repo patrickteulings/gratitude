@@ -14,7 +14,7 @@
   }
 
   &__inner {
-    @include innerspace(3rem 2rem);
+    @include innerspace(4rem 3rem);
   }
 
   &__title {
@@ -36,6 +36,7 @@
     bottom: 3rem;
     opacity: 0;
     transform: rotate(-90deg);
+    pointer-events: none;
 
     &.is-visible {
       pointer-events: auto;
@@ -61,9 +62,9 @@
     }
 
     &.is-visible {
-      display: flex;
       opacity: 1;
       transform: rotate(0);
+      pointer-events: auto;
       @include transition();
     }
   }
