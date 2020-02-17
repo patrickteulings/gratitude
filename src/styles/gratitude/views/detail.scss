@@ -7,32 +7,46 @@
     text-align: center;
 
     &__weathericon {
-      padding-top: 32px;
+      padding-top: 4rem;
       color: color('white');
-      font-size: 96px;
+      @include font-size(96px);
       opacity: 0.4;
     }
 
     &__weather-description {
-      margin-top: 24px;
+      margin-top: 3rem;
       font-family: $handwriting-font-face;
       @include font-size(24px);
     }
 
-    &__edit, &__back, &__update {
+    &__edit, &__cancel, &__update, &__home {
       @include size(32px);
-      @include innerspace(24px);
       @include position(absolute, auto, auto, 32px, -24px);
       @include card-shadow(1);
-      // border: 3px solid #fff;
+      @include transition();
+      opacity: 0;
+      transform: translateY(-50px);
+
+      &.isActive {
+        opacity: 1;
+        transform: translateX(0);
+      }
 
       .gratitude-icon {
         fill: color('white');
       }
     }
 
-    &__back {
-      @include position(absolute, 32px, auto, auto, -24px);
+    &__cancel {
+      @include position(absolute, auto, auto, 88px, -24px);
+    }
+
+    &__update {
+      transform: translateY(50px);
+    }
+
+    &__home {
+      @include position(absolute, 24px, auto, auto, -24px);
     }
   }
 }
@@ -45,70 +59,6 @@
   border-radius: 2px;
 }
 
-.cmon {
-  b {
-    font-weight: 700;
-  }
-
-  i {
-    font-style: italic;
-    color: #ff9900;
-  }
-}
-
-.editableForm {
-
-  .createdAt {
-    font-family: $handwriting-font-face;
-  }
-
-  &__meta {
-    margin-bottom: 2rem;
-  }
-
-  input[type="text"], textarea {
-    border: 0;
-    @include innerspace(0);
-
-    &.title {
-      @extend h2;
-    }
-
-    &.body {
-      @include font-size(16px);
-      color: color('black');
-      font-family: $primary-font-face;
-    }
-
-    &.color {
-      @include font-size(16px);
-      color: color('black');
-      font-family: $primary-font-face;
-    }
-
-  }
-
-  &.isEditing {
-    input[type="text"] {
-      &.title {
-        @include outerspace(0);
-        @extend h2;
-      }
-
-      &.body {
-        @include font-size(16px);
-        color: color('black');
-        font-family: $primary-font-face;
-      }
-
-      &.color {
-        @include font-size(16px);
-        color: color('black');
-        font-family: $primary-font-face;
-      }
-    }
-  }
-}
 
 .detail {
   &__title {
@@ -130,11 +80,11 @@
 
   &__body {
     @include font-size(16px);
-    line-height: 26px;
+    @include transition();
     color: color('black');
     font-family: $primary-font-face;
     text-align: justify;
-    @include transition();
+    line-height: 26px;
 
     &:focus {
       outline: 0px;

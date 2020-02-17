@@ -91,20 +91,16 @@ export default new Vuex.Store({
     },
 
     setCurrentCity: (context: any, data: object) => {
-      context.commit('SET_CURRENT_CITY', data);
+      const { commit } = context;
+      commit('SET_CURRENT_CITY', data);
     },
 
     setSelectedGratitude: (context: any, id: string) => {
-      const {commit, state} = context;
+      const { state } = context;
       const user = state.user as User;
       const ref = db.collection('users').doc(user.uid).collection('gratitudes').doc(id);
 
       return ref.get();
-    },
-
-    resetSelectedGratitude: (context: any) => {
-      const {commit, state} = context;
-      commit('RESET_SELECTED_GRATITUDE');
     },
 
     deleteGratitude: (context: any, id: string) => {
@@ -132,11 +128,6 @@ export default new Vuex.Store({
       state.originalGratitude = {...payload};
 
       return ref.update(payload);
-    },
-
-    updateSelectedBody: (context: any, payload: string) => {
-      const { commit, state } = context;
-      state.selectedGratitude.body = payload;
     },
 
     setMenuState: (context: any, payload: boolean) => {

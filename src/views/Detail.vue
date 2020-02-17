@@ -7,21 +7,22 @@
           <div style="color: white;">It was {{ getWeatherDescription(getGratitude) }}</div>
         </div>
       </div>
-      <button-round v-if="!editMode" @buttonClick="enterEditMode" buttonIcon="edit" classModifier="hero--detail__edit" :iconColor="getGratitudeColor(getGratitude)" />
-      <button-round v-if="editMode" @buttonClick="updateGratitude" buttonIcon="update" classModifier="hero--detail__update" :iconColor="getGratitudeColor(getGratitude)"/>
-      <button-round v-if="editMode" @buttonClick="cancelUpdate" buttonIcon="close" classModifier="hero--detail__back" :iconColor="getGratitudeColor(getGratitude)"/>
+      <button-round @buttonClick="enterEditMode" buttonIcon="edit" :class="{ isActive: !this.editMode }" classModifier="hero--detail__edit" :iconColor="getGratitudeColor(getGratitude)" />
+      <button-round @buttonClick="updateGratitude" buttonIcon="update" :class="{ isActive: this.editMode }" classModifier="hero--detail__update" :iconColor="getGratitudeColor(getGratitude)"/>
+      <button-round @buttonClick="cancelUpdate" buttonIcon="close" :class="{ isActive: this.editMode }" classModifier="hero--detail__cancel btn--round-small" :iconColor="getGratitudeColor(getGratitude)"/>
+      <button-round @buttonClick="backToHome" buttonIcon="back" :class="{ isActive: !this.editMode }" classModifier="hero--detail__home" :iconColor="getGratitudeColor(getGratitude)"/>
     </div>
     <article class="gratitude" v-if="this.getGratitude !== undefined">
       <div class="gratitudeWrapper">
         <div class="editableGratitude" :class="{isActive: this.editMode}">
-          <content-editable id="editableTitle" @onUpdate="updateTitle" class="detail__title" :content="getGratitude.title" textAreaType="title" :color="getGratitudeColor(getGratitude)"></content-editable>
+          <content-editable id="editableTitle" @onUpdate="updateTitle" @onFocus="setFocus" class="detail__title" :content="getGratitude.title" textAreaType="title" :color="getGratitudeColor(getGratitude)"></content-editable>
           <small v-if="getGratitude.timeStamp !== undefined" class="detail__meta">{{ getCity(getGratitude) }}, {{ getReadableDate(getGratitude.timeStamp.toDate()) }} at {{ getReadableTime(getGratitude.timeStamp.toDate()) }}</small>
           <content-editable class="detail__body" @onUpdate="updateBody" :content="getGratitude.body"></content-editable>
           <DropDown v-if="editMode" :listData="defaultColors" @onUpdate="updateColor"></DropDown>
         </div>
       </div>
       <div style="margin-top: 4rem">
-        <!-- Loading -->
+        <!-- LOADING -->
         <loading-spinner v-if="isUpdating"></loading-spinner>
         <button v-if="editMode" @click="deleteGratitude" class="btn btn--reset btn--delete">delete</button>
       </div>
@@ -76,7 +77,7 @@ export default Vue.extend({
       originalGratitude: this.$store.getters.selectedGratitude as IGratitude,
       newGratitude: this.$store.getters.selectedGratitude as IGratitude,
       placeHolders: [getBeastie(), getBeastie()],
-      touchMovement: {startX: 0, endX: 0, isMoving: true}
+      touchMovement: {startX: 0, endX: 0, isMoving: false}
     };
   },
 
@@ -95,7 +96,7 @@ export default Vue.extend({
   },
 
   methods: {
-    updateBody (body: any): void {
+    updateBody (body: string): void {
       this.newGratitude.body = body;
     },
 
@@ -104,7 +105,7 @@ export default Vue.extend({
     },
 
     updateColor (colorObject: IColorItem): void {
-      // If a Gratitude didn't have a mood yet, update the original color as well, otherwise the
+      // If a Gratitude didn't have a 'mood' yet, update the original color as well, otherwise the
       // gratitude's color won't be reactive
       // Should we run a function over the entire DB to update this?
       if (!this.newGratitude.mood) {
@@ -119,8 +120,12 @@ export default Vue.extend({
         this.originalGratitude = response.data();
 
         // Update the original Data to work with colorObject instead of a single color String
-        if (!this.originalGratitude.mood) this.originalGratitude.mood.value = this.originalGratitude.color;
-
+        if (!this.originalGratitude.mood) {
+          const mood = {
+            value: this.originalGratitude.color
+          };
+          this.originalGratitude.mood = { ...mood };
+        }
         this.newGratitude = { ...this.originalGratitude };
       });
     },
@@ -147,13 +152,13 @@ export default Vue.extend({
 
     // Update item and save to database
     updateGratitude () {
-
       this.isUpdating = true;
+
       this.$store.dispatch('updateSelectedGratitude', {id: this.$route.params.id, payload: this.newGratitude}).then( (response) => {
-        this.isUpdating = false; // Spinner
+        this.isUpdating = false;
         this.originalGratitude = {...this.$store.getters.selectedGratitude};
         this.newGratitude = {...this.$store.getters.selectedGratitude};
-        this.editMode = false; // Edit state, hides cancel / update buttons
+        this.editMode = false;
       }).catch( (error) => {
         throw new Error(error); // @TODO need sitewide Toast message?
       });
@@ -175,18 +180,17 @@ export default Vue.extend({
       return readableTime(date, longNames);
     },
 
-    // Weather and city functions
     getWeatherInfo (gratitude: IGratitude ): IWeather {
       return gratitude.weather as IWeather;
     },
 
     getWeatherDescription (gratitude: IGratitude ) {
-      const temp = parseInt(this.getWeatherInfo(this.getGratitude).temp, 10);
+      const temperature = parseInt(this.getWeatherInfo(this.getGratitude).temp, 10);
       const plainDescription = this.getWeatherInfo(this.getGratitude).description;
-      const funkyDescription = getCustomWeatherDescription(temp);
-      const noTempDescription = 'No temperature info available';
+      const funkyDescription = getCustomWeatherDescription(temperature);
+      const noTemperatureDescription = 'No temperature info available';
 
-      return (!isNaN(temp)) ? `${temp}°, ${funkyDescription}, ${plainDescription} ` : `${noTempDescription}`;
+      return (!isNaN(temperature)) ? `${temperature}°, ${funkyDescription}, ${plainDescription} ` : `${noTemperatureDescription}`;
     },
 
     getCity (gratitude: any): string {
@@ -201,7 +205,6 @@ export default Vue.extend({
       this.$store.dispatch('bindDefaultColors', { reference: db.collection('gratitudes')} );
     },
 
-    // Will trigger controls to edit or cancel edit
     toggleEditMode (): void {
       this.editMode = !this.editMode;
     },
@@ -209,6 +212,10 @@ export default Vue.extend({
     // Hard 'show edit controls'
     setFocus (): void {
       this.editMode = true;
+    },
+
+    backToHome (): void {
+      this.$router.push({path: '/'});
     },
 
     //
