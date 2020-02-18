@@ -14,7 +14,8 @@ import Vue from 'vue';
 import GratitudeCard from '@/components/cards/GratitudeCard.vue';
 
 // Helpers
-import { readableDate, getUniqueDates, readableTime } from '@/helpers/dateHelper';
+import { readableDate, readableTime } from '@/helpers/dateHelper';
+import { getUniqueDates } from '@/helpers/gratitudeHelper';
 import { isEmptyArray } from '@/helpers/emptyHelper';
 
 

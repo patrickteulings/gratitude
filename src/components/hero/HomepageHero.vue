@@ -130,12 +130,8 @@
 import Vue from 'vue';
 
 // Helpers
-import {
-  getStreak,
-  getUniqueDates,
-  getDayBefore,
-  isEqualDate
-} from '@/helpers/dateHelper';
+import { getDayBefore, isEqualDate } from '@/helpers/dateHelper';
+import { getStreak, getUniqueDates } from '@/helpers/gratitudeHelper';
 
 // Interfaces
 import { IGratitude } from '@/interfaces/gratitude';

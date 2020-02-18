@@ -2,6 +2,9 @@
   <div>
     <AddGratitude />
     <div class="listWrapper">
+      <div class="listWrapper__loading" v-if="!gratitudes.length">
+        <loading-spinner />
+      </div>
       <GratitudeCardGroup v-for="(gratitudeGroup, index) in groupedGratitudes()" :gratitude-group="gratitudeGroup" :key="index" />
     </div>
   </div>
@@ -25,17 +28,19 @@ import { isEmptyArray } from '@/helpers/emptyHelper';
 import { mapActions, mapState } from 'vuex';
 
 // Comnponents
-import AddGratitude from '@/components/frontpage/AddGratitude.vue';
+import AddGratitude from '@/components/home/AddGratitude.vue';
 import GratitudeCardGroup from '@/components/cards/GratitudeCardGroup.vue';
 import GratitudeCard from '@/components/cards/GratitudeCard.vue';
+import LoadingSpinner from '@/components/UI/LoadingSpinner.vue';
 
 
 export default Vue.extend({
-  name: 'GratitudeListGrouped',
+  name: 'GratitudeList',
   components: {
     AddGratitude,
     GratitudeCard,
-    GratitudeCardGroup
+    GratitudeCardGroup,
+    LoadingSpinner
   },
 
   data: () => {

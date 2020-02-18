@@ -2,7 +2,7 @@
   <div class="home">
     <HomepageHero :gratitudes="gratitudes"/>
     <Clock />
-    <GratitudeListGrouped @onDataLoaded="setGratitudes"/>
+    <GratitudeList @onDataLoaded="setGratitudes"/>
     <Location />
   </div>
 </template>
@@ -12,7 +12,7 @@
 import Vue from 'vue';
 
 // Components
-import GratitudeListGrouped from '@/components/frontpage/GratitudeListGrouped.vue';
+import GratitudeList from '@/components/home/GratitudeList.vue';
 import HomepageHero from '@/components/hero/HomepageHero.vue';
 import Clock from '@/components/clock/Clock.vue';
 
@@ -31,7 +31,7 @@ export default Vue.extend({
 
   components: {
     HomepageHero,
-    GratitudeListGrouped,
+    GratitudeList,
     Clock,
     Location
   },

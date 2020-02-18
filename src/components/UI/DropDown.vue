@@ -98,7 +98,6 @@ export default Vue.extend({
 
   mounted () {
     this.addEvents();
-    console.log('this.listData', this.listData);
   },
 
   beforeDestroy () {

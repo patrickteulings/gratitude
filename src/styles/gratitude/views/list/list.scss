@@ -1,6 +1,16 @@
 .listWrapper {
   background: #F4F4F4;
-  @include innerspace(1rem);
+  @include innerspace(2rem);
+
+  &__loading {
+    width: 100vw;
+    height: 50vh;
+    @include flex-center('both');
+
+    .spinner-wrapper {
+      transform: translate(-20px, -20px);
+    }
+  }
 }
 
 .gratitude-group {
