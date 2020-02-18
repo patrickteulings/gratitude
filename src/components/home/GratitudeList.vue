@@ -87,15 +87,5 @@ export default Vue.extend({
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  .articleWrapper {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 3rem;
-  }
 
-  .article {
-    &__item {
-      padding: 1rem;
-    }
-  }
 </style>
