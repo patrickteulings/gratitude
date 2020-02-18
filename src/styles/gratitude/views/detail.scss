@@ -46,7 +46,7 @@
     }
 
     &__home {
-      @include position(absolute, 24px, auto, auto, -24px);
+      @include position(absolute, 32px, auto, auto, -24px);
     }
   }
 }

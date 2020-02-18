@@ -17,7 +17,8 @@ import { firestorePlugin } from 'vuefire';
 import { db } from '@/services/firebaseConfigTypeScript';
 
 // Helpers
-import { readableDate, getUniqueDates, readableTime } from '@/helpers/dateHelper';
+import { readableDate, readableTime } from '@/helpers/dateHelper';
+import { getUniqueDates } from '@/helpers/gratitudeHelper';
 import { isEmptyArray } from '@/helpers/emptyHelper';
 
 // Store
