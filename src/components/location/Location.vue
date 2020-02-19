@@ -1,24 +1,24 @@
 <template>
   <div>
-<p>
-    Let us locate you for better results...
-    <button @click="locateMe">Get location</button>
-  </p>
+    <p style="display: none;">
+      Let us locate you for better results...
+      <button @click="locateMe">Get location</button>
+    </p>
 
-  <div v-if="errorStr">
-    Sorry, but the following error
-    occurred: {{errorStr}}
-  </div>
+    <div v-if="errorStr" style="display: none;">
+      Sorry, but the following error
+      occurred: {{errorStr}}
+    </div>
 
-  <div v-if="gettingLocation">
-    <i>Getting your location...</i>
-  </div>
+    <div v-if="gettingLocation" style="display: none;">
+      <i>Getting your location...</i>
+    </div>
 
-  <div v-if="location" style="display: none;">
-    <!-- Your location data is {{ location.coords.latitude }}, {{ location.coords.longitude}} -->
-  </div>
+    <div v-if="location" style="display: none;">
 
-  <Weather />
+    </div>
+
+    <Weather style="display: none;"/>
   </div>
 </template>
 
@@ -65,6 +65,7 @@ export default Vue.extend({
       try {
         this.gettingLocation = false;
         this.location = await this.getLocation() as any;
+
         this.getCityName(this.location);
         this.$store.dispatch('setUserLocation', this.location);
       } catch (e) {
@@ -87,9 +88,7 @@ export default Vue.extend({
           console.log('Error: ', err);
         });
     }
-    // showGeolocationError () {
 
-    // }
   },
   mounted () {
     this.locateMe();

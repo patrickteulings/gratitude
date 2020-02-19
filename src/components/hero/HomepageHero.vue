@@ -162,6 +162,8 @@ export default Vue.extend({
 
   methods: {
     getStreak (data: IGratitude[]) {
+      if (!data.length) return;
+
       const arr = Array.from(getUniqueDates(data));
       const today = new Date();
 
