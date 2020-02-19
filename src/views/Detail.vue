@@ -1,11 +1,11 @@
 <template>
   <div style="overflow-x: hidden">
-    <detail-item :detailItemId="this.$route.params.id" />
+    <detail-item :detailItemId="detailItemID" />
 
     <!-- PREV NEXT BUTTONS -->
     <!-- <button-round @buttonClick="enterEditMode" buttonIcon="back" classModifier="hero--detail__prev" :iconColor="getGratitudeColor(getGratitude)" />
     <button-round @buttonClick="updateGratitude" buttonIcon="forward" classModifier="hero--detail__next" :iconColor="getGratitudeColor(getGratitude)"/> -->
-    <div class="buttonWrapper" :style="wrapperStyle">
+    <div class="detail__navigation" :style="wrapperStyle">
       <button-round buttonIcon="back" classModifier="hero--detail__prev" :style="getStylePrev" style="position: absolute; top:0;"/>
       <button-round buttonIcon="forward" classModifier="hero--detail__next" :style="getStyleNext" style="position: absolute; top:0;"/>
     </div>
@@ -21,6 +21,11 @@ import Vue from 'vue';
 import DetailItem from '@/components/detail/DetailItem.vue';
 import ButtonRound from '@/components/UI/ButtonRound.vue';
 
+// Helpers
+import { getDescendingGratitudes } from '@/helpers/gratitudeHelper';
+
+// Interfaces
+import { IGratitude } from '../interfaces/gratitude';
 
 
 export default Vue.extend({
@@ -32,7 +37,8 @@ export default Vue.extend({
 
   data () {
     return {
-      id: this.$route.params.id,
+      detailItemID: this.$route.params.id,
+      gratitudes: getDescendingGratitudes(this.$store.state.gratitudes),
       touchMovement: {startX: 0, endX: 0, isMoving: false, direction: 'left'},
       horizontalMovement: 0,
       verticalMovement: 0,
@@ -42,14 +48,16 @@ export default Vue.extend({
 
   computed: {
     getStyleNext (): string {
-      const start = window.innerWidth + 8;
+      const start = window.innerWidth + 8; // Small offset for button shadows
       const newPosition = (this.touchMovement.direction === 'left') ? start - (this.horizontalMovement * 0.3) : start;
+
       return `transform: translateX(${newPosition}px)`;
     },
 
     getStylePrev (): string {
-      const start = -72;
+      const start = -72; // Buttonwidth + small offset for button shadows
       const newPosition = (this.touchMovement.direction === 'right') ? start + (this.horizontalMovement * 0.3) : start;
+
       return `transform: translateX(${newPosition}px)`;
     },
 
@@ -59,8 +67,17 @@ export default Vue.extend({
   },
 
   methods: {
-    getWindowWidth () {
+    getWindowWidth (): number {
       return this.windowWidth;
+    },
+
+    navigateTo (newIndex: number): void {
+      // Unreadable?
+      const newItemIndex = (newIndex < 0) ? 0 : (newIndex > this.gratitudes.length) ? this.gratitudes.length - 2 : newIndex;
+      const newItemID = this.gratitudes[newItemIndex].id;
+
+      this.detailItemID = newItemID;
+      this.$router.push({ path: `/details/gratitude/${newItemID}` });
     },
 
     handleTouchStart (e: TouchEvent): void {
@@ -68,16 +85,19 @@ export default Vue.extend({
     },
 
     handleTouchEnd (e: TouchEvent): void {
-      if (this.touchMovement.endX < this.touchMovement.startX) {
-        this.touchMovement.direction = 'left';
-      } else if (this.touchMovement.endX > this.touchMovement.startX) {
-        this.touchMovement.direction = 'right';
-      }
+      this.touchMovement.endX = e.changedTouches[0].pageX;
+
+      const currentItem = this.gratitudes.find((item) => item.id === this.detailItemID) as IGratitude;
+      const currentItemIndex = this.gratitudes.indexOf(currentItem);
+      const newIndex = (this.touchMovement.endX < this.touchMovement.startX) ? currentItemIndex + 1 : currentItemIndex - 1;
+
+      this.navigateTo(newIndex);
       this.resetTouch();
     },
 
     handleTouchMove (e: TouchEvent): void {
       this.touchMovement.isMoving = true;
+
       this.touchMovement.direction = (e.changedTouches[0].pageX <= this.touchMovement.startX) ? 'left' : 'right';
       this.verticalMovement = e.changedTouches[0].pageY;
       this.horizontalMovement = Math.abs(this.touchMovement.startX - e.changedTouches[0].pageX);
@@ -98,6 +118,7 @@ export default Vue.extend({
 
   mounted () {
     this.windowWidth = window.innerWidth;
+    this.gratitudes = getDescendingGratitudes(this.$store.state.gratitudes);
 
     this.$el.addEventListener('touchstart', (e) => this.handleTouchStart(e as TouchEvent), false);
     this.$el.addEventListener('touchend', (e) => this.handleTouchEnd(e as TouchEvent), false);

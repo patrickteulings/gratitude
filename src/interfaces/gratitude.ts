@@ -7,4 +7,5 @@ export interface IGratitude {
   weather: object;
   location: object;
   mood?: any;
+  id: string;
 }

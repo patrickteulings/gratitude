@@ -8,7 +8,7 @@ import { IGratitude } from '@/interfaces/gratitude';
  */
 
 
-export const getUniqueDates = (data: IGratitude[]) => {
+export const getGratitudesByDay = (data: IGratitude[]) => {
   const uniqueDays: any = [...new Set(data.map((dataItem) => dataItem.dayStamp.seconds))];
   const testArr: any = [];
 
@@ -22,6 +22,17 @@ export const getUniqueDates = (data: IGratitude[]) => {
     testArr.push(itemArr);
   }
   return testArr;
+};
+
+/**
+ * @description Sorts GratitudeItems by TimeStamp Descending
+ */
+
+
+export const getDescendingGratitudes = (data: IGratitude[]) => {
+  const itemArray = data;
+  itemArray.sort((a, b) => b.timeStamp.seconds - a.timeStamp.seconds);
+  return itemArray;
 };
 
 /*

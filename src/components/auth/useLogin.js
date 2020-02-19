@@ -65,6 +65,7 @@ export default function() {
       .signOut()
       .then(() => {
         console.log('logging out');
+        this.$router.push('/login');
       }, error => (state.error = error))
       .catch(error => {
         // Handle Errors here.

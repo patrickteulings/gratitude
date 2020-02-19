@@ -131,7 +131,7 @@ import Vue from 'vue';
 
 // Helpers
 import { getDayBefore, isEqualDate } from '@/helpers/dateHelper';
-import { getStreak, getUniqueDates } from '@/helpers/gratitudeHelper';
+import { getStreak, getGratitudesByDay } from '@/helpers/gratitudeHelper';
 
 // Interfaces
 import { IGratitude } from '@/interfaces/gratitude';
@@ -164,7 +164,7 @@ export default Vue.extend({
     getStreak (data: IGratitude[]) {
       if (!data.length) return;
 
-      const arr = Array.from(getUniqueDates(data));
+      const arr = Array.from(getGratitudesByDay(data));
       const today = new Date();
 
       let startDay = new Date();
@@ -240,7 +240,7 @@ export default Vue.extend({
     },
 
     setTotalDaysOfGratitudes (data: IGratitude[]) {
-      this.dataObject = Array.from(getUniqueDates(data));
+      this.dataObject = Array.from(getGratitudesByDay(data));
     }
   },
 

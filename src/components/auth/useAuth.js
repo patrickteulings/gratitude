@@ -1,8 +1,5 @@
 import { toRefs, reactive } from "@vue/composition-api";
-// // import { firestorePlugin } from 'vuefire';
-// import firebase from "firebase";
-// // // Required for side-effects
-// import "firebase/firestore";
+
 
 import { fb } from '@/services/firebaseConfigTypeScript';
 import store from '@/store';
@@ -24,8 +21,7 @@ export default function() {
       store.dispatch('setUser', _user); // Add it to the store!!
     } else {
       state.user = null;
-      store.dispatch('setUser', null); // User is gone, nullify him / her !!
-      console.log('logout from useAuth');
+      store.dispatch('setUser', null); // User is gone, nullify
     }
     state.loading = false;
   });

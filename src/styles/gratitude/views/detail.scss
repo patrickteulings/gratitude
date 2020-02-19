@@ -1,3 +1,50 @@
+.detail {
+  &__navigation {
+    @include position(absolute);
+    height: 100px;
+    overflow-x: hidden;
+  }
+
+  &__title {
+    @extend h2;
+    @include transition(color, 0.2s);
+    line-height: 64px;
+    margin-bottom: 0;
+    text-align: justify;
+
+    &:focus {
+      outline: 0px;
+      opacity: 1;
+      background: #F3F3F3;
+      padding: 1rem;
+      margin: -2rem -1rem 2rem !important;
+    }
+  }
+
+  &__body {
+    @include font-size(16px);
+    @include transition();
+    color: color('black');
+    font-family: $primary-font-face;
+    text-align: justify;
+    line-height: 26px;
+
+    &:focus {
+      outline: 0px;
+      opacity: 0.8;
+    }
+  }
+
+  &__meta {
+    display: block;
+    font-family: $handwriting-font-face;
+    font-size: 14px;
+    text-transform: uppercase;
+    @include outerspace(auto auto 32px auto);
+  }
+}
+
+
 .hero {
   &--detail {
     @include position(relative);
@@ -57,48 +104,6 @@
   background: color('primary');
   color: color('white');
   border-radius: 2px;
-}
-
-
-.detail {
-  &__title {
-    @extend h2;
-    @include transition(color, 0.2s);
-    line-height: 64px;
-    margin-bottom: 0;
-    text-align: justify;
-
-
-    &:focus {
-      outline: 0px;
-      opacity: 1;
-      background: #F3F3F3;
-      padding: 1rem;
-      margin: -2rem -1rem 2rem !important;
-    }
-  }
-
-  &__body {
-    @include font-size(16px);
-    @include transition();
-    color: color('black');
-    font-family: $primary-font-face;
-    text-align: justify;
-    line-height: 26px;
-
-    &:focus {
-      outline: 0px;
-      opacity: 0.8;
-    }
-  }
-
-  &__meta {
-    display: block;
-    font-family: $handwriting-font-face;
-    font-size: 14px;
-    text-transform: uppercase;
-    @include outerspace(auto auto 32px auto);
-  }
 }
 
 .gratitudeWrapper {

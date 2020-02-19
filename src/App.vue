@@ -1,27 +1,26 @@
 `<template>
   <div id="app">
+
     <div v-if="loading">
       <Splash />
     </div>
+
     <div v-else-if="error">{{error}}</div>
-    <!-- THERE IS A USER, SHOW THE ROUTES -->
     <div v-else-if="user">
       <header>
         <Navigation @onLogout="logout()"/>
       </header>
       <SidebarMenu></SidebarMenu>
-      <div>
+      <main>
         <transition name="slide">
           <router-view />
         </transition>
-      </div>
+      </main>
     </div>
     <div v-else>
       <LoginForm></LoginForm>
     </div>
-    <main>
 
-    </main>
   </div>
 </template>
 
@@ -78,62 +77,5 @@ body, html {
   font-size: 18px;
   box-sizing: border-box;
 }
-
-#app {
-  font-family: "Lato", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: left;
-  color: #1f1f1c;
-}
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
-}
-
-/* ----------------------------------------
-  BUTTON RESET
----------------------------------------- */
-
-button {
-  display: inline-block;
-  border: none;
-  border-radius: 2px;
-  padding: 1rem 2rem;
-  margin: 0;
-  text-decoration: none;
-  background: #1f1f1c;
-  color: #ffffff;
-  font-family: sans-serif;
-  font-size: 1rem;
-  line-height: 1;
-  cursor: pointer;
-  text-align: center;
-  transition: background 250ms ease-in-out, transform 150ms ease;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-}
-
-button:hover,
-button:focus {
-  background: darken(#1f1f1c, 10%);
-}
-
-button:focus {
-  outline: 0px;
-  background: darken(#1f1f1c, 20%);
-}
-
-button:active {
-    transform: scale(0.99);
-}
-
 </style>
-`
+

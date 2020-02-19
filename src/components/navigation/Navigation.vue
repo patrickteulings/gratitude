@@ -43,12 +43,18 @@ export default Vue.extend({
   },
 
   computed: {
+    hasUser (): boolean {
+      return this.$store.getters.user !== null;
+    },
+
     getUserImage (): string {
       return this.$store.getters.user.photoURL;
     },
+
     isOpen (): boolean {
       return this.$store.getters.isMenuOpen;
     },
+
     menuState (): boolean {
       return this.$store.getters.menuState;
     }

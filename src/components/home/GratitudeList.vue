@@ -21,7 +21,7 @@ import { db } from '@/services/firebaseConfigTypeScript';
 
 // Helpers
 import { readableDate, readableTime } from '@/helpers/dateHelper';
-import { getUniqueDates } from '@/helpers/gratitudeHelper';
+import { getGratitudesByDay } from '@/helpers/gratitudeHelper';
 import { isEmptyArray } from '@/helpers/emptyHelper';
 
 // Store
@@ -65,7 +65,7 @@ export default Vue.extend({
 
     // @TODO - Add check before returning data, return a nice error please
     groupedGratitudes () {
-      return Array.from(getUniqueDates (this.gratitudes));
+      return Array.from(getGratitudesByDay (this.gratitudes));
     },
 
     isEmptyArr (obj: object[]) {
