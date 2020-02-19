@@ -1,10 +1,6 @@
 <template>
   <div style="overflow-x: hidden">
     <detail-item :detailItemId="detailItemID" />
-
-    <!-- PREV NEXT BUTTONS -->
-    <!-- <button-round @buttonClick="enterEditMode" buttonIcon="back" classModifier="hero--detail__prev" :iconColor="getGratitudeColor(getGratitude)" />
-    <button-round @buttonClick="updateGratitude" buttonIcon="forward" classModifier="hero--detail__next" :iconColor="getGratitudeColor(getGratitude)"/> -->
     <div class="detail__navigation" :style="wrapperStyle">
       <button-round buttonIcon="back" classModifier="hero--detail__prev" :style="getStylePrev" style="position: absolute; top:0;"/>
       <button-round buttonIcon="forward" classModifier="hero--detail__next" :style="getStyleNext" style="position: absolute; top:0;"/>
@@ -39,9 +35,14 @@ export default Vue.extend({
     return {
       detailItemID: this.$route.params.id,
       gratitudes: getDescendingGratitudes(this.$store.state.gratitudes),
-      touchMovement: {startX: 0, endX: 0, isMoving: false, direction: 'left'},
-      horizontalMovement: 0,
-      verticalMovement: 0,
+      touchMovement: {
+        startX: 0,
+        endX: 0,
+        isMoving: false,
+        direction: 'left',
+        horizontalMovement: 0,
+        verticalMovement: 0
+      },
       windowWidth: 0
     };
   },
@@ -49,20 +50,20 @@ export default Vue.extend({
   computed: {
     getStyleNext (): string {
       const start = window.innerWidth + 8; // Small offset for button shadows
-      const newPosition = (this.touchMovement.direction === 'left') ? start - (this.horizontalMovement * 0.3) : start;
+      const newPosition = (this.touchMovement.direction === 'left') ? start - (this.touchMovement.horizontalMovement * 0.5) : start;
 
       return `transform: translateX(${newPosition}px)`;
     },
 
     getStylePrev (): string {
       const start = -72; // Buttonwidth + small offset for button shadows
-      const newPosition = (this.touchMovement.direction === 'right') ? start + (this.horizontalMovement * 0.3) : start;
+      const newPosition = (this.touchMovement.direction === 'right') ? start + (this.touchMovement.horizontalMovement * 0.5) : start;
 
       return `transform: translateX(${newPosition}px)`;
     },
 
     wrapperStyle (): string {
-      return `position: absolute; top: 0; transform: translateY(${this.verticalMovement - 50}px); width: ${ window.innerWidth }px; height: 100px; overflow-x: hidden;`;
+      return `position: absolute; top: 0; transform: translateY(${ this.touchMovement.verticalMovement - 50 }px); width: ${ window.innerWidth }px; height: 100px; overflow-x: hidden;`;
     }
   },
 
@@ -72,7 +73,6 @@ export default Vue.extend({
     },
 
     navigateTo (newIndex: number): void {
-      // Unreadable?
       const newItemIndex = (newIndex < 0) ? 0 : (newIndex > this.gratitudes.length) ? this.gratitudes.length - 2 : newIndex;
       const newItemID = this.gratitudes[newItemIndex].id;
 
@@ -99,8 +99,8 @@ export default Vue.extend({
       this.touchMovement.isMoving = true;
 
       this.touchMovement.direction = (e.changedTouches[0].pageX <= this.touchMovement.startX) ? 'left' : 'right';
-      this.verticalMovement = e.changedTouches[0].pageY;
-      this.horizontalMovement = Math.abs(this.touchMovement.startX - e.changedTouches[0].pageX);
+      this.touchMovement.verticalMovement = e.changedTouches[0].pageY;
+      this.touchMovement.horizontalMovement = Math.abs(this.touchMovement.startX - e.changedTouches[0].pageX);
     },
 
     handleTouchCancel (e: TouchEvent): void {
@@ -111,8 +111,8 @@ export default Vue.extend({
       this.touchMovement.startX = 0;
       this.touchMovement.endX = 0;
       this.touchMovement.isMoving = false;
-      this.horizontalMovement = 0;
-      this.verticalMovement = 0;
+      this.touchMovement.horizontalMovement = 0;
+      this.touchMovement.verticalMovement = 0;
     }
   },
 

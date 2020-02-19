@@ -1,5 +1,6 @@
 @import
-  'weather/weather-icons',
+  'lib/weather/weather-icons',
+
   'components/header/header',
   'components/navigation/navigation',
   'components/navigation/sidebarmenu',
@@ -12,7 +13,8 @@
   'components/ui/forms',
   'components/ui/dropdown',
   'components/ui/buttons',
-  'views/transitions.scss',
+
+  'views/transitions',
   'views/list/gratitudeGroup',
   'views/list/list',
   'views/home',
