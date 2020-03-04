@@ -1,10 +1,8 @@
 `<template>
   <div id="app">
-
     <div v-if="loading">
       <Splash />
     </div>
-
     <div v-else-if="error">{{error}}</div>
     <div v-else-if="user">
       <header>
@@ -20,7 +18,6 @@
     <div v-else>
       <LoginForm></LoginForm>
     </div>
-
   </div>
 </template>
 
@@ -53,17 +50,10 @@ export default {
     // load in the login function
     const loginState = useLogin();
 
-
     return {
       user,
       loading,
-
-      // here we need to ensure that we get the error from
-      // either the loginState or the error returned from the useAuth
-      // function
       error : computed(() => (loginState.error  || error).value),
-
-      // set the logout function from the useLogin composition function
       logout: loginState.logout
     };
   }

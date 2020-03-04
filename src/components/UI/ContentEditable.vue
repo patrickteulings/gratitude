@@ -66,7 +66,6 @@ export default Vue.extend({
       const padding = Number(style.paddingTop) * 2 || 0;
       el.style.height = 'auto';
       el.style.height = `${el.scrollHeight + padding}px`;
-      console.log('handleHeight', el.scrollHeight);
     },
 
     handleFocus () {

@@ -87,6 +87,8 @@ export default Vue.extend({
     handleTouchEnd (e: TouchEvent): void {
       this.touchMovement.endX = e.changedTouches[0].pageX;
 
+      if (Math.abs(this.touchMovement.endX - this.touchMovement.startX) < 30) return; // Threshold
+
       const currentItem = this.gratitudes.find((item) => item.id === this.detailItemID) as IGratitude;
       const currentItemIndex = this.gratitudes.indexOf(currentItem);
       const newIndex = (this.touchMovement.endX < this.touchMovement.startX) ? currentItemIndex + 1 : currentItemIndex - 1;
