@@ -144,7 +144,7 @@ export default Vue.extend({
     },
 
     getCity (gratitude: any): string {
-      return (gratitude.location !== undefined) ? gratitude.location.city.osmtags.name : 'looking...';
+      return (gratitude.location !== undefined) ? gratitude.location.city.city : 'looking...';
     },
 
     getWeatherIcon (gratitudeWeather: any): string {

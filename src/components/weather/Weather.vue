@@ -52,7 +52,7 @@ export default Vue.extend({
     },
     getCity () {
       if (!isEmptyObject(this.$store.getters.currentCity) && this.$store.getters.currentCity !== undefined) {
-        return this.$store.getters.currentCity.osmtags['name-en'];
+        return this.$store.getters.currentCity.city;
       }
     }
   },

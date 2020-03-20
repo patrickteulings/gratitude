@@ -7,6 +7,7 @@ export default class GeocodeService {
 
   constructor () {
     this.APIURL = 'https://geocode.xyz/';
+    // https://maps.googleapis.com/maps/api/geocode/json?latlng=52.06184,4.28605&key=AIzaSyDU9_GiahRE2NDwcw-_jUMaknmJeQeUspg
   }
 
 

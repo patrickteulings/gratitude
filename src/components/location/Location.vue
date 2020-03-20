@@ -65,9 +65,9 @@ export default Vue.extend({
       try {
         this.gettingLocation = false;
         this.location = await this.getLocation() as any;
-
         this.getCityName(this.location);
         this.$store.dispatch('setUserLocation', this.location);
+
       } catch (e) {
         this.gettingLocation = false;
         this.errorStr = e.message;
