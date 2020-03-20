@@ -144,7 +144,7 @@ export default Vue.extend({
     },
 
     getCity (gratitude: any): string {
-      return (gratitude.location !== undefined) ? gratitude.location.city.city : 'looking...';
+      return (gratitude.location !== undefined) ? (gratitude.location.city.city !== undefined) ? gratitude.location.city.city : 'Looking...' : 'looking...';
     },
 
     getWeatherIcon (gratitudeWeather: any): string {
