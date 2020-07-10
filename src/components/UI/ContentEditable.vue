@@ -10,7 +10,7 @@
       @input='handleUpdate'
       @keyup="isPlaceholderText"
       rows='1'
-      value='lets test'
+      value=''
       v-model="myContent"
       ref="textArea"
     />
@@ -81,9 +81,10 @@ export default Vue.extend({
     },
 
     getStyle () {
+      console.log('this.color', this.color);
       return this.color !== undefined
         ? `color: ${this.color}`
-        : `color: #616161;`;
+        : `color: #545454;`;
     },
 
     isPlaceholderText (): void {

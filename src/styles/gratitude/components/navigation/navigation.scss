@@ -7,9 +7,9 @@
   &__bar {
     @include flex-center('vertical');
     @include size(100%, 3rem);
-    @include card-shadow(1);
+    //@include card-shadow(1);
     justify-content: space-between;
-    background: color('white');
+    // background: color('white');
     border-radius: 2px;
   }
 
@@ -57,7 +57,7 @@
 
     span {
       display: block;
-      background: color('primary');
+      background: color('white-hero');
       @include size(17px, 2px);
       @include position(absolute, 0, 5px);
       @include transition();

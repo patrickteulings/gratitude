@@ -2,7 +2,7 @@
   @include size(100vw, 50vh);
   display: flex;
   align-items: flex-end;
-  background: color('accent');
+  background: color('secondary');
 
   &__background {
     width: 100vw;
@@ -16,7 +16,7 @@
       height: 40vh;
       transform: scaleX(-1);
       path {
-        fill : lighten(color('accent'), 3%);
+        fill : lighten(color('secondary'), 3%);
       }
     }
   }

@@ -71,7 +71,7 @@ export default Vue.extend({
       title: '',
       body: '',
       color: '#444548',
-      mood: {label: 'Neutral', value: '#999999'},
+      mood: {label: 'Neutral', value: '#545454'},
       colors: [{label: 'Happy', colorValue: '#D996C7'}, {label: 'Strong', colorValue: '#C6C150'}, {label: 'Hard times but learning', colorValue: '#942C3F'}, {label: 'Pretty ok', colorValue: '#68B2D0'}], // Move to user-store!!
       defaultColorArray: [],
       picked: '',

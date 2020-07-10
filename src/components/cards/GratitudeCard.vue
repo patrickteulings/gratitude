@@ -17,7 +17,6 @@ import Vue from 'vue';
 
 // Helpers
 import { readableDate, readableTime } from '@/helpers/dateHelper';
-import { getGratitudesByDay } from '@/helpers/gratitudeHelper';
 import { isEmptyArray } from '@/helpers/emptyHelper';
 
 

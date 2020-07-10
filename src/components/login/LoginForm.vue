@@ -1,16 +1,16 @@
 <template>
 
-  <div class="splash">
-    <h2 class="user__test" style="height: 80vh;">
-      This page will be shown if a check has been done if a user exists, and none is found or logged in.<br><br>
-      It should show information about the app, and provide links to a login / register page.
-    </h2>
+  <div class="loginPage">
+    <div class="loginPage__inner">
+    <h2 class="user__test">
+      Well howdy, it appears you're not logged in yet?</h2>
     <div>
-      <input type="text" placeholder="username" v-model="username" />
+      <!-- <input type="text" placeholder="username" v-model="username" />
       <input type="password" placeholder="password" v-model="password" />
-      <button @click="login" :disabled="!isValid">LOGIN</button>
-      <button @click="loginWithGoogle">Google</button>
+      <button @click="login" :disabled="!isValid">LOGIN</button> -->
+      <button class="btn--reset" @click="loginWithGoogle">Login with Google</button>
       <p>{{error}}</p>
+    </div>
     </div>
   </div>
 </template>

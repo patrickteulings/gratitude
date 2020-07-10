@@ -3,6 +3,9 @@
     <AddGratitude />
     <div class="listWrapper">
       <div class="listWrapper__loading" v-if="!gratitudes.length">
+        <div class="skeletons">
+          skeleton
+        </div>
         <loading-spinner />
       </div>
       <GratitudeCardGroup v-for="(gratitudeGroup, index) in groupedGratitudes()" :gratitude-group="gratitudeGroup" :key="index" />

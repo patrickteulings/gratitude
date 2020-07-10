@@ -9,9 +9,9 @@
         </div>
       </div>
       <nav>
-        <router-link class="navigation__item" to="/">Home</router-link>
+        <!-- <router-link class="navigation__item" to="/">Home</router-link>
         <router-link class="navigation__item" to="/about">About</router-link>
-        <router-link class="navigation__item" to="/detail">Detail</router-link>
+        <router-link class="navigation__item" to="/detail">Detail</router-link> -->
       </nav>
       <div @click="handleLogout" role="button" class="navigation__user">
         <img class="navigation__user-image" :src="getUserImage" />
