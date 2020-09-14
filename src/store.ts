@@ -73,8 +73,10 @@ export default new Vuex.Store({
       return bindFirestoreRef('gratitudes', db.collection('users').doc(userID).collection('gratitudes'));
     }),
 
-    bindDefaultColors: firestoreAction(({ bindFirestoreRef }) => {
-      return bindFirestoreRef('defaultColors', db.collection('settings').doc('colors').collection('items'));
+    bindDefaultColors: firestoreAction(({ bindFirestoreRef }, args) => {
+      const { reference, userID } = args;
+      // return bindFirestoreRef('defaultColors', db.collection('settings').doc('colors').collection('items'));
+      return bindFirestoreRef('defaultColors', db.collection('users').doc(userID).collection('settings').doc('moods').collection('items'));
     }),
 
 

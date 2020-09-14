@@ -82,7 +82,7 @@ export default Vue.extend({
 
   methods: {
     getColorData () {
-      this.$store.dispatch('bindDefaultColors', { reference: db.collection('gratitudes')} );
+      this.$store.dispatch('bindDefaultColors', { reference: db.collection('gratitudes'), userID: this.$store.getters.user.uid} );
     },
 
     confirmAdd () {

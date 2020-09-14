@@ -19,7 +19,7 @@
         <li>Settings</li>
         <li>Colors</li>
         <li>Tags</li>
-        <li>Etc</li>
+        <li @click="goToMoods">Moods</li>
         <li><small>{{user.uid}}</small></li>
       </ul>
       <button @click="logout()">LOGOUT</button>
@@ -53,7 +53,9 @@ export default Vue.extend ({
     closeMenu () {
       this.$store.dispatch('setMenuState', false);
     },
-
+    goToMoods () {
+      this.$router.push({ path: `/moods` });
+    },
     logout () {
     fb
       .auth()
