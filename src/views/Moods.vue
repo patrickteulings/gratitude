@@ -6,32 +6,31 @@
     </div>
     <hr>
     <div>
-      <input type="text" :value="newColor.value">
+      <input type="text" :value="newColor.colorvalue">
       <input type="text" :value="newColor.label">
       <button @click="submitColor()">Add</button>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script>
 
 import Vue from 'vue';
-import { computed, reactive, ref, onMounted, toRefs } from '@vue/composition-api';
-import defineComponent from '@vue/composition-api';
+import { defineComponent, computed, reactive, ref, onMounted, toRefs } from '@vue/composition-api';
 import { db } from '@/services/firebaseConfigTypeScript';
 import { IColorItem } from '@/interfaces/color';
 
 
 
-export default defineComponent({
+export default Vue.extend({
   name: 'Moods',
-  setup (props: any, {emit, root}: any) {
+  setup (props, {emit, root}) {
 
 
-    const newColor = reactive<IColorItem>({
+    const newColor = {
       label: 'oranje',
-      value: '#ff9900'
-    })
+      colorvalue: '#ff9900'
+    }
 
     onMounted(() => {
       root.$store.dispatch('bindDefaultColors', { reference: db.collection('gratitudes'), userID: root.$store.getters.user.uid} );
@@ -41,10 +40,10 @@ export default defineComponent({
 
     const userName = () => root.$store.getters.user.displayName;
 
-    const getColorValue = (color: IColorItem) => color.value;
+    const getColorValue = (color) => color.value;
 
     const submitColor = () => {
-      console.log('submit!', newColor.value, newColor.label);
+      //console.log('submit!', newColor.value, newColor.label);
     };
 
     return {

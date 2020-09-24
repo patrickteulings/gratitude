@@ -25,7 +25,7 @@ export default {
     const state = useLogin();
     return {
         ...state
-    };
+    }
   }
-};
+}
 </script>
